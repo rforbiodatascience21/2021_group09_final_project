@@ -6,18 +6,27 @@ rm(list = ls())
 library("tidyverse")
 
 
-# Define functions --------------------------------------------------------
-source(file = "R/99_project_functions.R")
-
-
 # Load data ---------------------------------------------------------------
-my_data <- read_tsv(file = "data/01_my_data.tsv")
+species_data <- read_csv(file = "data/_raw/01_SPE_pitlatrine.csv")
+environment_data <- read_csv(file = "data/_raw/01_ENV_pitlatrine.csv")
 
 
 # Wrangle data ------------------------------------------------------------
-my_data_clean <- my_data # %>% ...
+clean_data <- species_data %>% 
+  # transpose species data
+  pivot_longer(cols = -Taxa,
+               names_to = "Samples",
+               values_to = "OTU") %>%
+  # concatenate with environemental data
+  full_join(environment_data, by = "Samples") %>%
+  relocate(Samples, .before = Taxa) %>%
+  # add sample location column
+  mutate(Location = case_when(str_detect(Samples, "T") ~ "Tanzania",
+                              str_detect(Samples, "V") ~ "Vietnam"))
 
 
 # Write data --------------------------------------------------------------
-write_tsv(x = my_data_clean,
-          file = "data/02_my_data_clean.tsv")
+write_csv(x = clean_data,
+          file = "data/02_clean_data.csv")
+
+

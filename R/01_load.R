@@ -6,18 +6,17 @@ rm(list = ls())
 library("tidyverse")
 
 
-# Define functions --------------------------------------------------------
-source(file = "R/99_project_functions.R")
-
-
 # Load data ---------------------------------------------------------------
-my_data_raw <- read_tsv(file = "data/_raw/my_raw_data.tsv")
-
-
-# Wrangle data ------------------------------------------------------------
-my_data <- my_data_raw # %>% ...
+species_data = read_csv(file = "http://userweb.eng.gla.ac.uk/umer.ijaz/bioinformatics/ecological/SPE_pitlatrine.csv")
+environment_data = read_csv(file = "http://userweb.eng.gla.ac.uk/umer.ijaz/bioinformatics/ecological/ENV_pitlatrine.csv")
 
 
 # Write data --------------------------------------------------------------
-write_tsv(x = my_data,
-          file = "data/01_my_data.tsv")
+write_csv(x = species_data, 
+          file = "data/_raw/01_SPE_pitlatrine.csv")
+
+write_csv(x = environment_data, 
+          file = "data/_raw/01_ENV_pitlatrine.csv")
+
+
+
