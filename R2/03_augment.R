@@ -4,18 +4,20 @@ rm(list = ls())
 
 # Load libraries ----------------------------------------------------------
 library("tidyverse")
-library(readxl)
 
 
 # Load data ---------------------------------------------------------------
-dead_cases <- read_excel("data/_raw/death.xlsx", na = "-")
-recovered_cases <- read_excel("data/_raw/recovered.xlsx", na = "-")
-under_treatment_cases <- read_excel("data/_raw/under_treatment.xlsx", na = "-")
+dead_cases <- read_csv(file = "data/_raw/01_dead_cases.csv")
+recovered_cases <- read_csv(file = "data/_raw/01_recovered_cases.csv")
+under_treatment_cases <- read_csv(file = "data/_raw/01_under_treatment_cases.csv")
 
 
 # Wrangle data ---------------------------------------------------------------
 
 # Join data sets on all columns (as all columns are identical)
+dead_cases<- dead_cases %>%
+  mutate(birth_date=as.double(birth_date))
+
 clean_data <- dead_cases %>% 
   full_join(recovered_cases) %>%
   full_join(under_treatment_cases) %>%
