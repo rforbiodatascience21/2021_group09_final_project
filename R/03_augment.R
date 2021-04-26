@@ -40,11 +40,33 @@ clean_data <- dead_cases %>%
                                   blood == 5 ~ "B-",
                                   blood == 6 ~ "O+",
                                   blood == 7 ~ "O-"),
-         .after = blood)
+         .after = blood) %>%
+  filter(gender == 0) %>%
+  # Change to categories
+  mutate(hereditary_history = as.factor(hereditary_history),
+         marital_status = as.factor(marital_status),
+         marital_length = as.factor(marital_length),
+         pregnency_experience = as.factor(pregnency_experience),
+         giving_birth = as.factor(giving_birth),
+         age_FirstGivingBirth = as.factor(age_FirstGivingBirth),
+         abortion = as.factor(abortion),
+         taking_blood_pressure_medicine = as.factor(taking_blood_pressure_medicine),
+         taking_gallbladder_disease_medicine = as.factor(taking_gallbladder_disease_medicine),
+         smoking = as.factor(smoking),
+         taking_heartMedicine = as.factor(taking_heartMedicine),
+         alcohol = as.factor(alcohol),
+         breast_pain = as.factor(breast_pain),
+         radiation_history = as.factor(radiation_history),
+         Birth_control = as.factor(Birth_control),
+         menstrual_age = as.factor(menstrual_age),
+         menopausal_age = as.factor(menopausal_age),
+         Benign_malignant_cancer = as.factor(Benign_malignant_cancer)
+         )
+  
 
 # Fix warning; clean_data
 
-
+View(clean_data)
 
 # Write data ---------------------------------------------------------------
 
