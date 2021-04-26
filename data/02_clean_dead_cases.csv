@@ -1,8 +1,4 @@
-patient_id,gender,education,treatment_data,id_healthcenter,id_treatment_region,hereditary_history,birth_date,age,weight,thickness_tumor,marital_status,marital_length,pregnency_experience,giving_birth,age_FirstGivingBirth,"
-abortion",blood,taking_heartMedicine,taking_blood_pressure_medicine,taking_gallbladder_disease_medicine,smoking,alcohol,breast_pain,radiation_history,Birth_control(Contraception),"
-menstrual_age","
-menopausal_age","
-Benign_malignant_cancer",condition,treatment_age
+patient_id,gender,education,treatment_data,id_healthcenter,id_treatment_region,hereditary_history,birth_date,age,weight,thickness_tumor,marital_status,marital_length,pregnency_experience,giving_birth,age_FirstGivingBirth,abortion,blood,taking_heartMedicine,taking_blood_pressure_medicine,taking_gallbladder_disease_medicine,smoking,alcohol,breast_pain,radiation_history,Birth_control(Contraception),menstrual_age,menopausal_age,Benign_malignant_cancer,condition,treatment_age
 111036008041,0,4,2019,1110000256,1110000329,1,1989,30,69,0.9,1,0,0,0,0,0,4,0,1,1,0,0,1,1,1,1,0,1,death,30
 111035996130,0,6,2019,1110000316,1110000331,0,1989,30,71,0.8,0,0,0,0,0,0,1,1,1,1,0,1,0,0,0,2,0,0,death,30
 111035971333,0,5,2019,1110000288,1110000330,0,1989,30,74,0.9,1,0,0,0,0,1,4,1,1,0,0,0,1,1,0,1,0,1,death,30
