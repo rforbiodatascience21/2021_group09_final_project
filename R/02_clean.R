@@ -7,9 +7,9 @@ library("tidyverse")
 
 
 # Load data ---------------------------------------------------------------
-dead_cases <- read_csv("data//01_dead_cases.csv", na = "-")
-recovered_cases <- read_csv("data//01_recovered_cases.csv",na = "-")
-under_treatment_cases <- read_csv("data//01_under_treatment_cases.csv",na = "-")
+dead_cases <- read_csv("data/01_dead_cases.csv", na = "-")
+recovered_cases <- read_csv("data/01_recovered_cases.csv",na = "-")
+under_treatment_cases <- read_csv("data/01_under_treatment_cases.csv",na = "-")
 
 
 # Wrangle data ------------------------------------------------------------
