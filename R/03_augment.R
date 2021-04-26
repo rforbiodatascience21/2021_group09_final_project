@@ -66,10 +66,8 @@ clean_data <- dead_cases %>%
 
 # Fix warning; clean_data
 
-View(clean_data)
 
 # Write data ---------------------------------------------------------------
 
-write_csv(x = clean_data,
-          file = "data/03_clean_augmented_combined_breastcancer_data.csv")
+save(clean_data, file = "data/03_clean_augmented_combined_breastcancer_data.RData")
 
