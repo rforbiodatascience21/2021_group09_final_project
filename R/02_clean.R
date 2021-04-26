@@ -7,26 +7,21 @@ library("tidyverse")
 
 
 # Load data ---------------------------------------------------------------
-species_data <- read_csv(file = "data/_raw/01_SPE_pitlatrine.csv")
-environment_data <- read_csv(file = "data/_raw/01_ENV_pitlatrine.csv")
+dead_cases <- read_csv("data/_raw/01_dead_cases.csv", na = "-")
+recovered_cases <- read_csv("data/_raw/01_recovered_cases.csv",na = "-")
+under_treatment_cases <- read_csv("data/_raw/01_under_treatment_cases.csv",na = "-")
 
 
 # Wrangle data ------------------------------------------------------------
-clean_data <- species_data %>% 
-  # transpose species data
-  pivot_longer(cols = -Taxa,
-               names_to = "Samples",
-               values_to = "OTU") %>%
-  # concatenate with environemental data
-  full_join(environment_data, by = "Samples") %>%
-  relocate(Samples, .before = Taxa) %>%
-  # add sample location column
-  mutate(Location = case_when(str_detect(Samples, "T") ~ "Tanzania",
-                              str_detect(Samples, "V") ~ "Vietnam"))
 
+#Remove cariage return, newline from names (\r\n)
 
 # Write data --------------------------------------------------------------
-write_csv(x = clean_data,
-          file = "data/02_clean_data.csv")
+write_csv(x = dead_cases, 
+          file = "data/02_clean_dead_cases.csv")
 
+write_csv(x = recovered_cases, 
+          file = "data/02_clean_recovered_cases.csv")
 
+write_csv(x = under_treatment_cases, 
+          file = "data/02_clean_under_treatment_cases.csv")
