@@ -9,20 +9,26 @@ library(readxl)
 
 
 # Load data ---------------------------------------------------------------
-dead_cases <- read_excel("data/_raw/death.xlsx", na = "-")
-recovered_cases <- read_excel("data/_raw/recovered.xlsx",na = "-")
-under_treatment_cases <- read_excel("data/_raw/under_treatment.xlsx",na = "-")
 
+temp_unzip  = tempfile()
+path_zipped = "data/_raw/breastcancer_kaggle.zip"
 
+unzip(path_zipped, exdir = temp_unzip)
+
+files <- list.files(path = temp_unzip)
+
+data_names <- map_chr(files, ~str_remove(string = .x, ".xlsx")) %>%
+                    map_chr(~str_replace(.x, " ", "_"))
+
+data_dfs <- map(paste(temp_unzip, files, sep="/"), ~ read_excel(path = .x, na ="-"))
+
+unlink(temp_unzip) 
 # Write data --------------------------------------------------------------
-write_csv(x = dead_cases, 
-          file = "data/_raw/01_dead_cases.csv")
 
-write_csv(x = recovered_cases, 
-          file = "data/_raw/01_recovered_cases.csv")
+file_names = paste("01_", data_names,"_cases", ".csv", sep="")
+file_paths = paste("data/",file_names, sep="/")
 
-write_csv(x = under_treatment_cases, 
-          file = "data/_raw/01_under_treatment_cases.csv")
+map2(data_dfs, file_paths, ~write_csv(x= .x, file = .y))
 
 
 
