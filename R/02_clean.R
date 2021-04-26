@@ -14,13 +14,16 @@ under_treatment_cases <- read_csv("data/_raw/01_under_treatment_cases.csv",na = 
 
 # Wrangle data ------------------------------------------------------------
 
-dead_cases <- dead_cases %>%
+dead_cases <- dead_cases %>% 
+  filter(gender==0 & nchar(birth_date) == 4) %>%
   mutate(treatment_age = treatment_data-as.numeric(birth_date))
 
-recovered_cases <- recovered_cases %>%
+recovered_cases <- recovered_cases %>% 
+  filter(gender==0 & nchar(birth_date) == 4) %>%
   mutate(treatment_age = treatment_data-as.numeric(birth_date))
 
-under_treatment_cases <- under_treatment_cases %>%
+under_treatment_cases <- under_treatment_cases %>% 
+  filter(gender==0 & nchar(birth_date) == 4) %>%
   mutate(treatment_age = treatment_data-as.numeric(birth_date))
 
 #Remove cariage return, newline from names (\r\n)
