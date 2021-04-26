@@ -64,10 +64,7 @@ clean_data <- dead_cases %>%
          )
   
 
-# Fix warning; clean_data
-
-
 # Write data ---------------------------------------------------------------
 
-save(clean_data, file = "data/03_clean_augmented_combined_breastcancer_data.RData")
+saveRDS(clean_data, file = "data/03_clean_augmented_combined_breastcancer_data.rds")
 

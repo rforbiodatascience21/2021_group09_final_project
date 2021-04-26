@@ -14,7 +14,9 @@ library(ggplot2)
 
 
 # Load data ---------------------------------------------------------------
-my_data_clean_aug <- read_csv(file = "data/03_clean_augmented_combined_breastcancer_data.csv")
+my_data_clean_aug <- readRDS(file = "data/03_clean_augmented_combined_breastcancer_data.rds")
+
+View(my_data_clean_aug)
 
 # Basic statistics
 my_data_clean_aug %>%
