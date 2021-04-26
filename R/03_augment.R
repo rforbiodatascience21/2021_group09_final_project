@@ -42,25 +42,25 @@ clean_data <- dead_cases %>%
                                   blood == 7 ~ "O-"),
          .after = blood) %>%
   filter(gender == 0) %>%
-  # Change to char
-  mutate(hereditary_history = as.character(hereditary_history),
-         marital_status = as.character(marital_status),
-         marital_length = as.character(marital_length),
-         pregnency_experience = as.character(pregnency_experience),
-         giving_birth = as.character(giving_birth),
-         age_FirstGivingBirth = as.character(age_FirstGivingBirth),
-         abortion = as.character(abortion),
-         taking_blood_pressure_medicine = as.character(taking_blood_pressure_medicine),
-         taking_gallbladder_disease_medicine = as.character(taking_gallbladder_disease_medicine),
-         smoking = as.character(smoking),
-         taking_heartMedicine = as.character(taking_heartMedicine),
-         alcohol = as.character(alcohol),
-         breast_pain = as.character(breast_pain),
-         radiation_history = as.character(radiation_history),
-         Birth_control = as.character(Birth_control),
-         menstrual_age = as.character(menstrual_age),
-         menopausal_age = as.character(menopausal_age),
-         Benign_malignant_cancer = as.character(Benign_malignant_cancer)
+  # Change to categories
+  mutate(hereditary_history = as.factor(hereditary_history),
+         marital_status = as.factor(marital_status),
+         marital_length = as.factor(marital_length),
+         pregnency_experience = as.factor(pregnency_experience),
+         giving_birth = as.factor(giving_birth),
+         age_FirstGivingBirth = as.factor(age_FirstGivingBirth),
+         abortion = as.factor(abortion),
+         taking_blood_pressure_medicine = as.factor(taking_blood_pressure_medicine),
+         taking_gallbladder_disease_medicine = as.factor(taking_gallbladder_disease_medicine),
+         smoking = as.factor(smoking),
+         taking_heartMedicine = as.factor(taking_heartMedicine),
+         alcohol = as.factor(alcohol),
+         breast_pain = as.factor(breast_pain),
+         radiation_history = as.factor(radiation_history),
+         Birth_control = as.factor(Birth_control),
+         menstrual_age = as.factor(menstrual_age),
+         menopausal_age = as.factor(menopausal_age),
+         Benign_malignant_cancer = as.factor(Benign_malignant_cancer)
          )
   
 
