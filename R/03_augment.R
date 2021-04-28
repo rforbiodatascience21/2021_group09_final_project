@@ -42,6 +42,7 @@ clean_data <- dead_cases %>%
                                   blood == 7 ~ "O-"),
          .after = blood) %>%
   filter(gender == 0) %>%
+  select(-blood, -education, -gender, -treatment_data) %>%
   # Change to categories
   mutate(hereditary_history = as.factor(hereditary_history),
          marital_status = as.factor(marital_status),
@@ -60,9 +61,12 @@ clean_data <- dead_cases %>%
          Birth_control = as.factor(Birth_control),
          menstrual_age = as.factor(menstrual_age),
          menopausal_age = as.factor(menopausal_age),
-         Benign_malignant_cancer = as.factor(Benign_malignant_cancer)
+         Benign_malignant_cancer = as.factor(Benign_malignant_cancer),
+         id_treatment_region = as.factor(id_treatment_region),
+         id_healthcenter = as.factor(id_healthcenter)
          )
-  
+
+View(clean_data)
 
 # Write data ---------------------------------------------------------------
 

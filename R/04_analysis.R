@@ -16,6 +16,10 @@ library(ggplot2)
 # Load data ---------------------------------------------------------------
 my_data_clean_aug <- readRDS(file = "data/03_clean_augmented_combined_breastcancer_data.rds")
 
+
+# Wrangle data ------------------------------------------------------------
+### Data distributions - basic plots 
+
 # Basic statistics
 my_data_clean_aug %>%
   select_if(is.factor) %>%
@@ -24,10 +28,18 @@ my_data_clean_aug %>%
   facet_wrap(~ key, scales = "free") +
   stat_count()
 
+# Boxplot of numerical variables 
+my_data_clean_aug %>%
+  select(-patient_id) %>%
+  select_if(is.numeric) %>%
+  gather() %>%
+  ggplot(aes(value)) +
+  facet_wrap(~ key, scales = "free") +
+  coord_flip() +
+  geom_boxplot()
 
 
-# Wrangle data ------------------------------------------------------------
-my_data_clean_aug %>% ...
+
 
 
 # Model data
