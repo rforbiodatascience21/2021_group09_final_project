@@ -83,7 +83,7 @@ clean_data <- dead_cases %>%
          )
 
 # View data and colum
-View(clean_data)
+#View(clean_data)
 
 # Write data ---------------------------------------------------------------
 
