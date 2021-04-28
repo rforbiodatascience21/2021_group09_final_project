@@ -16,21 +16,15 @@ library(ggplot2)
 # Load data ---------------------------------------------------------------
 my_data_clean_aug <- readRDS(file = "data/03_clean_augmented_combined_breastcancer_data.rds")
 
-View(my_data_clean_aug)
-
 # Basic statistics
 my_data_clean_aug %>%
-  keep(is.factor) %>%
-  gather(key = "key",
-         value = "value",
-         na.rm = TRUE, 
-         #convert = TRUE,
-         factor_key= TRUE) #%>%
+  select_if(is.factor) %>%
+  gather() %>%
   ggplot(aes(value)) +
   facet_wrap(~ key, scales = "free") +
-  geom_histogram()
+  stat_count()
 
-  View(my_data_clean_aug)
+
 
 # Wrangle data ------------------------------------------------------------
 my_data_clean_aug %>% ...
