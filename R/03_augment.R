@@ -51,7 +51,7 @@ clean_data <- dead_cases %>%
          .after = blood) %>%
   filter(gender == 0) %>%
 
-  select(-blood, -education, -gender, -treatment_data) %>%
+  select(-gender, -treatment_data) %>%
   # Change to categories
   mutate(education_type = as.factor(education_type),
          blood_type = as.factor(blood_type),
