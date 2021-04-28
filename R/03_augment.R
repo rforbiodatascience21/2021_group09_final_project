@@ -49,6 +49,17 @@ clean_data <- dead_cases %>%
                                   blood == 6 ~ "O+",
                                   blood == 7 ~ "O-"),
          .after = blood) %>%
+  mutate("age_first_birth" = case_when(age_FirstGivingBirth == 0 ~ "under 30",
+                                       age_FirstGivingBirth == 1 ~ "above 30"),
+         .after = age_FirstGivingBirth) %>%
+  mutate("Menstrual_Age" = case_when(menstrual_age == 0 ~ "not yet",
+                                     menstrual_age == 1 ~ "under 12",
+                                     menstrual_age == 2 ~ "above 12"),
+         .after = menstrual_age) %>%
+  mutate ("Menopausal_Age" = case_when(menopausal_age == 0 ~ "not yet",
+                                       menopausal_age == 1 ~ "under 50",
+                                       menopausal_age == 2 ~ "above 50"),
+          .after =menopausal_age) %>%
   filter(gender == 0) %>%
 
   select(-gender, -treatment_data) %>%
