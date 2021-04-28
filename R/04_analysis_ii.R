@@ -1,7 +1,6 @@
 #
 # Visualizations of data
 #
-#
 
 # Clear workspace ---------------------------------------------------------
 rm(list = ls())
@@ -17,7 +16,9 @@ library(patchwork) #remember to install
 my_data_clean_aug <- readRDS(file = "data/03_clean_augmented_combined_breastcancer_data.rds")
 
 
-## Densitogram function on this data
+
+# Functions ---------------------------------------------------------------
+# Densitogram function on this data
 densitogram_plot <- function(col_name, x_label_str, stratify_col, legend_str) {
   plot <- my_data_clean_aug %>%
     filter(condition != "under treatment") %>%
@@ -30,7 +31,6 @@ densitogram_plot <- function(col_name, x_label_str, stratify_col, legend_str) {
   
   return(plot)
 }
-
 
 
 
@@ -90,7 +90,7 @@ p_thickness_tumor_tumor <- densitogram_plot(thickness_tumor,
                                           "Tumor Type") 
 
 
-
+# Combine plots
 densitogram_tumor <- (p_treatment_age_tumor) / (p_weight_tumor | p_thickness_tumor_tumor) + 
   plot_annotation(title = "Differences in Treatment Age, Weight and Tumor Thickness", 
                   subtitle = "Densitograms stratified by Tumor Type") + 
@@ -112,6 +112,8 @@ densitogram_tumor <- (p_treatment_age_tumor) / (p_weight_tumor | p_thickness_tum
         plot.subtitle = element_text(size=11, 
                                      hjust = 0.5)
   )
+
+
 
 # Write data --------------------------------------------------------------
 ggsave(
