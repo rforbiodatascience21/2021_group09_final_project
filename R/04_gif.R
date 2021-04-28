@@ -14,8 +14,6 @@ rm(list = ls())
 
 # Load libraries ----------------------------------------------------------
 library(tidyverse)
-library(purrr)
-library(tidyr)
 library(ggplot2)
 library(patchwork)
 library(gganimate)
