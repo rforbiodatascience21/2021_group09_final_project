@@ -72,6 +72,7 @@ clean_data <- dead_cases %>%
          pregnency_experience = as.factor(pregnency_experience),
          giving_birth = as.factor(giving_birth),
          age_FirstGivingBirth = as.factor(age_FirstGivingBirth),
+         age_first_birth = as.factor(age_first_birth),
          abortion = as.factor(abortion),
          taking_blood_pressure_medicine = as.factor(taking_blood_pressure_medicine),
          taking_gallbladder_disease_medicine = as.factor(taking_gallbladder_disease_medicine),
