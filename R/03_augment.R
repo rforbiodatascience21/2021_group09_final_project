@@ -39,7 +39,7 @@ clean_data <- dead_cases %>%
                                     education == 5 ~ "Associate",
                                     education == 6 ~ "Bachelor",
                                     education == 7 ~ "Master"),
-         .after = education) %>%
+         .after = education)%>%
   mutate("blood_type" = case_when(blood == 0 ~ "A+",
                                   blood == 1 ~ "A-",
                                   blood == 2 ~ "AB+",
@@ -51,10 +51,11 @@ clean_data <- dead_cases %>%
          .after = blood) %>%
   filter(gender == 0) %>%
 
-
-  
-  # Change to categories # do this smarter with a map function.
-  mutate(hereditary_history = as.factor(hereditary_history),
+  select(-blood, -education, -gender, -treatment_data) %>%
+  # Change to categories
+  mutate(education_type = as.factor(education_type),
+         blood_type = as.factor(blood_type),
+         hereditary_history = as.factor(hereditary_history),
          marital_status = as.factor(marital_status),
          marital_length = as.factor(marital_length),
          pregnency_experience = as.factor(pregnency_experience),
@@ -76,9 +77,13 @@ clean_data <- dead_cases %>%
          education = as.factor(education),
          id_healthcenter = as.factor(id_healthcenter),
          patient_id = as.factor(patient_id),
+         id_treatment_region = as.factor(id_treatment_region),
+         id_healthcenter = as.factor(id_healthcenter), 
          condition = as.factor(condition)
          )
-  
+
+# View data and colum
+View(clean_data)
 
 # Write data ---------------------------------------------------------------
 
