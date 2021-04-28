@@ -60,7 +60,10 @@ clean_data <- dead_cases %>%
          Birth_control = as.factor(Birth_control),
          menstrual_age = as.factor(menstrual_age),
          menopausal_age = as.factor(menopausal_age),
-         Benign_malignant_cancer = as.factor(Benign_malignant_cancer)
+         Benign_malignant_cancer = as.factor(Benign_malignant_cancer),
+         blood = as.factor(blood),
+         education = as.factor(education),
+         id_healthcenter = as.factor(id_healthcenter)
          )
   
 
