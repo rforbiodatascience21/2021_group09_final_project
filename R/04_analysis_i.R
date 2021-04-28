@@ -1,3 +1,7 @@
+# 
+# Script creates basic distribution plots of the different variables
+#
+
 # Clear workspace ---------------------------------------------------------
 rm(list = ls())
 
