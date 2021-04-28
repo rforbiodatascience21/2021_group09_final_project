@@ -20,12 +20,17 @@ View(my_data_clean_aug)
 
 # Basic statistics
 my_data_clean_aug %>%
-  keep(is.numeric) %>%
-  gather() %>%
+  keep(is.factor) %>%
+  gather(key = "key",
+         value = "value",
+         na.rm = TRUE, 
+         #convert = TRUE,
+         factor_key= TRUE) #%>%
   ggplot(aes(value)) +
   facet_wrap(~ key, scales = "free") +
   geom_histogram()
 
+  View(my_data_clean_aug)
 
 # Wrangle data ------------------------------------------------------------
 my_data_clean_aug %>% ...
