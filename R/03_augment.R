@@ -31,7 +31,7 @@ clean_data <- dead_cases %>%
                                     education == 5 ~ "Associate",
                                     education == 6 ~ "Bachelor",
                                     education == 7 ~ "Master"),
-         .after = education) %>%
+         .after = education)%>%
   mutate("blood_type" = case_when(blood == 0 ~ "A+",
                                   blood == 1 ~ "A-",
                                   blood == 2 ~ "AB+",
@@ -44,7 +44,9 @@ clean_data <- dead_cases %>%
   filter(gender == 0) %>%
   select(-blood, -education, -gender, -treatment_data) %>%
   # Change to categories
-  mutate(hereditary_history = as.factor(hereditary_history),
+  mutate(education_type = as.factor(education_type),
+         blood_type = as.factor(blood_type),
+         hereditary_history = as.factor(hereditary_history),
          marital_status = as.factor(marital_status),
          marital_length = as.factor(marital_length),
          pregnency_experience = as.factor(pregnency_experience),
@@ -63,9 +65,11 @@ clean_data <- dead_cases %>%
          menopausal_age = as.factor(menopausal_age),
          Benign_malignant_cancer = as.factor(Benign_malignant_cancer),
          id_treatment_region = as.factor(id_treatment_region),
-         id_healthcenter = as.factor(id_healthcenter)
+         id_healthcenter = as.factor(id_healthcenter), 
+         condition = as.factor(condition)
          )
 
+# View data and colum
 View(clean_data)
 
 # Write data ---------------------------------------------------------------
