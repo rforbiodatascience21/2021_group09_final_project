@@ -22,6 +22,14 @@ clean_data <- dead_cases %>%
   full_join(recovered_cases) %>%
   full_join(under_treatment_cases) %>%
   rename(Birth_control = 'Birth_control(Contraception)') %>%
+  #There is 0,1,2 and should be 0,1
+  mutate(Benign_malignant_cancer = ifelse(Benign_malignant_cancer==0, yes = 0, no = 1),
+         radiation_history = ifelse(radiation_history==0, yes = 0, no = 1),
+         hereditary_history = ifelse(hereditary_history==0, yes = 0, no = 1),
+         breast_pain = ifelse(breast_pain==0, yes = 0, no = 1)
+         ) %>% 
+  # Blood 44 has no meaning and cannot be assigned to a correct category:
+  filter(blood != 44) %>%
   # Add names to categories
   mutate("education_type" = case_when(education == 0 ~ "Illiterate",
                                     education == 1 ~ "Elementary",
@@ -31,7 +39,7 @@ clean_data <- dead_cases %>%
                                     education == 5 ~ "Associate",
                                     education == 6 ~ "Bachelor",
                                     education == 7 ~ "Master"),
-         .after = education) %>%
+         .after = education)%>%
   mutate("blood_type" = case_when(blood == 0 ~ "A+",
                                   blood == 1 ~ "A-",
                                   blood == 2 ~ "AB+",
@@ -42,8 +50,12 @@ clean_data <- dead_cases %>%
                                   blood == 7 ~ "O-"),
          .after = blood) %>%
   filter(gender == 0) %>%
+
+  select(-gender, -treatment_data) %>%
   # Change to categories
-  mutate(hereditary_history = as.factor(hereditary_history),
+  mutate(education_type = as.factor(education_type),
+         blood_type = as.factor(blood_type),
+         hereditary_history = as.factor(hereditary_history),
          marital_status = as.factor(marital_status),
          marital_length = as.factor(marital_length),
          pregnency_experience = as.factor(pregnency_experience),
@@ -60,9 +72,18 @@ clean_data <- dead_cases %>%
          Birth_control = as.factor(Birth_control),
          menstrual_age = as.factor(menstrual_age),
          menopausal_age = as.factor(menopausal_age),
-         Benign_malignant_cancer = as.factor(Benign_malignant_cancer)
+         Benign_malignant_cancer = as.factor(Benign_malignant_cancer),
+         blood = as.factor(blood),
+         education = as.factor(education),
+         id_healthcenter = as.factor(id_healthcenter),
+         patient_id = as.factor(patient_id),
+         id_treatment_region = as.factor(id_treatment_region),
+         id_healthcenter = as.factor(id_healthcenter), 
+         condition = as.factor(condition)
          )
-  
+
+# View data and colum
+#View(clean_data)
 
 # Write data ---------------------------------------------------------------
 
