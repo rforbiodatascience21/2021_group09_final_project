@@ -47,7 +47,9 @@ corr_heatmap <- corr_longer %>%
                                   hjust = 0.5),
         legend.title=element_blank(),
         legend.text=element_text(size=6)
-  )
+  ) #+      #I prefer that it has different colours, here are two possibilities
+  #scale_fill_gradient2() +
+  #scale_fill_gradientn(colours = terrain.colors(10))
 
 # Write data --------------------------------------------------------------
 ggsave(
