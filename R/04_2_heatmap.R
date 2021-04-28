@@ -37,16 +37,16 @@ corr_heatmap <- corr_longer %>%
   ggtitle("Heatmap - Correlation of numeric variables") + 
   labs(y="",x="")+
   theme(axis.text.x = element_text(angle = 45, 
-                                   size=15, 
+                                   size=6, 
                                    hjust=1, 
                                    vjust = 1), 
-        axis.text.y= element_text(size=15, 
+        axis.text.y= element_text(size=6, 
                                   hjust=1, 
                                   vjust = 1),
-        plot.title = element_text(size=18, 
+        plot.title = element_text(size=9, 
                                   hjust = 0.5),
         legend.title=element_blank(),
-        legend.text=element_text(size=12)
+        legend.text=element_text(size=6)
   )
 
 # Write data --------------------------------------------------------------
@@ -56,8 +56,8 @@ ggsave(
   path = "results/plots",
   device = "png",
   scale = 1,
-  width = 20,
-  height = 16,
+  width = 10,
+  height = 8,
   units = "cm",
   dpi = 500
 )
