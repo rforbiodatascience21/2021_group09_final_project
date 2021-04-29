@@ -144,7 +144,9 @@ count_smoking_condition <- count_plot(my_data_clean_aug,
                                       condition, 
                                       "Condition")
 
-count_radiation_condition <- count_plot(my_data_clean_aug, 
+radiation_subset <- my_data_clean_aug %>%
+  filter(condition != "under treatment") # only look at dead and recovered
+count_radiation_condition <- count_plot(radiation_subset, 
                                         radiation_history, 
                                         "Radiation History",
                                        condition, 
