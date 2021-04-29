@@ -152,7 +152,27 @@ count_radiation_condition <- count_plot(radiation_subset,
                                        condition, 
                                        "Condition")
 
+count_heart_medicine_condition <- count_plot(my_data_clean_aug, 
+                                      taking_heartMedicine, 
+                                      "Taking heart medicine", 
+                                      condition, 
+                                      "Condition")
 
+count_blood_pressure_medicine_condition <- count_plot(my_data_clean_aug, 
+                                      taking_blood_pressure_medicine, 
+                                      "Taking blood pressure medicine", 
+                                      condition, 
+                                      "Condition")
+count_gallblader_medicine_condition <- count_plot(my_data_clean_aug, 
+                                      taking_gallbladder_disease_medicine, 
+                                      "Taking gallblader disease medicine", 
+                                      condition, 
+                                      "Condition")
+count_alcohol_condition <- count_plot(my_data_clean_aug, 
+                                      alcohol, 
+                                      "Alcohol", 
+                                      condition, 
+                                      "Condition")
 
 # Write data --------------------------------------------------------------
 ### Overall distribution plots ###
@@ -253,3 +273,50 @@ ggsave(
   dpi = 500
 )
 
+ggsave(
+  "04_analysis_i_count_alcohol_on_condition.png",
+  plot = count_alcohol_condition,
+  path = "results/plots/",
+  device = "png",
+  scale = 1,
+  width = 16,
+  height = 10,
+  units = "cm",
+  dpi = 500
+)
+
+ggsave(
+  "04_analysis_i_count_heart_medicine_on_condition.png",
+  plot = count_heart_medicine_condition,
+  path = "results/plots/",
+  device = "png",
+  scale = 1,
+  width = 16,
+  height = 10,
+  units = "cm",
+  dpi = 500
+)
+
+ggsave(
+  "04_analysis_i_count_blood_pressure_medicine_on_condition.png",
+  plot = count_blood_pressure_medicine_condition,
+  path = "results/plots/",
+  device = "png",
+  scale = 1,
+  width = 16,
+  height = 10,
+  units = "cm",
+  dpi = 500
+)
+
+ggsave(
+  "04_analysis_i_count_gallblader_medicine_on_condition.png",
+  plot = count_gallblader_medicine_condition,
+  path = "results/plots/",
+  device = "png",
+  scale = 1,
+  width = 16,
+  height = 10,
+  units = "cm",
+  dpi = 500
+)

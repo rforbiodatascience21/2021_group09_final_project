@@ -60,6 +60,9 @@ clean_data <- dead_cases %>%
                                        menopausal_age == 1 ~ "under 50",
                                        menopausal_age == 2 ~ "above 50"),
           .after =menopausal_age) %>%
+  mutate ("type_cancer" = case_when(Benign_malignant_cancer == 0 ~ "Benign",
+                                    Benign_malignant_cancer == 1 ~ "Malignant"),
+          .after = Benign_malignant_cancer) %>%
   filter(gender == 0) %>%
 
   select(-gender, -treatment_data) %>%
@@ -85,6 +88,7 @@ clean_data <- dead_cases %>%
          menstrual_age = as.factor(menstrual_age),
          menopausal_age = as.factor(menopausal_age),
          Benign_malignant_cancer = as.factor(Benign_malignant_cancer),
+         type_cancer = as.factor(type_cancer),
          blood = as.factor(blood),
          education = as.factor(education),
          id_healthcenter = as.factor(id_healthcenter),
