@@ -13,7 +13,7 @@ under_treatment_cases <- read_csv("data/01_under_treatment_cases.csv",na = "-")
 
 
 # Wrangle data ------------------------------------------------------------
-
+# age_FirstGivingBirth == 2 doesn't appear in description
 dead_cases <- dead_cases %>% 
   filter(gender==0 & nchar(birth_date) == 4 & age_FirstGivingBirth !=2) %>%
   mutate(treatment_age = treatment_data-as.numeric(birth_date))
