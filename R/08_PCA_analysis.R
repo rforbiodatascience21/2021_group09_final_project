@@ -1,5 +1,4 @@
-# 
-# Script creates basic distribution plots of the different variables
+# PCA analysis
 #
 
 # Clear workspace ---------------------------------------------------------
@@ -18,7 +17,7 @@ my_data_clean_aug <- readRDS(file = "data/03_clean_augmented_combined_breastcanc
 
 # PCA fit----------------------------------------------------------------
 pca_fit <- my_data_clean_aug %>% 
-  select(-Benign_malignant_cancer) %>% # retain only numeric columns
+  select(where(is.numeric)) %>% # retain only numeric columns
   prcomp(scale = TRUE) # do PCA on scaled data
 
 my_data_aug <- pca_fit %>%
@@ -35,19 +34,6 @@ arrow_style <- arrow(
 pca_fit %>%
   tidy(matrix = "eigenvalues")
 
-# Functions---------------------------------------------------------------
-plot_function <- function (data, x_values, fill_column, x_name, y_name){
-  title <- c("Relation between", x_name, "and", y_name)
-  plot<-data %>%
-    ggplot(data, mapping = aes(x = {{x_values}}, 
-                               fill = {{fill_column}})) +
-    geom_histogram(binwidth = 0.05)+
-    ggtitle(title)
-  return(plot)
-}
-
-plot14 <- plot_function(my_data_clean_aug, taking_heartMedicine, thickness_tumor, "Taking heart medicine", "Thickness of tumor")
-plot14
 
 # Visualize plots----------------------------------------------------------
 # plot rotation matrix
@@ -76,7 +62,22 @@ p2<-pca_fit %>%
   ) +
   theme_minimal_hgrid(12)
 
-PCA_plots<-p1+ labs(subtitle = "PC coordinates")+p2 +labs(subtitle = "Variance by PC") + plot_annotation(title = "PCA analysis")
+custom_col_scheme <- 
+  scale_color_manual(
+    values = c("poor" = "#D55E00", "good" = "#0072B2")
+  )
+
+#p3<-my_data_aug %>%
+  ggplot(aes(x =.fittedPC1, 
+             y =.fittedPC2,
+             color =Benign_malignant_cancer))+
+  geom_point(size= 1.5)+
+  theme_minimal()+
+  custom_col_scheme+
+  theme(legend.position = "bottom")
+
+PCA_plots<- p1+ labs(subtitle = "PC coordinates") +p2 +labs(subtitle = "Variance by PC") + plot_annotation(title = "PCA analysis") + plot_layout(ncol = 2)
+ #p3 + labs(subtitle = "PCA visualization")+
 
 # Save plots ------------------------------------------------------------
 ggsave(
@@ -90,3 +91,4 @@ ggsave(
   units = "cm",
   dpi = 500
 )
+
