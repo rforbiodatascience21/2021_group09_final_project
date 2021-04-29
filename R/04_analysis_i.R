@@ -14,9 +14,41 @@ library(ggplot2)
 # Load data ---------------------------------------------------------------
 my_data_clean_aug <- readRDS(file = "data/03_clean_augmented_combined_breastcancer_data.rds")
 
+# Functions ----------------------------------------------------------
+# Basic box plot of 1 variable, stratified on another eg condition or tumor
+box_plot <- function(data, col_name, x_label_str, stratify_col, legend_str) {
+  title_string <- str_c("Boxplot of", x_label_str, "stratified on", legend_str , sep = " ")
+  plot <- data %>%
+    ggplot(mapping = aes(x = {{col_name}}, 
+                         fill = {{stratify_col}})) +
+    geom_boxplot(alpha=0.5) +
+    labs(x = x_label_str, 
+         fill = legend_str) +
+    ggtitle(title_string) +
+    theme_minimal(base_family = "Avenir") 
+  
+  return(plot)
+}
+
+# Basic count plot of 1 variable, stratified on another eg condition or tumor
+count_plot <- function(data, col_name, x_label_str, stratify_col, legend_str) {
+  title_string <- str_c("Distribution of", x_label_str, "stratified on", legend_str , sep = " ")
+  plot <- data %>%
+    ggplot(mapping = aes(x = {{col_name}}, 
+                         fill = {{stratify_col}})) +
+    geom_bar(alpha=0.5, position = position_dodge(width = 0.95)) +
+    labs(x = x_label_str,
+         y = "Count",
+         fill = legend_str) +
+    ggtitle(title_string) +
+    theme_minimal(base_family = "Avenir") 
+  
+  return(plot)
+}
+
 
 # Visualise data ----------------------------------------------------------
-
+#### Overall distribution plots ####
 # Boxplot of numerical variables 
 numeric_boxplot <- my_data_clean_aug %>%
                     select(-patient_id) %>%
@@ -30,6 +62,7 @@ numeric_boxplot <- my_data_clean_aug %>%
                     ggtitle("Boxplots of numerical values") + 
                     theme(plot.title = element_text(size=15, 
                                                     hjust = 0.5))
+
 
 # Histogram of numerical variables 
 numeric_hist_15_bins <- my_data_clean_aug %>%
@@ -91,7 +124,36 @@ categorical_bar_part2 <- my_data_clean_aug %>%
                                                           hjust = 0.5)
                           ) 
 
+###### Single plots with stratification (uses plot functions) ########
+box_age_condition <- box_plot(my_data_clean_aug, 
+                              age, 
+                              "Age", 
+                              condition, 
+                              "Condition")
+
+box_tumor_condition <- box_plot(my_data_clean_aug, 
+                                thickness_tumor, 
+                                "Tumor thickness", 
+                                condition, 
+                                "Condition")
+
+
+count_smoking_condition <- count_plot(my_data_clean_aug, 
+                                      smoking, 
+                                      "Smoking", 
+                                      condition, 
+                                      "Condition")
+
+count_radiation_condition <- count_plot(my_data_clean_aug, 
+                                        radiation_history, 
+                                        "Radiation History",
+                                       condition, 
+                                       "Condition")
+
+
+
 # Write data --------------------------------------------------------------
+### Overall distribution plots ###
 ggsave(
   "04_analysis_i_boxplot_numeric_variables.png",
   plot = numeric_boxplot,
@@ -136,6 +198,55 @@ ggsave(
   scale = 1,
   width = 25,
   height = 16,
+  units = "cm",
+  dpi = 500
+)
+
+### Single plots stratified###
+ggsave(
+  "04_analysis_i_box_age_on_condition.png",
+  plot = box_age_condition,
+  path = "results/plots/",
+  device = "png",
+  scale = 1,
+  width = 16,
+  height = 10,
+  units = "cm",
+  dpi = 500
+)
+
+ggsave(
+  "04_analysis_i_box_tumor_on_condition.png",
+  plot = box_tumor_condition,
+  path = "results/plots/",
+  device = "png",
+  scale = 1,
+  width = 16,
+  height = 10,
+  units = "cm",
+  dpi = 500
+)
+
+ggsave(
+  "04_analysis_i_count_smoking_on_condition.png",
+  plot = count_smoking_condition,
+  path = "results/plots/",
+  device = "png",
+  scale = 1,
+  width = 16,
+  height = 10,
+  units = "cm",
+  dpi = 500
+)
+
+ggsave(
+  "04_analysis_i_count_radiation_on_condition.png",
+  plot = count_radiation_condition,
+  path = "results/plots/",
+  device = "png",
+  scale = 1,
+  width = 16,
+  height = 10,
   units = "cm",
   dpi = 500
 )
