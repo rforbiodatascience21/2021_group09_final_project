@@ -1,0 +1,28 @@
+<style>
+#future-steps {
+  color: red;
+}
+
+.emphasized {
+  font-size: 1.2em;
+}
+
+.final{
+  font-size: 2em;
+  font-family: Times New Roman;
+  color: red;
+  text-align: center;
+}
+
+.midcenter {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+}
+
+#image{
+  width: 60%;
+  height: auto;
+}
+
+</style>
