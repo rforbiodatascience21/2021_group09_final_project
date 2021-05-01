@@ -12,43 +12,41 @@ library(dplyr)
 library(ggplot2)
 library(patchwork) #remember to install
 
+
+# Get functions --------------------------------------------------------
+source(file = "R/99_project_functions.R")
+
+
 # Load data ---------------------------------------------------------------
 my_data_clean_aug <- readRDS(file = "data/03_clean_augmented_combined_breastcancer_data.rds")
 
 
-
-# Functions ---------------------------------------------------------------
-# Densitogram function on this data
-densitogram_plot <- function(col_name, x_label_str, stratify_col, legend_str) {
-  plot <- my_data_clean_aug %>%
-    filter(condition != "under treatment") %>%
-    ggplot(mapping = aes(x = {{col_name}}, 
-                         fill = {{stratify_col}})) +
-    geom_density(alpha=0.5) +
-    labs(x = x_label_str, 
-         fill = legend_str) +
-    theme_minimal(base_family = "Avenir") 
-  
-  return(plot)
-}
-
+# Wrangle data ----------------------------------------------------------
+# Only look at samples with condition = dead or recovered
+data_condition_dead_recovered <- my_data_clean_aug %>%
+  filter(condition != "under treatment")
 
 
 # Visualise data ----------------------------------------------------------
 
 ### Densitogram on condition ###
-p_treatment_age_con <- densitogram_plot(treatment_age, 
-                                    "Age at Treatment",
-                                    condition,
-                                    "Condition")
-p_weight_con <- densitogram_plot(weight, 
-                             "Weight",
-                             condition,
-                             "Condition") 
-p_thickness_tumor_con <- densitogram_plot(thickness_tumor, 
-                                      "Thickness of Tumor",
-                                      condition,
-                                      "Condition") 
+p_treatment_age_con <- densitogram_plot(data_condition_dead_recovered,
+                                        treatment_age,
+                                        "Age at Treatment",
+                                        condition,
+                                        "Condition")
+
+p_weight_con <- densitogram_plot(data_condition_dead_recovered,
+                                 weight, 
+                                 "Weight",
+                                 condition,
+                                 "Condition") 
+
+p_thickness_tumor_con <- densitogram_plot(data_condition_dead_recovered,
+                                          thickness_tumor, 
+                                          "Thickness of Tumor",
+                                          condition,
+                                          "Condition") 
 
 # Combine plots
 densitogram_condition <- (p_treatment_age_con) / (p_weight_con | p_thickness_tumor_con) + 
@@ -74,20 +72,24 @@ densitogram_condition <- (p_treatment_age_con) / (p_weight_con | p_thickness_tum
   )
 
 
-
 ### Densitogram on tumor type ###
-p_treatment_age_tumor <- densitogram_plot(treatment_age, 
-                                        "Age at Treatment",
-                                        Benign_malignant_cancer,
-                                        "Tumor Type")
-p_weight_tumor <- densitogram_plot(weight, 
-                                 "Weight",
-                                 Benign_malignant_cancer,
-                                 "Tumor Type") 
-p_thickness_tumor_tumor <- densitogram_plot(thickness_tumor, 
-                                          "Thickness of Tumor",
+p_treatment_age_tumor <- densitogram_plot(data_condition_dead_recovered,
+                                          treatment_age, 
+                                          "Age at Treatment",
                                           Benign_malignant_cancer,
-                                          "Tumor Type") 
+                                          "Tumor Type")
+
+p_weight_tumor <- densitogram_plot(data_condition_dead_recovered,
+                                   weight, 
+                                   "Weight",
+                                   Benign_malignant_cancer,
+                                   "Tumor Type") 
+
+p_thickness_tumor_tumor <- densitogram_plot(data_condition_dead_recovered,
+                                            thickness_tumor, 
+                                            "Thickness of Tumor",
+                                            Benign_malignant_cancer,
+                                            "Tumor Type") 
 
 
 # Combine plots
@@ -117,9 +119,9 @@ densitogram_tumor <- (p_treatment_age_tumor) / (p_weight_tumor | p_thickness_tum
 
 # Write data --------------------------------------------------------------
 ggsave(
-  "04_analysis_ii_densitograms_on_condition.png",
+  "05_analysis_ii_densitograms_on_condition.png",
   plot = densitogram_condition,
-  path = "results/plots/",
+  path = "results/",
   device = "png",
   scale = 1,
   width = 17,
@@ -128,9 +130,9 @@ ggsave(
   dpi = 500)
 
 ggsave(
-  "04_analysis_ii_densitograms_on_tumor.png",
+  "05_analysis_ii_densitograms_on_tumor.png",
   plot = densitogram_tumor,
-  path = "results/plots/",
+  path = "results/",
   device = "png",
   scale = 1,
   width = 17,

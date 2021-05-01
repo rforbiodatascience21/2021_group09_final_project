@@ -39,7 +39,7 @@ myPlot <- my_data_clean_aug %>%
 animate(myPlot, duration = 20, fps = 20, width = 800, height = 800, renderer = gifski_renderer())
 anim_save("output.gif")
 # Write data --------------------------------------------------------------
-anim_save("birth_age_treatment_age.gif", path = "results/plots/")
+anim_save("08_gif_birth_age_treatment_age.gif", path = "results/")
 
 
 

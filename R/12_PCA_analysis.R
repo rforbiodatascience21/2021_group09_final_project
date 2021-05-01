@@ -81,9 +81,9 @@ PCA_plots<- p1+ labs(subtitle = "PC coordinates") +p2 +labs(subtitle = "Variance
 
 # Save plots ------------------------------------------------------------
 ggsave(
-  "08_PCA_analysis_plots.png",
+  "12_PCA_analysis_plots.png",
   plot = PCA_plots,
-  path = "results/plots/",
+  path = "results/",
   device = "png",
   scale = 1,
   width = 20,
