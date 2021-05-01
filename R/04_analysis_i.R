@@ -16,16 +16,41 @@ library(purrr)
 library(tidyr)
 library(ggplot2)
 
-# Get functions --------------------------------------------------------
-source(file = "R/99_project_functions.R")
-
 # Load data ---------------------------------------------------------------
 my_data_clean_aug <- readRDS(file = "data/03_clean_augmented_combined_breastcancer_data.rds")
 
-# Wrangle data ---------------------------------------------------------------
-# Only look at samples with condition = dead or recovered
-data_condition_dead_recovered <- my_data_clean_aug %>%
-  filter(condition != "under treatment")
+# Functions ----------------------------------------------------------
+# Basic box plot of 1 variable, stratified on another eg condition or tumor
+box_plot <- function(data, col_name, x_label_str, stratify_col, legend_str) {
+  title_string <- str_c("Boxplot of", x_label_str, "stratified on", legend_str , sep = " ")
+  plot <- data %>%
+    ggplot(mapping = aes(x = {{col_name}}, 
+                         fill = {{stratify_col}})) +
+    geom_boxplot(alpha=0.5) +
+    labs(x = x_label_str, 
+         fill = legend_str) +
+    ggtitle(title_string) +
+    theme_minimal(base_family = "Avenir") 
+  
+  return(plot)
+}
+
+# Basic count plot of 1 variable, stratified on another eg condition or tumor
+count_plot <- function(data, col_name, x_label_str, stratify_col, legend_str) {
+  title_string <- str_c("Distribution of", x_label_str, "stratified on", legend_str , sep = " ")
+  plot <- data %>%
+    ggplot(mapping = aes(x = {{col_name}}, 
+                         fill = {{stratify_col}})) +
+    geom_bar(alpha=0.5, position = position_dodge(width = 0.95)) +
+    labs(x = x_label_str,
+         y = "Count",
+         fill = legend_str) +
+    ggtitle(title_string) +
+    theme_minimal(base_family = "Avenir") 
+  
+  return(plot)
+}
+
 
 # Visualise data ----------------------------------------------------------
 #### Overall distribution plots ####
@@ -43,6 +68,7 @@ numeric_boxplot <- my_data_clean_aug %>%
                     theme(plot.title = element_text(size=15, 
                                                     hjust = 0.5))
 
+
 # Histogram of numerical variables 
 numeric_hist_15_bins <- my_data_clean_aug %>%
                         select(-patient_id) %>%
@@ -56,6 +82,7 @@ numeric_hist_15_bins <- my_data_clean_aug %>%
                         theme(plot.title = element_text(size=15, 
                                                         hjust = 0.5))
   
+
 
 # Barchart of categorical variables 
 # Half the variables
@@ -102,7 +129,6 @@ categorical_bar_part2 <- my_data_clean_aug %>%
                                                           hjust = 0.5)
                           ) 
 
-
 ###### Single plots with stratification (uses plot functions) ########
 box_age_condition <- box_plot(my_data_clean_aug, 
                               age, 
@@ -123,8 +149,9 @@ count_smoking_condition <- count_plot(my_data_clean_aug,
                                       condition, 
                                       "Condition")
 
-# Here look at dead/recovered only
-count_radiation_condition <- count_plot(data_condition_dead_recovered, 
+radiation_subset <- my_data_clean_aug %>%
+  filter(condition != "under treatment") # only look at dead and recovered
+count_radiation_condition <- count_plot(radiation_subset, 
                                         radiation_history, 
                                         "Radiation History",
                                        condition, 
@@ -155,9 +182,9 @@ count_alcohol_condition <- count_plot(my_data_clean_aug,
 # Write data --------------------------------------------------------------
 ### Overall distribution plots ###
 ggsave(
-  "04_analysis_boxplot_numeric_variables.png",
+  "04_analysis_i_boxplot_numeric_variables.png",
   plot = numeric_boxplot,
-  path = "results/",
+  path = "results/plots/",
   device = "png",
   scale = 1,
   width = 20,
@@ -167,9 +194,9 @@ ggsave(
 )
 
 ggsave(
-  "04_analysis_histogram_15bins_numeric_variables.png",
+  "04_analysis_i_histogram_15bins_numeric_variables.png",
   plot = numeric_hist_15_bins,
-  path = "results/",
+  path = "results/plots/",
   device = "png",
   scale = 1,
   width = 20,
@@ -179,9 +206,9 @@ ggsave(
 )
 
 ggsave(
-  "04_analysis_barchart_categorical_education_to_heartmedicine.png",
+  "04_analysis_i_barchart_categorical_education_to_heartmedicine.png",
   plot = categorical_bar_part1,
-  path = "results/",
+  path = "results/plots/",
   device = "png",
   scale = 1,
   width = 20,
@@ -191,9 +218,9 @@ ggsave(
 )
 
 ggsave(
-  "04_analysis_barchart_categorical_gallmedicine_to_condition.png",
+  "04_analysis_i_barchart_categorical_gallmedicine_to_condition.png",
   plot = categorical_bar_part2,
-  path = "results/",
+  path = "results/plots/",
   device = "png",
   scale = 1,
   width = 25,
@@ -204,9 +231,9 @@ ggsave(
 
 ### Single plots stratified###
 ggsave(
-  "04_analysis_box_age_on_condition.png",
+  "04_analysis_i_box_age_on_condition.png",
   plot = box_age_condition,
-  path = "results/",
+  path = "results/plots/",
   device = "png",
   scale = 1,
   width = 16,
@@ -216,9 +243,9 @@ ggsave(
 )
 
 ggsave(
-  "04_analysis_box_tumor_on_condition.png",
+  "04_analysis_i_box_tumor_on_condition.png",
   plot = box_tumor_condition,
-  path = "results/",
+  path = "results/plots/",
   device = "png",
   scale = 1,
   width = 16,
@@ -228,9 +255,9 @@ ggsave(
 )
 
 ggsave(
-  "04_analysis_count_smoking_on_condition.png",
+  "04_analysis_i_count_smoking_on_condition.png",
   plot = count_smoking_condition,
-  path = "results/",
+  path = "results/plots/",
   device = "png",
   scale = 1,
   width = 16,
@@ -240,9 +267,9 @@ ggsave(
 )
 
 ggsave(
-  "04_analysis_count_radiation_on_condition.png",
+  "04_analysis_i_count_radiation_on_condition.png",
   plot = count_radiation_condition,
-  path = "results/",
+  path = "results/plots/",
   device = "png",
   scale = 1,
   width = 16,
@@ -252,9 +279,9 @@ ggsave(
 )
 
 ggsave(
-  "04_analysis_count_alcohol_on_condition.png",
+  "04_analysis_i_count_alcohol_on_condition.png",
   plot = count_alcohol_condition,
-  path = "results/",
+  path = "results/plots/",
   device = "png",
   scale = 1,
   width = 16,
@@ -264,9 +291,9 @@ ggsave(
 )
 
 ggsave(
-  "04_analysis_count_heart_medicine_on_condition.png",
+  "04_analysis_i_count_heart_medicine_on_condition.png",
   plot = count_heart_medicine_condition,
-  path = "results/",
+  path = "results/plots/",
   device = "png",
   scale = 1,
   width = 16,
@@ -276,9 +303,9 @@ ggsave(
 )
 
 ggsave(
-  "04_analysis_count_blood_pressure_medicine_on_condition.png",
+  "04_analysis_i_count_blood_pressure_medicine_on_condition.png",
   plot = count_blood_pressure_medicine_condition,
-  path = "results/",
+  path = "results/plots/",
   device = "png",
   scale = 1,
   width = 16,
@@ -288,9 +315,9 @@ ggsave(
 )
 
 ggsave(
-  "04_analysis_count_gallblader_medicine_on_condition.png",
+  "04_analysis_i_count_gallblader_medicine_on_condition.png",
   plot = count_gallblader_medicine_condition,
-  path = "results/",
+  path = "results/plots/",
   device = "png",
   scale = 1,
   width = 16,

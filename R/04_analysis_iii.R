@@ -47,9 +47,9 @@ final_plot<-plot1+plot2+plot3+plot4 +
 
 # Write data --------------------------------------------------------------
 ggsave(
-  "07_analysis_histogram_medicine_tumor.png",
+  "04_analysis_iii_histogram_medicine_tumor.png",
   plot = final_plot,
-  path = "results/",
+  path = "results/plots/",
   device = "png",
   scale = 1,
   width = 20,

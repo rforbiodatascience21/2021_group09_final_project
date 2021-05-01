@@ -95,13 +95,13 @@ MCA_aug_df <- my_data_clean_aug %>%
 
 MCA_aug_df %>%
   comb_countour_plot(x="MCA_1", y="MCA_2", grouping="Benign_malignant_cancer") %>%
-  ggsave(filename = "results/09_MCA_contour_tumorType.png")
+  ggsave(filename = "results/05_MCA_contour_tumorType.png")
 
 
 MCA_aug_df %>%
   filter(condition != "under treatment") %>%
   comb_countour_plot(x="MCA_1", y="MCA_2", grouping="condition") %>%
-  ggsave(filename = "results/09_MCA_contour_conditions.png")
+  ggsave(filename = "results/05_MCA_contour_conditions.png")
 
 
 # NOTE one could consider plotting the column values for the MCA variables.
