@@ -1,6 +1,5 @@
-#
 # Visualizations of data
-#
+#### Densitograms stratified on one variable
 
 # Clear workspace ---------------------------------------------------------
 rm(list = ls())
@@ -10,7 +9,7 @@ library(tidyverse)
 library(tidyr)
 library(dplyr)
 library(ggplot2)
-library(patchwork) #remember to install
+library(patchwork) 
 
 
 # Get functions --------------------------------------------------------

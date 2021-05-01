@@ -1,8 +1,7 @@
-# 
 # Script creates basic distribution plots of the different variables
 #### Boxplot of all numerical variables in one plot
 #### Histogram of all numerical variables in one plot
-#### Barchart of all categorical variables in one olot
+#### Barchart of all categorical variables in one plot
 #### Boxplots of 1 variable, stratified on another
 #### Countplots of 1 variable, stratified on another
 
@@ -23,13 +22,13 @@ source(file = "R/99_project_functions.R")
 my_data_clean_aug <- readRDS(file = "data/03_clean_augmented_combined_breastcancer_data.rds")
 
 # Wrangle data ---------------------------------------------------------------
-# Only look at samples with condition = dead or recovered
+# Only look at samples with condition = dead or = recovered
 data_condition_dead_recovered <- my_data_clean_aug %>%
   filter(condition != "under treatment")
 
 # Visualise data ----------------------------------------------------------
 #### Overall distribution plots ####
-# Boxplot of numerical variables 
+# Common boxplot of numerical variables 
 numeric_boxplot <- my_data_clean_aug %>%
                     select(-patient_id) %>%
                     select_if(is.numeric) %>%
@@ -43,7 +42,7 @@ numeric_boxplot <- my_data_clean_aug %>%
                     theme(plot.title = element_text(size=15, 
                                                     hjust = 0.5))
 
-# Histogram of numerical variables 
+# Common histogram of numerical variables 
 numeric_hist_15_bins <- my_data_clean_aug %>%
                         select(-patient_id) %>%
                         select_if(is.numeric) %>%
@@ -57,7 +56,7 @@ numeric_hist_15_bins <- my_data_clean_aug %>%
                                                         hjust = 0.5))
   
 
-# Barchart of categorical variables 
+# Common barchart of categorical variables 
 # Half the variables
 categorical_bar_part1 <- my_data_clean_aug %>%
                           select_if(is.factor) %>%
@@ -80,7 +79,7 @@ categorical_bar_part1 <- my_data_clean_aug %>%
                                                           hjust = 0.5)
                           ) 
 
-# The other half of the variables
+# Common barchart of the other half of the categorical variables
 categorical_bar_part2 <- my_data_clean_aug %>%
                           select_if(is.factor) %>%
                           select(taking_gallbladder_disease_medicine:condition, 
