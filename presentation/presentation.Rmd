@@ -13,7 +13,8 @@ output:
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE)
-
+library(tidyverse)
+clean_augmented_data <- read_csv(file = "clean_augmented_data.csv")
 ```
 
 ## Introduction
@@ -24,9 +25,14 @@ knitr::opts_chunk$set(echo = FALSE)
 ## Materials
 We are working with a dataset about Breast Cancer that we have obtained from this website: <https://www.kaggle.com/>
 
-<span style="font-weight:bold; color:red;">This text will appear red and bold</span>
+This is the dataset we are working with:
 
 
+
+```{r dataset}
+clean_augmented_data %>%
+  select(patient_id, education_type, id_healthcenter, id_treatment_region)
+```
 
 
 ## Cleaning the data
@@ -37,7 +43,7 @@ The data showed the following problems:
 - There was a birth date with 3 characters instead of 4.
 - There was a blood type 44, it doesn't make any sense.
 
-For statistical analysis, we have chosen only woman. 
+For statistical analysis, we have chosen only **women**. 
 
 ## Augmenting the data
 
@@ -46,13 +52,7 @@ For statistical analysis, we have chosen only woman.
 
 ## Statistical analysis and plots of the data
 
-```{r, fig.cap="Heat map, correlation of numeric variables", out.width = "600px"}
-knitr::include_graphics("04_2_heatmap.png")
-```
-
-
-
-
+![Image 1](04_2_heatmap.png){width=50%}![Image 2](04_analysis_i_barchart_categorical_education_to_heartmedicine.png){width=50%}
 
 # Results {.build}
 ## Results {.build}
@@ -68,19 +68,6 @@ We have reached the following conclusions
 ---
 <div class="final">Thanks for your attention</div>
 
-
-## R Markdown
-
-This is an R Markdown presentation. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
-
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document.
-
-
-## Slide with R Output
-
-```{r cars, fig.cap="A scatterplot.", echo = TRUE}
-summary(cars)
-```
 
 
 
