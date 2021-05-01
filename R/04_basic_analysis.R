@@ -1,6 +1,11 @@
 # 
 # Script creates basic distribution plots of the different variables
-#
+#### Boxplot of all numerical variables in one plot
+#### Histogram of all numerical variables in one plot
+#### Barchart of all categorical variables in one olot
+#### Boxplots of 1 variable, stratified on another
+#### Countplots of 1 variable, stratified on another
+
 
 # Clear workspace ---------------------------------------------------------
 rm(list = ls())
