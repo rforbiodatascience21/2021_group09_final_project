@@ -15,8 +15,6 @@ clean_data <- read_csv(file = "data/02_clean_combined_cases.csv")
 
 
 aug_data <- clean_data %>%
-  rename(Birth_control = 'Birth_control(Contraception)') %>%
-
     # Add names to categories
   mutate("education_name" = case_when(education == 0 ~ "Illiterate",
                                     education == 1 ~ "Elementary",
