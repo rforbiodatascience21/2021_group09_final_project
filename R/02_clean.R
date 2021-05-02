@@ -13,35 +13,49 @@ under_treatment_cases <- read_csv("data/01_under_treatment_cases.csv",na = "-")
 
 
 # Wrangle data ------------------------------------------------------------
-# age_FirstGivingBirth == 2 doesn't appear in description
-dead_cases <- dead_cases %>% 
-  filter(gender==0 & nchar(birth_date) == 4 & age_FirstGivingBirth !=2) %>%
-  mutate(treatment_age = treatment_data-as.numeric(birth_date))
 
-recovered_cases <- recovered_cases %>% 
-  filter(gender==0 & nchar(birth_date) == 4 & age_FirstGivingBirth !=2) %>%
-  mutate(treatment_age = treatment_data-as.numeric(birth_date))
+dead_cases <- dead_cases %>%
+  mutate(across(-condition, as.double))
 
-under_treatment_cases <- under_treatment_cases %>% 
-  filter(gender==0 & nchar(birth_date) == 4 & age_FirstGivingBirth !=2) %>%
-  mutate(treatment_age = treatment_data-as.numeric(birth_date))
+recovered_cases <- recovered_cases %>%
+  mutate(across(-condition, as.double))
 
-#Remove cariage return, newline from names (\r\n)
+under_treatment_cases <- under_treatment_cases %>%
+  mutate(across(-condition, as.double))
 
-names(dead_cases) <- map_chr(names(dead_cases), ~str_remove(string=.x, pattern = "\r\n"))
-names(recovered_cases) <- map_chr(names(recovered_cases), ~str_remove(string=.x, pattern = "\r\n"))
-names(under_treatment_cases) <- map_chr(names(under_treatment_cases), ~str_remove(string=.x, pattern = "\r\n"))
-names(dead_cases) <- map_chr(names(dead_cases), ~str_remove(string=.x, pattern = "\n"))
-names(recovered_cases) <- map_chr(names(recovered_cases), ~str_remove(string=.x, pattern = "\n"))
-names(under_treatment_cases) <- map_chr(names(under_treatment_cases), ~str_remove(string=.x, pattern = "\n"))
+
+comb_data <- dead_cases %>% 
+  full_join(recovered_cases) %>%
+  full_join(under_treatment_cases)
+
+#Remove cariage return, newline from names
+names(comb_data) <- map_chr(names(comb_data), ~str_remove(string=.x, pattern = "\r[\n]?"))
+
+comb_clean_data <- comb_data %>%
+  # Cleanup of binary variables
+  mutate(across(
+    .cols = c(hereditary_history,marital_status, marital_length,
+              pregnency_experience, age_FirstGivingBirth, abortion, taking_heartMedicine,
+              taking_blood_pressure_medicine, taking_gallbladder_disease_medicine, smoking,
+              alcohol, breast_pain, radiation_history, 'Birth_control(Contraception)', Benign_malignant_cancer),
+    ~ case_when(
+      is.na(.) ~ NA_real_,
+      . == 0   ~  0,
+      TRUE     ~  1)
+    )
+  ) %>%
+    # Cleanup of individual columns
+    mutate(
+      blood = ifelse(blood %in% seq(0,7), 
+                     yes=blood, no=NA_real_),
+      birth_date = ifelse(nchar(birth_date)==4,
+                          yes = birth_date, no = NA_real_)
+    )
+
 
 # Write data --------------------------------------------------------------
-write_csv(x = dead_cases, 
-          file = "data/02_clean_dead_cases.csv")
 
-write_csv(x = recovered_cases, 
-          file = "data/02_clean_recovered_cases.csv")
+write_csv(x = comb_clean_data,
+          file = "data/02_clean_combined_cases.csv")
 
-write_csv(x = under_treatment_cases, 
-          file = "data/02_clean_under_treatment_cases.csv")
 
