@@ -8,12 +8,14 @@ author:
 output:
   ioslides_presentation:
     css: slidestyle.css
+    df_print: kable
 ---
 
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE)
 library(tidyverse)
+library(kableExtra)
 clean_augmented_data <- read_csv(file = "clean_augmented_data.csv")
 ```
 
@@ -22,8 +24,8 @@ clean_augmented_data <- read_csv(file = "clean_augmented_data.csv")
 
 
 # Materials and methods
-## Materials
-We are working with a dataset about Breast Cancer that we have obtained from this website: <https://www.kaggle.com/>
+## Materials {.smaller}
+We are working with a dataset about Breast Cancer that we have obtained from [kaggle website](https://www.kaggle.com/)
 
 This is the dataset we are working with:
 
@@ -35,7 +37,7 @@ clean_augmented_data %>%
 ```
 
 
-## Cleaning the data
+## Cleaning the data {.smaller}
 The data showed the following problems:
 
 - Some columns had 3 values (0, 1, 2), but in the dataset description it appears that they should have only two values (0, 1) so we have considered that 1 and 2 are equal to 1
@@ -45,19 +47,55 @@ The data showed the following problems:
 
 For statistical analysis, we have chosen only **women**. 
 
-## Augmenting the data
+## Cleaning the data{.smaller}
 
-- We have added more columns to improve the information
+```{r}
+x <- data.frame(Before = c("0, 1, 2 values", "names with /r/n", "Birth date with 3 characters", "Blood type44"), After = c("bolean variables", "Clean names", "Birth date with 4 characters", "Correct blood types only"))
+x %>% 
+ kable() %>%
+ kable_styling("striped", full_width = FALSE, font_size = 20) %>%
+  kable_classic(full_width = F, html_font = "Cambria") %>%
+ column_spec(2, width = "20em") %>%
+ row_spec(0, bold = TRUE) %>%
+ row_spec(1, bold = FALSE) %>%
+ row_spec(2, bold = FALSE) %>%
+ row_spec(3, bold = FALSE)
+```
+
+For statistical analysis, we have chosen only **women**. 
+
+
+## Augmenting the data {.smaller}
+
+- We have added more informative columns 
 - We have changed the type of the columns
 
-## Statistical analysis and plots of the data
+## Statistical analysis and plots of the data {.smaller}
 
-![Image 1](04_2_heatmap.png){width=50%}![Image 2](04_analysis_i_barchart_categorical_education_to_heartmedicine.png){width=50%}
+![Analysis barchart categorical](04_analysis_barchart_categorical_education_to_heartmedicine.png){width=50%}![Analysis barchart categorical](04_analysis_barchart_categorical_gallmedicine_to_condition.png){width=50%}
+
+---
+
+![Analysis boxplot of age on condition](04_analysis_box_age_on_condition.png){width=50%}![Analysis boxplot of tumor on condition](04_analysis_box_tumor_on_condition.png){width=50%}
+
+---
+
+![Analysis boxplot of numeric variables](04_analysis_boxplot_numeric_variables.png){width=100%}
+
+---
+
+![Analysis count alcohol on condition](04_analysis_count_alcohol_on_condition.png){width=50%}![Analysis count blood pressure medicine on condition](04_analysis_count_blood_pressure_medicine_on_condition.png){width=50%}
+
+![Analysis count gallbladder medicine on condition](04_analysis_count_gallblader_medicine_on_condition.png){width=50%}![Analysis count heart medicine on condition](04_analysis_count_heart_medicine_on_condition.png){width=50%}
+
+---
+
+![Analysis count on condition](04_analysis_count_radiation_on_condition.png){width=50%}![Analysis count heart medicine on condition](04_analysis_count_smoking_on_condition.png){width=50%}
 
 # Results {.build}
-## Results {.build}
+## Results {.smaller}
 # Discussion
-## Discussion
+## Discussion {.smaller}
 # Conclusion
 
 ---

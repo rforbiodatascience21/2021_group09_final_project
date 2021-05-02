@@ -166,9 +166,33 @@ ggsave(
 )
 
 ggsave(
+  "04_analysis_boxplot_numeric_variables.png",
+  plot = numeric_boxplot,
+  path = "presentation/",
+  device = "png",
+  scale = 1,
+  width = 20,
+  height = 16,
+  units = "cm",
+  dpi = 500
+)
+
+ggsave(
   "04_analysis_histogram_15bins_numeric_variables.png",
   plot = numeric_hist_15_bins,
   path = "results/",
+  device = "png",
+  scale = 1,
+  width = 20,
+  height = 14,
+  units = "cm",
+  dpi = 500
+)
+
+ggsave(
+  "04_analysis_histogram_15bins_numeric_variables.png",
+  plot = numeric_hist_15_bins,
+  path = "presentation/",
   device = "png",
   scale = 1,
   width = 20,
@@ -190,9 +214,33 @@ ggsave(
 )
 
 ggsave(
+  "04_analysis_barchart_categorical_education_to_heartmedicine.png",
+  plot = categorical_bar_part1,
+  path = "presentation/",
+  device = "png",
+  scale = 1,
+  width = 25,
+  height = 16,
+  units = "cm",
+  dpi = 500
+)
+
+ggsave(
   "04_analysis_barchart_categorical_gallmedicine_to_condition.png",
   plot = categorical_bar_part2,
   path = "results/",
+  device = "png",
+  scale = 1,
+  width = 25,
+  height = 16,
+  units = "cm",
+  dpi = 500
+)
+
+ggsave(
+  "04_analysis_barchart_categorical_gallmedicine_to_condition.png",
+  plot = categorical_bar_part2,
+  path = "presentation/",
   device = "png",
   scale = 1,
   width = 25,
@@ -215,9 +263,33 @@ ggsave(
 )
 
 ggsave(
+  "04_analysis_box_age_on_condition.png",
+  plot = box_age_condition,
+  path = "presentation/",
+  device = "png",
+  scale = 1,
+  width = 16,
+  height = 10,
+  units = "cm",
+  dpi = 500
+)
+
+ggsave(
   "04_analysis_box_tumor_on_condition.png",
   plot = box_tumor_condition,
   path = "results/",
+  device = "png",
+  scale = 1,
+  width = 16,
+  height = 10,
+  units = "cm",
+  dpi = 500
+)
+
+ggsave(
+  "04_analysis_box_tumor_on_condition.png",
+  plot = box_tumor_condition,
+  path = "presentation/",
   device = "png",
   scale = 1,
   width = 16,
@@ -239,9 +311,33 @@ ggsave(
 )
 
 ggsave(
+  "04_analysis_count_smoking_on_condition.png",
+  plot = count_smoking_condition,
+  path = "presentation/",
+  device = "png",
+  scale = 1,
+  width = 16,
+  height = 10,
+  units = "cm",
+  dpi = 500
+)
+
+ggsave(
   "04_analysis_count_radiation_on_condition.png",
   plot = count_radiation_condition,
   path = "results/",
+  device = "png",
+  scale = 1,
+  width = 16,
+  height = 10,
+  units = "cm",
+  dpi = 500
+)
+
+ggsave(
+  "04_analysis_count_radiation_on_condition.png",
+  plot = count_radiation_condition,
+  path = "presentation/",
   device = "png",
   scale = 1,
   width = 16,
@@ -263,9 +359,33 @@ ggsave(
 )
 
 ggsave(
+  "04_analysis_count_alcohol_on_condition.png",
+  plot = count_alcohol_condition,
+  path = "presentation/",
+  device = "png",
+  scale = 1,
+  width = 16,
+  height = 10,
+  units = "cm",
+  dpi = 500
+)
+
+ggsave(
   "04_analysis_count_heart_medicine_on_condition.png",
   plot = count_heart_medicine_condition,
   path = "results/",
+  device = "png",
+  scale = 1,
+  width = 16,
+  height = 10,
+  units = "cm",
+  dpi = 500
+)
+
+ggsave(
+  "04_analysis_count_heart_medicine_on_condition.png",
+  plot = count_heart_medicine_condition,
+  path = "presentation/",
   device = "png",
   scale = 1,
   width = 16,
@@ -287,9 +407,33 @@ ggsave(
 )
 
 ggsave(
+  "04_analysis_count_blood_pressure_medicine_on_condition.png",
+  plot = count_blood_pressure_medicine_condition,
+  path = "presentation/",
+  device = "png",
+  scale = 1,
+  width = 16,
+  height = 10,
+  units = "cm",
+  dpi = 500
+)
+
+ggsave(
   "04_analysis_count_gallblader_medicine_on_condition.png",
   plot = count_gallblader_medicine_condition,
   path = "results/",
+  device = "png",
+  scale = 1,
+  width = 16,
+  height = 10,
+  units = "cm",
+  dpi = 500
+)
+
+ggsave(
+  "04_analysis_count_gallblader_medicine_on_condition.png",
+  plot = count_gallblader_medicine_condition,
+  path = "presentation/",
   device = "png",
   scale = 1,
   width = 16,
