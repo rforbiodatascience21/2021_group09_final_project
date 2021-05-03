@@ -46,10 +46,10 @@ aug_data <- clean_data %>%
                                        menopausal_age == 2 ~ "above 50")) %>%
   
   mutate("Benign_malignant_cancer" = case_when(Benign_malignant_cancer == 0 ~ "Benign",
-                                                    Benign_malignant_cancer == 1 ~ "Malignant")) %>%
+                                               Benign_malignant_cancer == 1 ~ "Malignant")) %>%
   
   mutate("marital_length" = case_when(marital_length == 0 ~ "under 10 years",
-                                               Benign_malignant_cancer == 1 ~ "above 10 years")) %>%
+                                      marital_length == 1 ~ "above 10 years")) %>%
 
   # Add new columns
   mutate(
