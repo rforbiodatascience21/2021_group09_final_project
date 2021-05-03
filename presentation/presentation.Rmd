@@ -37,7 +37,7 @@ clean_augmented_data
 clean_augmented_data <- readRDS(file = "/cloud/project/data/03_clean_augmented_combined_breastcancer_data.rds")
 
 clean_augmented_data %>%
-  select(patient_id, education_type, id_healthcenter, id_treatment_region)
+  select(patient_id, education_name, id_healthcenter, id_treatment_region)
 ```
 
 
