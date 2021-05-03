@@ -20,8 +20,15 @@ knitr::opts_knit$set(root.dir = here::here()) #root dir for file to project root
 ```
 
 
-## Introduction
+## Introduction {.smaller}
 
+The main aim is predicting breast cancer patients chance of survival.  
+
+- [Clean the data](#1)
+- [Augment the data](#2)
+- [Create some plots](#3)
+- [Statistical analysis](#4)
+- Create the prediction tool
 
 
 # Materials and methods
@@ -40,7 +47,7 @@ clean_augmented_data %>%
 ```
 
 
-## Cleaning the data{.smaller}
+## Cleaning the data{.smaller #1}
 
 ```{r}
 x <- data.frame(Before = c("The columns are different types","0, 1, 2 values", "names with /r/n", "Birth date with 3 characters", "Blood type44"), After = c("All the columns are considered as doubles","bolean variables", "Clean names", "Birth date with 4 characters", "Correct blood types only"))
@@ -58,7 +65,7 @@ x %>%
 For statistical analysis, we have chosen only **women**. 
 
 
-## Augmenting the data {.smaller}
+## Augmenting the data {.smaller #augment}
 
 - We have added more informative columns 
 - We have changed the type of the columns
@@ -67,7 +74,7 @@ For statistical analysis, we have chosen only **women**.
 
 We have created some plots in order to fully understand the data and we have done some statistical analysis like MCA analysis. The plots are shown in the following point: "Results"
 
-# Results
+# Results {#plots}
 ## Plots of the data {.smaller}
 
 ![Analysis barchart categorical](/cloud/project/results/04_analysis_barchart_categorical_education_to_heartmedicine.png){width=50%}![Analysis barchart categorical](/cloud/project/results/04_analysis_barchart_categorical_gallmedicine_to_condition.png){width=50%}
@@ -118,7 +125,7 @@ knitr::include_graphics("/cloud/project/results/08_gif_birth_age_treatment_age.g
 
 ![MCA_contour_conditions](/cloud/project/results/09_MCA_contour_conditions.png){width=50%}![HMCA_contour_tumorType](/cloud/project/results/09_MCA_contour_tumorType.png){width=50%}
 
-# Discussion
+# Discussion {#statistics}
 ## Discussion {.smaller}
 # Conclusion
 
