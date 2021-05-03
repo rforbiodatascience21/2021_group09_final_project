@@ -1,3 +1,5 @@
+# Heatmap to show how are the variables corelated 
+
 # Clear workspace ---------------------------------------------------------
 rm(list = ls())
 

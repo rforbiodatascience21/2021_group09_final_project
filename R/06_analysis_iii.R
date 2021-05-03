@@ -1,6 +1,7 @@
 # 
-# Script creates plots of different relations
-#
+# Histograms on one variable classified according to a condition 
+# (having taken some kind of medicines or treatments) that could
+# increase the probabilities of having a cancer breast
 
 # Clear workspace ---------------------------------------------------------
 rm(list = ls())
