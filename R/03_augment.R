@@ -69,6 +69,4 @@ aug_data <- clean_data %>%
 # Write data ---------------------------------------------------------------
 
 saveRDS(aug_data, file = "data/03_clean_augmented_combined_breastcancer_data.rds")
-write_csv(x = clean_data, 
-          file = "presentation/clean_augmented_data.csv")
 
