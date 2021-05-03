@@ -1,0 +1,7 @@
+"","model","term","class","estimate"
+"1","Max_pred","accuracy",NA,0.572
+"2","Red_pred","accuracy",NA,0.592
+"3","Max_pred","sensitivity","Benign",0.23
+"4","Red_pred","sensitivity","Benign",0.21
+"5","Max_pred","specificity","Benign",0.8
+"6","Red_pred","specificity","Benign",0.846666666666667
