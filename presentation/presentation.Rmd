@@ -53,7 +53,7 @@ For statistical analysis, we have chosen only **women**.
 ## Cleaning the data{.smaller}
 
 ```{r}
-x <- data.frame(Before = c("0, 1, 2 values", "names with /r/n", "Birth date with 3 characters", "Blood type44"), After = c("bolean variables", "Clean names", "Birth date with 4 characters", "Correct blood types only"))
+x <- data.frame(Before = c("The columns are different types","0, 1, 2 values", "names with /r/n", "Birth date with 3 characters", "Blood type44"), After = c("All the columns are considered as doubles","bolean variables", "Clean names", "Birth date with 4 characters", "Correct blood types only"))
 x %>% 
  kable() %>%
  kable_styling("striped", full_width = FALSE, font_size = 20) %>%
@@ -72,6 +72,10 @@ For statistical analysis, we have chosen only **women**.
 
 - We have added more informative columns 
 - We have changed the type of the columns
+
+## Statistical analysis {.smaller}
+
+We have created some plots in order to fully understand the data and we have done some statistical analysis like MCA analysis. The plots are shown in the following point: "Results"
 
 # Results
 ## Plots of the data {.smaller}
