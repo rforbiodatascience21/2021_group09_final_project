@@ -6,7 +6,7 @@ rm(list = ls())
 library(tidyverse)
 library(patchwork)
 require(nnet)
-set.seed(777)
+
 
 # Define functions --------------------------------------------------------
 
@@ -14,9 +14,9 @@ set.seed(777)
 
 
 # Load data ---------------------------------------------------------------
-my_data_clean_aug <- readRDS(file = "data/03_clean_augmented_combined_breastcancer_data.rds")
+data_clean_aug <- readRDS(file = "data/03_clean_augmented_combined_breastcancer_data.rds")
 
-
+set.seed(777)
 
 # Split into training and test --------------------------------------------
 
@@ -43,12 +43,14 @@ col_of_interest = c(
   "breast_pain"
 )
 
-analysis_df <- my_data_clean_aug %>%
+analysis_df <- data_clean_aug %>%
   drop_na() %>%
   droplevels.data.frame() %>%
-  select(all_of(col_of_interest))
+  select(all_of(col_of_interest)) %>%
+  mutate(
+    Benign_malignant_cancer = relevel(Benign_malignant_cancer, "Malignant")
+  )
 
-# COnsider doing a proper k-fold series to estimate generalisation error
 
 
 
@@ -60,6 +62,7 @@ train <- sample_frac(analysis_df, 0.7)
 test <- analysis_df %>%
   anti_join(train, b="patient_id")
 
+baseline = DescTools::Mode(pluck(test, "Benign_malignant_cancer"))
 
 multinom.fit <- multinom(Benign_malignant_cancer ~ . -patient_id -1, data=train) #All variables except patient ID and bias
 
@@ -80,7 +83,8 @@ summary(multinom.fit.reduced)
 test <- test %>%
   mutate(
     "Max_pred" = predict(multinom.fit, newdata = ., "class"),
-    "Red_pred" = predict(multinom.fit.reduced, newdata = ., "class")
+    "Red_pred" = predict(multinom.fit.reduced, newdata = ., "class"),
+    "baseline" = baseline
   ) %>%
   drop_na()
 
@@ -88,9 +92,10 @@ test <- test %>%
 suma <- test %>%
   summarize(
     "Max_pred" = tidy(caret::confusionMatrix(Max_pred, Benign_malignant_cancer)),
-    "Red_pred" = tidy(caret::confusionMatrix(Red_pred, Benign_malignant_cancer))
+    "Red_pred" = tidy(caret::confusionMatrix(Red_pred, Benign_malignant_cancer)),
+    "baseline" = tidy(caret::confusionMatrix(baseline, Benign_malignant_cancer))
   ) %>%
-  pivot_longer(c(Max_pred, Red_pred), names_to = "model", values_to = "terms") %>%
+  pivot_longer(c(Max_pred, Red_pred, baseline), names_to = "model", values_to = "terms") %>%
   bind_cols(pluck(., "terms")) %>%   # couldn't be done with unnest() since "terms" had dim= [,6] [28,6]?
   select(-terms) %>%
   select(model, term, class, estimate) %>%
@@ -102,6 +107,6 @@ suma <- test %>%
 
 
 
-write.csv(suma, "results/10_Model_performance_tumor.csv")
+write.csv(suma, "results/10_Model_performance_tumor.csv",row.names = FALSE)
 saveRDS(multinom.fit, "results/10_maxModel_tumor.RDS")
 

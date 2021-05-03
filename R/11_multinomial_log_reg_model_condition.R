@@ -15,7 +15,7 @@ set.seed(777)
 
 
 # Load data ---------------------------------------------------------------
-my_data_clean_aug <- readRDS(file = "data/03_clean_augmented_combined_breastcancer_data.rds")
+data_clean_aug <- readRDS(file = "data/03_clean_augmented_combined_breastcancer_data.rds")
 
 
 
@@ -45,7 +45,7 @@ col_of_interest = c(
   "condition"
 )
 
-analysis_df <- my_data_clean_aug %>%
+analysis_df <- data_clean_aug %>%
   filter(condition != "under treatment") %>%
   select(all_of(col_of_interest)) %>%
   drop_na() %>%
@@ -63,6 +63,7 @@ train <- sample_frac(analysis_df, 0.7)
 test <- analysis_df %>%
   anti_join(train, b="patient_id")
 
+baseline = DescTools::Mode(pluck(test, "condition"))
 
 multinom.fit <- multinom(condition ~ . -patient_id -1, data=train) #All variables except patient ID and bias
 
@@ -82,7 +83,8 @@ summary(multinom.fit.reduced)
 test <- test %>%
   mutate(
     "Max_pred" = predict(multinom.fit, newdata = ., "class"),
-    "Red_pred" = predict(multinom.fit.reduced, newdata = ., "class")
+    "Red_pred" = predict(multinom.fit.reduced, newdata = ., "class"),
+    "baseline" = baseline
   ) %>%
   drop_na()
 
@@ -90,9 +92,10 @@ test <- test %>%
 suma <- test %>%
   summarize(
     "Max_pred" = tidy(caret::confusionMatrix(Max_pred, condition)),
-    "Red_pred" = tidy(caret::confusionMatrix(Red_pred, condition))
+    "Red_pred" = tidy(caret::confusionMatrix(Red_pred, condition)),
+    "baseline" = tidy(caret::confusionMatrix(baseline, condition))
   ) %>%
-  pivot_longer(c(Max_pred, Red_pred), names_to = "model", values_to = "terms") %>%
+  pivot_longer(c(Max_pred, Red_pred, baseline), names_to = "model", values_to = "terms") %>%
   bind_cols(pluck(., "terms")) %>%   # couldn't be done with unnest() since "terms" had dim= [,6] [28,6]?
   select(-terms) %>%
   select(model, term, class, estimate) %>%
@@ -102,5 +105,5 @@ suma <- test %>%
 
 # Writing performance and model -------------------------------------------
 
-write.csv(suma, "results/11_Model_performance_condition.csv")
+write.csv(suma, "results/11_Model_performance_condition.csv", row.names = FALSE)
 saveRDS(multinom.fit, "results/11_maxModel_condition.RDS")
