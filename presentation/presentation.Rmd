@@ -58,18 +58,16 @@ clean_augmented_data %>%
   stat_smooth(method = "lm", col = "red")
 ```
 
+---
 
 ```{r}
-x <- data.frame(Before = c("The columns are different types","0, 1, 2 values", "names with /r/n", "Birth date with 3 characters", "Blood type44"), After = c("All the columns are considered as doubles","bolean variables", "Clean names", "Birth date with 4 characters", "Correct blood types only"))
+x <- data.frame(Before = c("The columns are different types","0, 1, 2 values", "names with /r/n", "Birth date with 3 characters", "Blood type44", "Weird weight/age correlations"), After = c("All the columns are considered as doubles","bolean variables", "Clean names", "Birth date with 4 characters", "Correct blood types only", "Eliminating people under 18 years old"))
 x %>% 
  kable() %>%
  kable_styling("striped", full_width = FALSE, font_size = 20) %>%
   kable_classic(full_width = F, html_font = "Cambria") %>%
  column_spec(2, width = "20em") %>%
- row_spec(0, bold = TRUE) %>%
- row_spec(1, bold = FALSE) %>%
- row_spec(2, bold = FALSE) %>%
- row_spec(3, bold = FALSE)
+ row_spec(0, bold = TRUE)
 ```
 
 For statistical analysis, we have chosen only **women**. 
@@ -90,7 +88,8 @@ We have created some plots in order to fully understand the data and we have don
 ![Analysis barchart categorical](/cloud/project/results/04_analysis_barchart_categorical_education_to_heartmedicine.png){width=50%}![Analysis barchart categorical](/cloud/project/results/04_analysis_barchart_categorical_gallmedicine_to_condition.png){width=50%}
 
 - Cultural variables we don't actually need (education, marital_state)
-- Variables that affect health (medicines, vicious habits) have a great incidence in breast cancer patients
+- Variables that affect health (medicines, vicious habits) have a great incidence in breast cancer patients 
+- Early menstrual periods before age 12 and starting menopause after age 55 expose women to hormones longer, raising their risk of getting breast cancer
 
 
 ---

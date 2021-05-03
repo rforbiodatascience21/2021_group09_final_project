@@ -72,7 +72,11 @@ aug_data <- clean_data %>%
   # we still need a source for removing low weight people: now below 35kg is 'randomly' chosen
 
 aug_data <- aug_data %>%
-  filter(age >= 20, weight >= 35) 
+  # Filter all people under 20 years old and 35 kg
+  filter(age >= 20, weight <= 35) %>%
+  # Calculate marriage age and eliminate those who have married under 18
+  mutate(age_marriage = as.numeric(age) - as.numeric(marital_length)) %>%
+  filter(age_marriage > 18) 
 
 
 
