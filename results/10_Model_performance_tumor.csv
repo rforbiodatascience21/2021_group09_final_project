@@ -1,7 +1,10 @@
-"","model","term","class","estimate"
-"1","Max_pred","accuracy",NA,0.572
-"2","Red_pred","accuracy",NA,0.592
-"3","Max_pred","sensitivity","Benign",0.23
-"4","Red_pred","sensitivity","Benign",0.21
-"5","Max_pred","specificity","Benign",0.8
-"6","Red_pred","specificity","Benign",0.846666666666667
+"model","term","class","estimate"
+"Max_pred","accuracy",NA,0.572
+"Red_pred","accuracy",NA,0.592
+"baseline","accuracy",NA,0.6
+"Max_pred","sensitivity","Malignant",0.8
+"Red_pred","sensitivity","Malignant",0.846666666666667
+"baseline","sensitivity","Malignant",1
+"Max_pred","specificity","Malignant",0.23
+"Red_pred","specificity","Malignant",0.21
+"baseline","specificity","Malignant",0
