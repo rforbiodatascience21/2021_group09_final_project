@@ -64,8 +64,16 @@ aug_data <- clean_data %>%
   filter(gender == 0) %>%
   
   # Remove singular columns
-  select_if(function(col) length(unique(col)) > 1)
-  
+  select_if(function(col) length(unique(col)) > 1) 
+
+# Remove inconsistencies in the data
+  # Based on UK statistics, only look at women above 20 years old
+  # (https://www.cancerresearchuk.org/health-professional/cancer-statistics/statistics-by-cancer-type/breast-cancer/incidence-invasive#heading-One)
+  # we still need a source for removing low weight people: now below 35kg is 'randomly' chosen
+
+aug_data <- aug_data %>%
+  filter(age >= 20, weight >= 35) 
+
 
 
 # Write data ---------------------------------------------------------------
