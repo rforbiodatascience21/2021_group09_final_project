@@ -1,6 +1,7 @@
 # 
-# Script creates plots of different relations
-#
+# Histograms on one variable classified according to a condition 
+# (having taken some kind of medicines or treatments) that could
+# increase the probabilities of having a cancer breast
 
 # Clear workspace ---------------------------------------------------------
 rm(list = ls())
@@ -50,18 +51,6 @@ ggsave(
   "06_analysis_iii_histogram_medicine_tumor.png",
   plot = final_plot,
   path = "results/",
-  device = "png",
-  scale = 1,
-  width = 20,
-  height = 16,
-  units = "cm",
-  dpi = 500
-)
-
-ggsave(
-  "06_analysis_iii_histogram_medicine_tumor.png",
-  plot = final_plot,
-  path = "presentation/",
   device = "png",
   scale = 1,
   width = 20,

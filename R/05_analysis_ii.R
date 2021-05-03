@@ -128,33 +128,11 @@ ggsave(
   units = "cm",
   dpi = 500)
 
-ggsave(
-  "05_analysis_ii_densitograms_on_condition.png",
-  plot = densitogram_condition,
-  path = "presentation/",
-  device = "png",
-  scale = 1,
-  width = 17,
-  height = 12,
-  units = "cm",
-  dpi = 500)
-
 
 ggsave(
   "05_analysis_ii_densitograms_on_tumor.png",
   plot = densitogram_tumor,
   path = "results/",
-  device = "png",
-  scale = 1,
-  width = 17,
-  height = 12,
-  units = "cm",
-  dpi = 500)
-
-ggsave(
-  "05_analysis_ii_densitograms_on_tumor.png",
-  plot = densitogram_tumor,
-  path = "presentation/",
   device = "png",
   scale = 1,
   width = 17,
