@@ -6,7 +6,7 @@ rm(list = ls())
 library(tidyverse)
 library(patchwork)
 require(nnet)
-
+set.seed(777)
 
 # Define functions --------------------------------------------------------
 
@@ -74,19 +74,9 @@ summary(multinom.fit.reduced)
 
 # Testing models ----------------------------------------------------------
 
-# Accuracy on training set:
 
-train <- train %>%
-  mutate(
-    "Max_pred" = as.factor(predict(multinom.fit, newdata = ., "class")),
-    "Red_pred" =as.factor(predict(multinom.fit.reduced, newdata = ., "class"))
-    ) %>%
-  drop_na()
 
-caret::confusionMatrix(pluck(train, "Max_pred"), pluck(train,"Benign_malignant_cancer"))
-caret::confusionMatrix(pluck(train, "Red_pred"), pluck(train,"Benign_malignant_cancer"))
-
-# Accuracy on test set:
+# Prediction
 test <- test %>%
   mutate(
     "Max_pred" = predict(multinom.fit, newdata = ., "class"),
@@ -94,7 +84,24 @@ test <- test %>%
   ) %>%
   drop_na()
 
+# Evaluation
+suma <- test %>%
+  summarize(
+    "Max_pred" = tidy(caret::confusionMatrix(Max_pred, Benign_malignant_cancer)),
+    "Red_pred" = tidy(caret::confusionMatrix(Red_pred, Benign_malignant_cancer))
+  ) %>%
+  pivot_longer(c(Max_pred, Red_pred), names_to = "model", values_to = "terms") %>%
+  bind_cols(pluck(., "terms")) %>%   # couldn't be done with unnest() since "terms" had dim= [,6] [28,6]?
+  select(-terms) %>%
+  select(model, term, class, estimate) %>%
+  filter(term %in% c("accuracy", "sensitivity", "specificity"))
 
-caret::confusionMatrix(pluck(test, "Max_pred"), pluck(test,"Benign_malignant_cancer"))
-caret::confusionMatrix(pluck(test, "Red_pred"), pluck(test,"Benign_malignant_cancer"))
+
+
+# Writing performance and  model ------------------------------------------
+
+
+
+write.csv(suma, "results/10_Model_performance_tumor.csv")
+saveRDS(multinom.fit, "results/10_maxModel_tumor.RDS")
 
