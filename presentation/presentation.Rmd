@@ -104,6 +104,12 @@ knitr::include_graphics("/cloud/project/results/04_analysis_boxplot_numeric_vari
 
 ---
 
+- In the data, most of the people is quite young (under 40)
+- The treatment age is consistent with the age of the patients
+- The thickness tumor is the most changing variable
+
+---
+
 ![Analysis count alcohol on condition](/cloud/project/results/04_analysis_count_alcohol_on_condition.png){width=50%}![Analysis count blood pressure medicine on condition](/cloud/project/results/04_analysis_count_blood_pressure_medicine_on_condition.png){width=50%}
 
 ![Analysis count gallbladder medicine on condition](/cloud/project/results/04_analysis_count_gallblader_medicine_on_condition.png){width=50%}![Analysis count heart medicine on condition](/cloud/project/results/04_analysis_count_heart_medicine_on_condition.png){width=50%}
@@ -112,9 +118,24 @@ knitr::include_graphics("/cloud/project/results/04_analysis_boxplot_numeric_vari
 
 ![Analysis count on condition](/cloud/project/results/04_analysis_count_radiation_on_condition.png){width=50%}![Analysis count heart medicine on condition](/cloud/project/results/04_analysis_count_smoking_on_condition.png){width=50%}
 
+- In all the cases, the recovered fraction is the lowest one.
+- In the radiation history, the patients who have not suffered from radiation have recovered better than the ones that have had radiation.
+- In most cases, when having taken medicine the recovery is better.
+- In most cases, when having taking medicine the death is higher (no sense).
+- Not drinking alcohol or smoking improves recovery.
+- When taking alcohol and smoking the death is lower (it doesn't make any sense)
+- These are absolute values, maybe we should calculate some relative values
+
 ---
 
 ![Analysis count on condition](/cloud/project/results/05_analysis_ii_densitograms_on_condition.png){width=50%}![Analysis count heart medicine on condition](/cloud/project/results/05_analysis_ii_densitograms_on_tumor.png){width=50%}
+
+- Above 40 years old, the possibilities for recovering from a breast cancer are higher
+- The weight is higher in recovered patients
+- Patients who died weighted very low (around 25 kg)
+- In addition, other group of persons who died weighted 75 kg
+- Thickness of tumor is bigger in patients who died
+
 
 ---
 
