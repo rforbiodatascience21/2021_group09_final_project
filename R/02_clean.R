@@ -34,7 +34,7 @@ comb_data <- dead_cases %>%
 comb_clean_data <- comb_data %>%
   # Cleanup of column names
   rename_with(.cols=everything(), 
-              ~str_remove(string=.x, pattern = "\r[\n]?") ) %>%
+              ~str_remove(string=.x, pattern = "[\r]?\n")) %>%
   rename(Birth_control = 'Birth_control(Contraception)') %>%
   # Cleanup of binary variables
   mutate(across(
