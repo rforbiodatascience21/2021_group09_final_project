@@ -184,8 +184,8 @@ ggsave(
   path = "results/",
   device = "png",
   scale = 1,
-  width = 20,
-  height = 16,
+  width = 25,
+  height = 18,
   units = "cm",
   dpi = 500
 )
@@ -198,7 +198,7 @@ ggsave(
   device = "png",
   scale = 1,
   width = 25,
-  height = 16,
+  height = 18,
   units = "cm",
   dpi = 500
 )
