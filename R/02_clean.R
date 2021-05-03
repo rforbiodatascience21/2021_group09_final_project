@@ -28,10 +28,13 @@ comb_data <- dead_cases %>%
   full_join(recovered_cases) %>%
   full_join(under_treatment_cases)
 
-#Remove cariage return, newline from names
-names(comb_data) <- map_chr(names(comb_data), ~str_remove(string=.x, pattern = "\r[\n]?"))
+
+
 
 comb_clean_data <- comb_data %>%
+  # Cleanup of column names
+  rename_with(.cols=everything(), 
+              ~str_remove(string=.x, pattern = "\r[\n]?") ) %>%
   rename(Birth_control = 'Birth_control(Contraception)') %>%
   # Cleanup of binary variables
   mutate(across(
@@ -45,7 +48,7 @@ comb_clean_data <- comb_data %>%
       TRUE     ~  1)
     )
   ) %>%
-    # Cleanup of individual columns
+  # Cleanup of individual columns
     mutate(
       blood = ifelse(blood %in% seq(0,7), 
                      yes=blood, no=NA_real_),
