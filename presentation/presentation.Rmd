@@ -17,7 +17,10 @@ knitr::opts_chunk$set(echo = FALSE)
 library(tidyverse)
 library(kableExtra)
 clean_augmented_data <- read_csv(file = "clean_augmented_data.csv")
+
+knitr::opts_knit$set(root.dir = here::here()) #root dir for file to project root dir
 ```
+
 
 ## Introduction
 
