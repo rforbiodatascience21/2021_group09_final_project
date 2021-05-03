@@ -54,7 +54,7 @@ aug_data <- clean_data %>%
   ) %>%
   # Change to categories
   mutate(across(
-    .cols = -c(age, treatment_age, weight, thickness_tumor),
+    .cols = -c(age, treatment_age, weight, thickness_tumor, birth_date),
     as.factor)
   ) %>%
   # Filter out men
