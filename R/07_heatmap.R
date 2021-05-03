@@ -64,15 +64,5 @@ ggsave(
   dpi = 500
 )
 
-ggsave(
-  "07_heatmap.png",
-  plot = corr_heatmap,
-  path = "presentation/",
-  device = "png",
-  scale = 1,
-  width = 10,
-  height = 8,
-  units = "cm",
-  dpi = 500
-)
+
 

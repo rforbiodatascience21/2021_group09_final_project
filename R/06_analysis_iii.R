@@ -58,18 +58,6 @@ ggsave(
   dpi = 500
 )
 
-ggsave(
-  "06_analysis_iii_histogram_medicine_tumor.png",
-  plot = final_plot,
-  path = "presentation/",
-  device = "png",
-  scale = 1,
-  width = 20,
-  height = 16,
-  units = "cm",
-  dpi = 500
-)
-
 
 
 
