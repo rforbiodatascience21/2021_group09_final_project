@@ -50,6 +50,16 @@ clean_augmented_data %>%
 ## Cleaning the data{.smaller #1}
 
 ```{r}
+clean_augmented_data %>%
+  select(weight, age) %>%
+  filter(age<20) %>%
+  ggplot(mapping = aes(x = age, y = weight)) +
+  geom_point()+
+  stat_smooth(method = "lm", col = "red")
+```
+
+
+```{r}
 x <- data.frame(Before = c("The columns are different types","0, 1, 2 values", "names with /r/n", "Birth date with 3 characters", "Blood type44"), After = c("All the columns are considered as doubles","bolean variables", "Clean names", "Birth date with 4 characters", "Correct blood types only"))
 x %>% 
  kable() %>%
@@ -78,6 +88,10 @@ We have created some plots in order to fully understand the data and we have don
 ## Plots of the data {.smaller}
 
 ![Analysis barchart categorical](/cloud/project/results/04_analysis_barchart_categorical_education_to_heartmedicine.png){width=50%}![Analysis barchart categorical](/cloud/project/results/04_analysis_barchart_categorical_gallmedicine_to_condition.png){width=50%}
+
+- Cultural variables we don't actually need (education, marital_state)
+- Variables that affect health (medicines, vicious habits) have a great incidence in breast cancer patients
+
 
 ---
 
