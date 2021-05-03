@@ -16,8 +16,6 @@ output:
 knitr::opts_chunk$set(echo = FALSE)
 library(tidyverse)
 library(kableExtra)
-clean_augmented_data <- read_csv(file = "clean_augmented_data.csv")
-
 knitr::opts_knit$set(root.dir = here::here()) #root dir for file to project root dir
 ```
 
@@ -35,6 +33,8 @@ This is the dataset we are working with:
 
 
 ```{r dataset}
+clean_augmented_data <- readRDS(file = "/cloud/project/data/03_clean_augmented_combined_breastcancer_data.rds")
+
 clean_augmented_data %>%
   select(patient_id, education_type, id_healthcenter, id_treatment_region)
 ```
