@@ -44,7 +44,20 @@ densitogram_plot <- function(data, col_name, x_label_str, stratify_col, legend_s
   return(plot)
 }
 
-
+# Basic histogram of 1 variable, stratified on another, eg condition or tumor
+hist_plot <- function(data, col_name, x_label_str, stratify_col, legend_str) {
+  title_string <- str_c("Distribution of", x_label_str, "stratified on", legend_str , sep = " ")
+  plot <- data %>%
+    ggplot(mapping = aes(x = {{col_name}}, 
+                         fill = {{stratify_col}})) +
+    geom_histogram(binwidth = 0.05) +
+    ggtitle(title_string) +
+    theme(legend.title = element_text(size = 7)) +
+    scale_x_discrete(name = x_label_str)+
+    labs(fill=legend_str)
+  
+  return(plot)
+}
 
 # XX functions ------------------------------------------------
 

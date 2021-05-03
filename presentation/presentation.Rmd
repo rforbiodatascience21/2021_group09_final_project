@@ -33,17 +33,16 @@ The main aim is predicting breast cancer patients chance of survival.
 
 # Materials and methods
 ## Materials {.smaller}
+
 We are working with a dataset about Breast Cancer that we have obtained from [kaggle website](https://www.kaggle.com/)
 
 This is the dataset we are working with:
 
 
-
 ```{r dataset}
 clean_augmented_data <- readRDS(file = "/cloud/project/data/03_clean_augmented_combined_breastcancer_data.rds")
 
-clean_augmented_data %>%
-  select(patient_id, education, id_healthcenter, id_treatment_region)
+summary(clean_augmented_data)
 ```
 
 
@@ -87,14 +86,19 @@ We have created some plots in order to fully understand the data and we have don
 
 ![Analysis barchart categorical](/cloud/project/results/04_analysis_barchart_categorical_education_to_heartmedicine.png){width=50%}![Analysis barchart categorical](/cloud/project/results/04_analysis_barchart_categorical_gallmedicine_to_condition.png){width=50%}
 
+<div style="font-size: 0.75em">
 - Cultural variables we don't actually need (education, marital_state)
 - Variables that affect health (medicines, vicious habits) have a great incidence in breast cancer patients 
 - Early menstrual periods before age 12 and starting menopause after age 55 expose women to hormones longer, raising their risk of getting breast cancer
-
+</div>
 
 ---
 
 ![Analysis boxplot of age on condition](/cloud/project/results/04_analysis_box_age_on_condition.png){width=50%}![Analysis boxplot of tumor on condition](/cloud/project/results/04_analysis_box_tumor_on_condition.png){width=50%}
+
+<div style="font-size: 0.75em">
+- 
+</div>
 
 ## Plots {.background_white}
 
@@ -104,9 +108,11 @@ knitr::include_graphics("/cloud/project/results/04_analysis_boxplot_numeric_vari
 
 ---
 
+<div style="font-size: 0.75em">
 - In the data, most of the people is quite young (under 40)
 - The treatment age is consistent with the age of the patients
 - The thickness tumor is the most changing variable
+</div>
 
 ---
 
@@ -118,6 +124,7 @@ knitr::include_graphics("/cloud/project/results/04_analysis_boxplot_numeric_vari
 
 ![Analysis count on condition](/cloud/project/results/04_analysis_count_radiation_on_condition.png){width=50%}![Analysis count heart medicine on condition](/cloud/project/results/04_analysis_count_smoking_on_condition.png){width=50%}
 
+<div style="font-size: 0.75em">
 - In all the cases, the recovered fraction is the lowest one.
 - In the radiation history, the patients who have not suffered from radiation have recovered better than the ones that have had radiation.
 - In most cases, when having taken medicine the recovery is better.
@@ -125,17 +132,19 @@ knitr::include_graphics("/cloud/project/results/04_analysis_boxplot_numeric_vari
 - Not drinking alcohol or smoking improves recovery.
 - When taking alcohol and smoking the death is lower (it doesn't make any sense)
 - These are absolute values, maybe we should calculate some relative values
+</div>
 
 ---
 
 ![Analysis count on condition](/cloud/project/results/05_analysis_ii_densitograms_on_condition.png){width=50%}![Analysis count heart medicine on condition](/cloud/project/results/05_analysis_ii_densitograms_on_tumor.png){width=50%}
 
+<div style="font-size: 0.75em">
 - Above 40 years old, the possibilities for recovering from a breast cancer are higher
 - The weight is higher in recovered patients
 - Patients who died weighted very low (around 25 kg)
 - In addition, other group of persons who died weighted 75 kg
 - Thickness of tumor is bigger in patients who died
-
+</div>
 
 ---
 
@@ -145,9 +154,23 @@ knitr::include_graphics("/cloud/project/results/06_analysis_iii_histogram_medici
 
 ---
 
+<div style="font-size: 0.75em">
+- When the tumor thickness augments, the medical treatment has more impact
+</div>
+
+---
+
 ```{r, out.width = "800px", out.height="600px"}
 knitr::include_graphics("/cloud/project/results/07_heatmap.png")
 ```
+
+---
+
+<div style="font-size: 0.75em">
+- The birth date is totally correlated to the treatment age with negative values
+- So it is the age, but with positive values
+- There is no a clear relation between the thickness tumor and the rest of variables
+</div>
 
 ---
 
@@ -157,7 +180,21 @@ knitr::include_graphics("/cloud/project/results/08_gif_birth_age_treatment_age.g
 
 ---
 
+<div style="font-size: 0.75em">
+- Along the years, the patients are treated before
+- Along the years, the education levels are more diverse
+- The age of first giving birth is more or less consistent along the years
+- When the age of treatment is reduced, the thickness tumor is more diverse
+
+</div>
+
+---
+
 ![MCA_contour_conditions](/cloud/project/results/09_MCA_contour_conditions.png){width=50%}![HMCA_contour_tumorType](/cloud/project/results/09_MCA_contour_tumorType.png){width=50%}
+
+<div style="font-size: 0.75em">
+- 
+</div>
 
 # Discussion {#statistics}
 ## Discussion {.smaller}

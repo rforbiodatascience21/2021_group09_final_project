@@ -16,45 +16,18 @@ library(patchwork)
 # Load data ---------------------------------------------------------------
 my_data_clean_aug <- readRDS(file = "data/03_clean_augmented_combined_breastcancer_data.rds")
 
+# Get functions --------------------------------------------------------
+source(file = "R/99_project_functions.R")
 
 # Visualise data ----------------------------------------------------------
-plot1 <- my_data_clean_aug %>%
-  select(taking_heartMedicine, thickness_tumor) %>%
-  ggplot(aes(x = thickness_tumor, fill = taking_heartMedicine))+
-  geom_histogram(binwidth = 0.05) +
-  ggtitle("Heart medicine") +
-  theme(legend.title = element_text(size = 7)) +
-  labs(fill = "Heart medicine")+
-  scale_x_discrete(name ="Thickness tumor")
 
-plot2 <- my_data_clean_aug %>%
-  select(taking_blood_pressure_medicine, thickness_tumor) %>%
-  ggplot(aes(x = thickness_tumor, fill = taking_blood_pressure_medicine))+
-  geom_histogram(binwidth = 0.05)+
-  ggtitle("Blood pressure medicine")+
-  theme(legend.title = element_text(size = 7)) +
-  labs(fill = "Blood pressure medicine")+
-  scale_x_discrete(name ="Thickness tumor")
+plot1 <- hist_plot(my_data_clean_aug, thickness_tumor, "Tumor thickness", taking_heartMedicine, "Taking heart medicine")
 
+plot2 <- hist_plot(my_data_clean_aug, thickness_tumor, "Tumor thickness", taking_blood_pressure_medicine, "Taking blood pressure medicine")
 
-plot3 <- my_data_clean_aug %>%
-  select(taking_gallbladder_disease_medicine, thickness_tumor) %>%
-  ggplot(aes(x = thickness_tumor, fill = taking_gallbladder_disease_medicine))+
-  geom_histogram(binwidth = 0.05)+
-  ggtitle("Gallblader medicine")+
-  theme(legend.title = element_text(size = 7)) +
-  labs(fill = "Gallbladder medicine")+
-  scale_x_discrete(name ="Thickness tumor")
+plot3 <- hist_plot(my_data_clean_aug, thickness_tumor, "Tumor thickness", taking_gallbladder_disease_medicine, "Taking gallbladder medicine")
 
-
-plot4 <- my_data_clean_aug %>%
-  select(radiation_history, thickness_tumor) %>%
-  ggplot(aes(x = thickness_tumor, fill = radiation_history))+
-  geom_histogram(binwidth = 0.05)+
-  ggtitle("Radiation history")+
-  theme(legend.title = element_text(size = 7)) +
-  labs(fill = "Radiation history") +
- scale_x_discrete(name ="Thickness tumor")
+plot4 <- hist_plot(my_data_clean_aug, thickness_tumor, "Tumor thickness", radiation_history, "Radiation history")
 
   
 final_plot<-plot1+plot2+plot3+plot4 +
