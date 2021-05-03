@@ -32,8 +32,7 @@ This is the dataset we are working with:
 
 
 ```{r dataset}
-clean_augmented_data %>%
-  select(patient_id, education_type, id_healthcenter, id_treatment_region)
+clean_augmented_data 
 ```
 
 
@@ -70,7 +69,8 @@ For statistical analysis, we have chosen only **women**.
 - We have added more informative columns 
 - We have changed the type of the columns
 
-## Statistical analysis and plots of the data {.smaller}
+# Results
+## Plots of the data {.smaller}
 
 ![Analysis barchart categorical](04_analysis_barchart_categorical_education_to_heartmedicine.png){width=50%}![Analysis barchart categorical](04_analysis_barchart_categorical_gallmedicine_to_condition.png){width=50%}
 
@@ -78,9 +78,11 @@ For statistical analysis, we have chosen only **women**.
 
 ![Analysis boxplot of age on condition](04_analysis_box_age_on_condition.png){width=50%}![Analysis boxplot of tumor on condition](04_analysis_box_tumor_on_condition.png){width=50%}
 
----
+## Plots {.background_white}
 
-![Analysis boxplot of numeric variables](04_analysis_boxplot_numeric_variables.png){width=100%}
+```{r, out.height="500px"}
+knitr::include_graphics("04_analysis_boxplot_numeric_variables.png")
+```
 
 ---
 
@@ -92,8 +94,24 @@ For statistical analysis, we have chosen only **women**.
 
 ![Analysis count on condition](04_analysis_count_radiation_on_condition.png){width=50%}![Analysis count heart medicine on condition](04_analysis_count_smoking_on_condition.png){width=50%}
 
-# Results {.build}
-## Results {.smaller}
+---
+
+![Analysis count on condition](05_analysis_ii_densitograms_on_condition.png){width=50%}![Analysis count heart medicine on condition](05_analysis_ii_densitograms_on_tumor.png){width=50%}
+
+---
+
+![Analysis count on condition](06_analysis_iii_histogram_medicine_tumor.png){width=100%}
+
+---
+
+![Heatmap](07_heatmap.png){width=100%}
+
+---
+
+```{r, out.width = "600px", out.height="600px"}
+knitr::include_graphics("08_gif_birth_age_treatment_age.gif")
+```
+
 # Discussion
 ## Discussion {.smaller}
 # Conclusion
@@ -104,7 +122,11 @@ We have reached the following conclusions
 
 
 ---
-<div class="final">Thanks for your attention</div>
+<div id="final_box">
+<div class="final">THANK YOU</div> 
+<div class="final"> FOR YOUR ATTENTION</div>
+</div>
+
 
 
 
