@@ -8,11 +8,13 @@
 }
 
 .final{
+  color: black;
   font-size: 3em;
   font-family: Trebuchet MS;
   text-align: center;
 }
 #final_box{
+  top: 1000 px;
   background-color: grey;
 }
 
