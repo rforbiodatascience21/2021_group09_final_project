@@ -98,11 +98,15 @@ knitr::include_graphics("/cloud/project/results/04_analysis_boxplot_numeric_vari
 
 ---
 
-![Analysis count on condition](/cloud/project/results/06_analysis_iii_histogram_medicine_tumor.png){width=100%}
+```{r, out.width = "800px", out.height="600px"}
+knitr::include_graphics("/cloud/project/results/06_analysis_iii_histogram_medicine_tumor.png")
+```
 
 ---
 
-![Heatmap](/cloud/project/results/07_heatmap.png){width=100%}
+```{r, out.width = "800px", out.height="600px"}
+knitr::include_graphics("/cloud/project/results/07_heatmap.png")
+```
 
 ---
 

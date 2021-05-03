@@ -61,7 +61,7 @@ numeric_hist_15_bins <- my_data_clean_aug %>%
 categorical_bar_part1 <- my_data_clean_aug %>%
                           select_if(is.factor) %>%
                           select(education:taking_heartMedicine, 
-                                 -id_healthcenter) %>%
+                                 -id_healthcenter, -blood) %>%
                           pivot_longer(cols = everything()) %>%
                           ggplot(aes(value)) +
                           facet_wrap(~ name, 
