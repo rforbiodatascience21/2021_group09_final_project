@@ -46,10 +46,10 @@ aug_data <- clean_data %>%
                                        menopausal_age == 2 ~ "above 50")) %>%
   
   mutate("Benign_malignant_cancer" = case_when(Benign_malignant_cancer == 0 ~ "Benign",
-                                                    Benign_malignant_cancer == 1 ~ "Malignant")) %>%
+                                               Benign_malignant_cancer == 1 ~ "Malignant")) %>%
   
   mutate("marital_length" = case_when(marital_length == 0 ~ "under 10 years",
-                                               Benign_malignant_cancer == 1 ~ "above 10 years")) %>%
+                                      marital_length == 1 ~ "above 10 years")) %>%
 
   # Add new columns
   mutate(
@@ -64,8 +64,20 @@ aug_data <- clean_data %>%
   filter(gender == 0) %>%
   
   # Remove singular columns
-  select_if(function(col) length(unique(col)) > 1)
-  
+  select_if(function(col) length(unique(col)) > 1) 
+
+# Remove inconsistencies in the data
+  # Based on UK statistics, only look at women above 20 years old
+  # (https://www.cancerresearchuk.org/health-professional/cancer-statistics/statistics-by-cancer-type/breast-cancer/incidence-invasive#heading-One)
+  # we still need a source for removing low weight people: now below 35kg is 'randomly' chosen
+
+aug_data <- aug_data %>%
+  # Filter all people under 20 years old and 35 kg
+  filter(age >= 20, weight <= 35) %>%
+  # Calculate marriage age and eliminate those who have married under 18
+  mutate(age_marriage = as.numeric(age) - as.numeric(marital_length)) %>%
+  filter(age_marriage > 18) 
+
 
 
 # Write data ---------------------------------------------------------------

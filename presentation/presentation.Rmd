@@ -20,8 +20,15 @@ knitr::opts_knit$set(root.dir = here::here()) #root dir for file to project root
 ```
 
 
-## Introduction
+## Introduction {.smaller}
 
+The main aim is predicting breast cancer patients chance of survival.  
+
+- [Clean the data](#1)
+- [Augment the data](#2)
+- [Create some plots](#3)
+- [Statistical analysis](#4)
+- Create the prediction tool
 
 
 # Materials and methods
@@ -36,39 +43,37 @@ This is the dataset we are working with:
 clean_augmented_data <- readRDS(file = "/cloud/project/data/03_clean_augmented_combined_breastcancer_data.rds")
 
 clean_augmented_data %>%
-  select(patient_id, education_name, id_healthcenter, id_treatment_region)
+  select(patient_id, education, id_healthcenter, id_treatment_region)
 ```
 
 
-## Cleaning the data {.smaller}
-The data showed the following problems:
-
-- Some columns had 3 values (0, 1, 2), but in the dataset description it appears that they should have only two values (0, 1) so we have considered that 1 and 2 are equal to 1
-- Some columns had a carriage return we should delete (/r/n)
-- There was a birth date with 3 characters instead of 4.
-- There was a blood type 44, it doesn't make any sense.
-
-For statistical analysis, we have chosen only **women**. 
-
-## Cleaning the data{.smaller}
+## Cleaning the data{.smaller #1}
 
 ```{r}
-x <- data.frame(Before = c("The columns are different types","0, 1, 2 values", "names with /r/n", "Birth date with 3 characters", "Blood type44"), After = c("All the columns are considered as doubles","bolean variables", "Clean names", "Birth date with 4 characters", "Correct blood types only"))
+clean_augmented_data %>%
+  select(weight, age) %>%
+  filter(age<20) %>%
+  ggplot(mapping = aes(x = age, y = weight)) +
+  geom_point()+
+  stat_smooth(method = "lm", col = "red")
+```
+
+---
+
+```{r}
+x <- data.frame(Before = c("The columns are different types","0, 1, 2 values", "names with /r/n", "Birth date with 3 characters", "Blood type44", "Weird weight/age correlations"), After = c("All the columns are considered as doubles","bolean variables", "Clean names", "Birth date with 4 characters", "Correct blood types only", "Eliminating people under 18 years old"))
 x %>% 
  kable() %>%
  kable_styling("striped", full_width = FALSE, font_size = 20) %>%
   kable_classic(full_width = F, html_font = "Cambria") %>%
  column_spec(2, width = "20em") %>%
- row_spec(0, bold = TRUE) %>%
- row_spec(1, bold = FALSE) %>%
- row_spec(2, bold = FALSE) %>%
- row_spec(3, bold = FALSE)
+ row_spec(0, bold = TRUE)
 ```
 
 For statistical analysis, we have chosen only **women**. 
 
 
-## Augmenting the data {.smaller}
+## Augmenting the data {.smaller #augment}
 
 - We have added more informative columns 
 - We have changed the type of the columns
@@ -77,10 +82,15 @@ For statistical analysis, we have chosen only **women**.
 
 We have created some plots in order to fully understand the data and we have done some statistical analysis like MCA analysis. The plots are shown in the following point: "Results"
 
-# Results
+# Results {#plots}
 ## Plots of the data {.smaller}
 
 ![Analysis barchart categorical](/cloud/project/results/04_analysis_barchart_categorical_education_to_heartmedicine.png){width=50%}![Analysis barchart categorical](/cloud/project/results/04_analysis_barchart_categorical_gallmedicine_to_condition.png){width=50%}
+
+- Cultural variables we don't actually need (education, marital_state)
+- Variables that affect health (medicines, vicious habits) have a great incidence in breast cancer patients 
+- Early menstrual periods before age 12 and starting menopause after age 55 expose women to hormones longer, raising their risk of getting breast cancer
+
 
 ---
 
@@ -94,6 +104,12 @@ knitr::include_graphics("/cloud/project/results/04_analysis_boxplot_numeric_vari
 
 ---
 
+- In the data, most of the people is quite young (under 40)
+- The treatment age is consistent with the age of the patients
+- The thickness tumor is the most changing variable
+
+---
+
 ![Analysis count alcohol on condition](/cloud/project/results/04_analysis_count_alcohol_on_condition.png){width=50%}![Analysis count blood pressure medicine on condition](/cloud/project/results/04_analysis_count_blood_pressure_medicine_on_condition.png){width=50%}
 
 ![Analysis count gallbladder medicine on condition](/cloud/project/results/04_analysis_count_gallblader_medicine_on_condition.png){width=50%}![Analysis count heart medicine on condition](/cloud/project/results/04_analysis_count_heart_medicine_on_condition.png){width=50%}
@@ -102,17 +118,36 @@ knitr::include_graphics("/cloud/project/results/04_analysis_boxplot_numeric_vari
 
 ![Analysis count on condition](/cloud/project/results/04_analysis_count_radiation_on_condition.png){width=50%}![Analysis count heart medicine on condition](/cloud/project/results/04_analysis_count_smoking_on_condition.png){width=50%}
 
+- In all the cases, the recovered fraction is the lowest one.
+- In the radiation history, the patients who have not suffered from radiation have recovered better than the ones that have had radiation.
+- In most cases, when having taken medicine the recovery is better.
+- In most cases, when having taking medicine the death is higher (no sense).
+- Not drinking alcohol or smoking improves recovery.
+- When taking alcohol and smoking the death is lower (it doesn't make any sense)
+- These are absolute values, maybe we should calculate some relative values
+
 ---
 
 ![Analysis count on condition](/cloud/project/results/05_analysis_ii_densitograms_on_condition.png){width=50%}![Analysis count heart medicine on condition](/cloud/project/results/05_analysis_ii_densitograms_on_tumor.png){width=50%}
 
+- Above 40 years old, the possibilities for recovering from a breast cancer are higher
+- The weight is higher in recovered patients
+- Patients who died weighted very low (around 25 kg)
+- In addition, other group of persons who died weighted 75 kg
+- Thickness of tumor is bigger in patients who died
+
+
 ---
 
-![Analysis count on condition](/cloud/project/results/06_analysis_iii_histogram_medicine_tumor.png){width=100%}
+```{r, out.width = "800px", out.height="600px"}
+knitr::include_graphics("/cloud/project/results/06_analysis_iii_histogram_medicine_tumor.png")
+```
 
 ---
 
-![Heatmap](/cloud/project/results/07_heatmap.png){width=100%}
+```{r, out.width = "800px", out.height="600px"}
+knitr::include_graphics("/cloud/project/results/07_heatmap.png")
+```
 
 ---
 
@@ -120,7 +155,11 @@ knitr::include_graphics("/cloud/project/results/04_analysis_boxplot_numeric_vari
 knitr::include_graphics("/cloud/project/results/08_gif_birth_age_treatment_age.gif")
 ```
 
-# Discussion
+---
+
+![MCA_contour_conditions](/cloud/project/results/09_MCA_contour_conditions.png){width=50%}![HMCA_contour_tumorType](/cloud/project/results/09_MCA_contour_tumorType.png){width=50%}
+
+# Discussion {#statistics}
 ## Discussion {.smaller}
 # Conclusion
 

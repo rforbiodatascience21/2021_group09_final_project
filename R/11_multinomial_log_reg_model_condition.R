@@ -5,8 +5,9 @@ rm(list = ls())
 # Load libraries ----------------------------------------------------------
 library(tidyverse)
 library(patchwork)
+library(broom)
 require(nnet)
-
+set.seed(777)
 
 # Define functions --------------------------------------------------------
 
@@ -14,7 +15,7 @@ require(nnet)
 
 
 # Load data ---------------------------------------------------------------
-my_data_clean_aug <- readRDS(file = "data/03_clean_augmented_combined_breastcancer_data.rds")
+data_clean_aug <- readRDS(file = "data/03_clean_augmented_combined_breastcancer_data.rds")
 
 
 
@@ -44,11 +45,11 @@ col_of_interest = c(
   "condition"
 )
 
-analysis_df <- my_data_clean_aug %>%
+analysis_df <- data_clean_aug %>%
   filter(condition != "under treatment") %>%
+  select(all_of(col_of_interest)) %>%
   drop_na() %>%
-  droplevels.data.frame() %>%
-  select(all_of(col_of_interest))
+  droplevels.data.frame()
 
 # COnsider doing a proper k-fold series to estimate generalisation error
 
@@ -62,6 +63,7 @@ train <- sample_frac(analysis_df, 0.7)
 test <- analysis_df %>%
   anti_join(train, b="patient_id")
 
+baseline = DescTools::Mode(pluck(test, "condition"))
 
 multinom.fit <- multinom(condition ~ . -patient_id -1, data=train) #All variables except patient ID and bias
 
@@ -76,32 +78,32 @@ summary(multinom.fit.reduced)
 
 # Testing models ----------------------------------------------------------
 
-# Accuracy on training set:
 
-train <- train %>%
-  mutate(
-    "Max_pred" = predict(multinom.fit, newdata = ., "class"),
-    "Red_pred" = predict(multinom.fit.reduced, newdata = ., "class")
-  )
-
-caret::confusionMatrix(pluck(train, "Max_pred"), pluck(train,"condition"))
-caret::confusionMatrix(pluck(train, "Red_pred"), pluck(train,"condition"))
-
-# Accuracy on test set:
+# Prediction
 test <- test %>%
   mutate(
     "Max_pred" = predict(multinom.fit, newdata = ., "class"),
-    "Red_pred" = predict(multinom.fit.reduced, newdata = ., "class")
+    "Red_pred" = predict(multinom.fit.reduced, newdata = ., "class"),
+    "baseline" = baseline
   ) %>%
   drop_na()
 
-test %>%
-  summarise(
-    "Maximum_accuracy" = sum((Max_pred == condition))/count(.),
-    "Reduced_accuracy" = sum((Red_pred == condition))/count(.)
-  )
+# Evaluation of testing
+suma <- test %>%
+  summarize(
+    "Max_pred" = tidy(caret::confusionMatrix(Max_pred, condition)),
+    "Red_pred" = tidy(caret::confusionMatrix(Red_pred, condition)),
+    "baseline" = tidy(caret::confusionMatrix(baseline, condition))
+  ) %>%
+  pivot_longer(c(Max_pred, Red_pred, baseline), names_to = "model", values_to = "terms") %>%
+  bind_cols(pluck(., "terms")) %>%   # couldn't be done with unnest() since "terms" had dim= [,6] [28,6]?
+  select(-terms) %>%
+  select(model, term, class, estimate) %>%
+  filter(term %in% c("accuracy", "sensitivity", "specificity"))
 
-caret::confusionMatrix(pluck(test, "Max_pred"), pluck(test,"condition"))
-caret::confusionMatrix(pluck(test, "Red_pred"), pluck(test,"condition"))
 
 
+# Writing performance and model -------------------------------------------
+
+write.csv(suma, "results/11_Model_performance_condition.csv", row.names = FALSE)
+saveRDS(multinom.fit, "results/11_maxModel_condition.RDS")
