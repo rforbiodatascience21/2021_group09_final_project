@@ -60,7 +60,7 @@ numeric_hist_15_bins <- my_data_clean_aug %>%
 # Half the variables
 categorical_bar_part1 <- my_data_clean_aug %>%
                           select_if(is.factor) %>%
-                          select(education_type:taking_heartMedicine, 
+                          select(education:taking_heartMedicine, 
                                  -id_healthcenter) %>%
                           pivot_longer(cols = everything()) %>%
                           ggplot(aes(value)) +
@@ -140,11 +140,13 @@ count_blood_pressure_medicine_condition <- count_plot(my_data_clean_aug,
                                       "Taking blood pressure medicine", 
                                       condition, 
                                       "Condition")
+
 count_gallblader_medicine_condition <- count_plot(my_data_clean_aug, 
                                       taking_gallbladder_disease_medicine, 
                                       "Taking gallblader disease medicine", 
                                       condition, 
                                       "Condition")
+
 count_alcohol_condition <- count_plot(my_data_clean_aug, 
                                       alcohol, 
                                       "Alcohol", 
@@ -184,8 +186,8 @@ ggsave(
   path = "results/",
   device = "png",
   scale = 1,
-  width = 20,
-  height = 16,
+  width = 25,
+  height = 18,
   units = "cm",
   dpi = 500
 )
@@ -198,7 +200,7 @@ ggsave(
   device = "png",
   scale = 1,
   width = 25,
-  height = 16,
+  height = 18,
   units = "cm",
   dpi = 500
 )
@@ -309,4 +311,6 @@ ggsave(
   dpi = 500
 )
 
-
+# Show cols with NAs
+#my_data_clean_aug %>% 
+#  select_if(function(col) any(is.na(col))) 
