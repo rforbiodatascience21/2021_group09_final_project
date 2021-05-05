@@ -7,6 +7,9 @@ author:
 - Ida Frich Hansen
 output:
   ioslides_presentation:
+    widescreen: true
+    smaller: true
+    transition: slower
     css: slidestyle.css
     df_print: kable
 ---
@@ -20,19 +23,23 @@ knitr::opts_knit$set(root.dir = here::here()) #root dir for file to project root
 ```
 
 
-## Introduction {.smaller}
+## Introduction 
+
+<div class="up_bar" style="width: 20px"></div><div class="arrow-right" style="margin-left: 20px"></div><br>
 
 The main aim is predicting breast cancer patients chance of survival.  
 
-- [Clean the data](#1)
-- [Augment the data](#2)
-- [Create some plots](#3)
-- [Statistical analysis](#4)
+- [Clean the data](#5)
+- [Augment the data](#7)
+- [Create some plots](#10)
+- Statistical analysis
 - Create the prediction tool
 
 
 # Materials and methods
-## Materials {.smaller}
+## Materials
+
+<div class="up_bar" style="width: 40px"></div><div class="arrow-right" style="margin-left: 40px"></div><br>
 
 We are working with a dataset about Breast Cancer that we have obtained from [kaggle website](https://www.kaggle.com/)
 
@@ -46,7 +53,9 @@ summary(clean_augmented_data)
 ```
 
 
-## Cleaning the data{.smaller #1}
+## Cleaning the data
+
+<div class="up_bar" style="width: 60px"></div><div class="arrow-right" style="margin-left: 60px"></div><br>
 
 ```{r}
 clean_augmented_data %>%
@@ -57,37 +66,43 @@ clean_augmented_data %>%
   stat_smooth(method = "lm", col = "red")
 ```
 
----
+
+## Cleaning the data
+
+<div class="up_bar" style="width: 80px"></div><div class="arrow-right" style="margin-left: 80px"></div><br>
 
 ```{r}
-x <- data.frame(Before = c("The columns are different types","0, 1, 2 values", "names with /r/n", "Birth date with 3 characters", "Blood type44", "Weird weight/age correlations"), After = c("All the columns are considered as doubles","bolean variables", "Clean names", "Birth date with 4 characters", "Correct blood types only", "Eliminating people under 18 years old"))
+x <- data.frame(BEFORE = c("THE COLUMNS ARE DIFFERENT TYPES","0, 1, 2 VALUES", "NAMES WITH /R/N", "BIRTH DATE WITH 3 CHARACTERS", "BLOOD TYPE 44", "WEIRD WEIGHT/AGE CORRELATIONS", "WOMEN AND MEN"), AFTER = c("EACH COLUMN HAS A CORRECT TYPE","BOLEAN VARIABLES", "CLEAN NAMES", "BIRTH DATE WITH 4 CHARACTERS", "CORRECT BLOOD TYPES ONLY", "ELIMINATING PEOPLE UNDER 20 YEARS OLD AND 35 KG", "ONLY WOMEN"))
 x %>% 
  kable() %>%
- kable_styling("striped", full_width = FALSE, font_size = 20) %>%
-  kable_classic(full_width = F, html_font = "Cambria") %>%
+ kable_styling("striped", full_width = TRUE, font_size = 20) %>%
+  kable_classic(full_width = TRUE, html_font = "Cambria") %>%
  column_spec(2, width = "20em") %>%
  row_spec(0, bold = TRUE)
 ```
 
-For statistical analysis, we have chosen only **women**. 
 
+## Augmenting the data {#augment}
 
-## Augmenting the data {.smaller #augment}
+<div class="up_bar" style="width: 100px"></div><div class="arrow-right" style="margin-left: 100px"></div><br>
 
 - We have added more informative columns 
 - We have changed the type of the columns
 
-## Statistical analysis {.smaller}
+## Statistical analysis 
+
+<div class="up_bar" style="width: 120px"></div><div class="arrow-right" style="margin-left: 120px"></div><br>
 
 We have created some plots in order to fully understand the data and we have done some statistical analysis like MCA analysis. The plots are shown in the following point: "Results"
 
+
 # Results {#plots}
-## Plots of the data {.smaller}
+## Barchar of categorical variables 
 
 ![Analysis barchart categorical](/cloud/project/results/04_analysis_barchart_categorical_education_to_heartmedicine.png){width=50%}![Analysis barchart categorical](/cloud/project/results/04_analysis_barchart_categorical_gallmedicine_to_condition.png){width=50%}
 
 [//]: #  Cultural variables we don't actually need (education, marital_state)
-[//]: #  Variables that affect health (medicines, vicious habits) have a great incidence in [comment]: <>breast cancer patients 
+[//]: #  Variables that affect health (medicines, vicious habits) have a great incidence in breast cancer patients 
 [//]: #  Early menstrual periods before age 12 and starting menopause after age 55 expose women to hormones longer, raising their risk of getting breast cancer
 
 ---
@@ -100,9 +115,12 @@ We have created some plots in order to fully understand the data and we have don
 
 ## Plots {.background_white}
 
+
+<div style="margin-left:20%">
 ```{r, out.height="500px"}
 knitr::include_graphics("/cloud/project/results/04_analysis_boxplot_numeric_variables.png")
 ```
+</div>
 
 
 [//]: #  In the data, most of the people is quite young (under 40)
@@ -112,9 +130,9 @@ knitr::include_graphics("/cloud/project/results/04_analysis_boxplot_numeric_vari
 
 ---
 
-![Analysis count alcohol on condition](/cloud/project/results/04_analysis_count_alcohol_on_condition.png){width=50%}![Analysis count blood pressure medicine on condition](/cloud/project/results/04_analysis_count_blood_pressure_medicine_on_condition.png){width=50%}
+![Analysis count alcohol on condition](/cloud/project/results/04_analysis_count_alcohol_on_condition.png){width=40%}![Analysis count blood pressure medicine on condition](/cloud/project/results/04_analysis_count_blood_pressure_medicine_on_condition.png){width=40%}
 
-![Analysis count gallbladder medicine on condition](/cloud/project/results/04_analysis_count_gallblader_medicine_on_condition.png){width=50%}![Analysis count heart medicine on condition](/cloud/project/results/04_analysis_count_heart_medicine_on_condition.png){width=50%}
+![Analysis count gallbladder medicine on condition](/cloud/project/results/04_analysis_count_gallblader_medicine_on_condition.png){width=40%}![Analysis count heart medicine on condition](/cloud/project/results/04_analysis_count_heart_medicine_on_condition.png){width=40%}
 
 ---
 
@@ -122,7 +140,7 @@ knitr::include_graphics("/cloud/project/results/04_analysis_boxplot_numeric_vari
 
 
 [//]: #  In all the cases, the recovered fraction is the lowest one.
-[//]: #  In the radiation history, the patients who have not suffered from radiation have [comment]: <>recovered better than the ones that have had radiation.
+[//]: #  In the radiation history, the patients who have not suffered from radiation have recovered better than the ones that have had radiation.
 [//]: #  In most cases, when having taken medicine the recovery is better.
 [//]: #  In most cases, when having taking medicine the death is higher (no sense).
 [//]: #  Not drinking alcohol or smoking improves recovery.
@@ -161,9 +179,12 @@ knitr::include_graphics("/cloud/project/results/07_heatmap.png")
 
 ---
 
+<div style="margin-left:120px">
 ```{r, out.width = "600px", out.height="600px"}
 knitr::include_graphics("/cloud/project/results/08_gif_birth_age_treatment_age.gif")
 ```
+</div>
+
 
 [//]: # Along the years, the patients are treated before
 [//]: # Along the years, the education levels are more diverse
@@ -182,7 +203,7 @@ knitr::include_graphics("/cloud/project/results/08_gif_birth_age_treatment_age.g
 </div>
 
 # Discussion {#statistics}
-## Discussion {.smaller}
+## Discussion 
 # Conclusion
 
 ---
@@ -206,8 +227,8 @@ We have reached the following conclusions
 ---
 
 <div id="final_box">
-<div class="final">THANK YOU</div> 
-<div class="final"> FOR YOUR ATTENTION</div>
+<div style="color: rgb(47, 142, 194); font-size: 3em; text-align:center">THANKS</div> 
+<div style="color: rgb(91, 175, 222); font-size: 2em; text-align:center"> FOR YOUR ATTENTION</div>
 </div>
 
 

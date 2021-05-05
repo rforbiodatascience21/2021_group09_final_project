@@ -7,15 +7,30 @@
   font-size: 1.2em;
 }
 
+.up_bar{
+  background-color: rgb(47, 142, 194);
+  margin-top: 0px;
+  margin-bottom: 50px;
+  height: 10px;
+  position: absolute;
+}
+
+.arrow-right {
+  width: 0; 
+  height: 0; 
+  border-top: 5px solid transparent;
+  border-bottom: 5px solid transparent;
+  border-left: 5px solid rgb(47, 142, 194);
+}
+
 .final{
-  color: white;
+  color: rgb(47, 142, 194);
   font-size: 3em;
   font-family: Trebuchet MS;
   text-align: center;
 }
 #final_box{
   margin-top: 200px;
-  background-color: rgb(47, 142, 194);
 }
 
 .midcenter {
