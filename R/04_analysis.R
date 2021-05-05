@@ -103,51 +103,50 @@ categorical_bar_part2 <- my_data_clean_aug %>%
 
 
 ###### Single plots with stratification (uses plot functions) ########
-box_age_condition <- box_plot(my_data_clean_aug, 
+box_age_condition <- box_plot(data_condition_dead_recovered, 
                               age, 
                               "Age", 
                               condition, 
                               "Condition")
 
-box_tumor_condition <- box_plot(my_data_clean_aug, 
+box_tumor_condition <- box_plot(data_condition_dead_recovered, 
                                 thickness_tumor, 
                                 "Tumor thickness", 
                                 condition, 
                                 "Condition")
 
 
-count_smoking_condition <- count_plot(my_data_clean_aug, 
+count_smoking_condition <- count_plot(data_condition_dead_recovered, 
                                       smoking, 
                                       "Smoking", 
                                       condition, 
                                       "Condition")
 
-# Here look at dead/recovered only
 count_radiation_condition <- count_plot(data_condition_dead_recovered, 
                                         radiation_history, 
                                         "Radiation History",
                                        condition, 
                                        "Condition")
 
-count_heart_medicine_condition <- count_plot(my_data_clean_aug, 
+count_heart_medicine_condition <- count_plot(data_condition_dead_recovered, 
                                       taking_heartMedicine, 
                                       "Taking heart medicine", 
                                       condition, 
                                       "Condition")
 
-count_blood_pressure_medicine_condition <- count_plot(my_data_clean_aug, 
+count_blood_pressure_medicine_condition <- count_plot(data_condition_dead_recovered, 
                                       taking_blood_pressure_medicine, 
                                       "Taking blood pressure medicine", 
                                       condition, 
                                       "Condition")
 
-count_gallblader_medicine_condition <- count_plot(my_data_clean_aug, 
+count_gallblader_medicine_condition <- count_plot(data_condition_dead_recovered, 
                                       taking_gallbladder_disease_medicine, 
                                       "Taking gallblader disease medicine", 
                                       condition, 
                                       "Condition")
 
-count_alcohol_condition <- count_plot(my_data_clean_aug, 
+count_alcohol_condition <- count_plot(data_condition_dead_recovered, 
                                       alcohol, 
                                       "Alcohol", 
                                       condition, 
