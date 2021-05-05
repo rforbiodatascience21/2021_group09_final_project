@@ -8,14 +8,14 @@
 }
 
 .final{
-  color: black;
+  color: white;
   font-size: 3em;
   font-family: Trebuchet MS;
   text-align: center;
 }
 #final_box{
-  top: 1000 px;
-  background-color: grey;
+  margin-top: 200px;
+  background-color: rgb(47, 142, 194);
 }
 
 .midcenter {
