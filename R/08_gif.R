@@ -15,7 +15,6 @@ rm(list = ls())
 # Load libraries ----------------------------------------------------------
 library(tidyverse)
 library(ggplot2)
-library(patchwork)
 library(gganimate)
 library(gifski)
 theme_set(theme_bw()) 
@@ -37,7 +36,6 @@ myPlot <- my_data_clean_aug %>%
 
 
 animate(myPlot, duration = 20, fps = 20, width = 800, height = 800, renderer = gifski_renderer())
-anim_save("results/08_output.gif")
 # Write data --------------------------------------------------------------
 anim_save("08_gif_birth_age_treatment_age.gif", path = "results/")
 
