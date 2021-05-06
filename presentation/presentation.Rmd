@@ -7,8 +7,7 @@ author:
 - Ida Frich Hansen
 output:
   ioslides_presentation:
-    widescreen: true
-    smaller: true
+    widescreen: false
     transition: slower
     css: slidestyle.css
     df_print: kable
@@ -20,10 +19,23 @@ knitr::opts_chunk$set(echo = FALSE)
 library(tidyverse)
 library(kableExtra)
 knitr::opts_knit$set(root.dir = here::here()) #root dir for file to project root dir
+
+death_cases <- read_csv("/cloud/project/data/01_death_cases.csv")
+recovered_cases <- read_csv("/cloud/project/data/01_recovered_cases.csv")
+under_treatment_cases <- read_csv("/cloud/project/data/01_under_treatment_cases.csv")
+all_cases<- death_cases %>%
+  mutate(birth_date=as.double(birth_date))%>%
+  full_join(recovered_cases)%>%
+  full_join(under_treatment_cases)
+  
+full_data<-all_cases%>%
+  select(patient_id, gender, education, treatment_data, id_healthcenter, id_treatment_region, hereditary_history)
 ```
 
 
-## Introduction 
+---
+
+<div class="title">Introduction</div>
 
 <div class="up_bar" style="width: 20px"></div><div class="arrow-right" style="margin-left: 20px"></div><br>
 
@@ -37,7 +49,8 @@ The main aim is predicting breast cancer patients chance of survival.
 
 
 # Materials and methods
-## Materials
+
+## Materials {.smaller}
 
 <div class="up_bar" style="width: 40px"></div><div class="arrow-right" style="margin-left: 40px"></div><br>
 
@@ -47,27 +60,27 @@ This is the dataset we are working with:
 
 
 ```{r dataset}
-clean_augmented_data <- readRDS(file = "/cloud/project/data/03_clean_augmented_combined_breastcancer_data.rds")
-
-summary(clean_augmented_data)
+full_data
 ```
 
 
-## Cleaning the data
+## Cleaning the data {.smaller}
 
 <div class="up_bar" style="width: 60px"></div><div class="arrow-right" style="margin-left: 60px"></div><br>
 
+
 ```{r}
-clean_augmented_data %>%
-  select(weight, age) %>%
+under_20 <- all_cases%>%
   filter(age<20) %>%
-  ggplot(mapping = aes(x = age, y = weight)) +
+  ggplot(aes(x = age, y = weight)) +
   geom_point()+
-  stat_smooth(method = "lm", col = "red")
+  geom_smooth()
+
+under_20
 ```
 
 
-## Cleaning the data
+## Cleaning the data 
 
 <div class="up_bar" style="width: 80px"></div><div class="arrow-right" style="margin-left: 80px"></div><br>
 
@@ -82,14 +95,14 @@ x %>%
 ```
 
 
-## Augmenting the data {#augment}
+## Augmenting the data {.smaller}
 
 <div class="up_bar" style="width: 100px"></div><div class="arrow-right" style="margin-left: 100px"></div><br>
 
 - We have added more informative columns 
 - We have changed the type of the columns
 
-## Statistical analysis 
+## Statistical analysis {.smaller}
 
 <div class="up_bar" style="width: 120px"></div><div class="arrow-right" style="margin-left: 120px"></div><br>
 
@@ -97,7 +110,9 @@ We have created some plots in order to fully understand the data and we have don
 
 
 # Results {#plots}
-## Barchar of categorical variables 
+## Barchar of categorical variables {.smaller}
+
+<div class="up_bar" style="width: 140px"></div><div class="arrow-right" style="margin-left: 140px"></div><br>
 
 ![Analysis barchart categorical](/cloud/project/results/04_analysis_barchart_categorical_education_to_heartmedicine.png){width=50%}![Analysis barchart categorical](/cloud/project/results/04_analysis_barchart_categorical_gallmedicine_to_condition.png){width=50%}
 
@@ -105,7 +120,9 @@ We have created some plots in order to fully understand the data and we have don
 [//]: #  Variables that affect health (medicines, vicious habits) have a great incidence in breast cancer patients 
 [//]: #  Early menstrual periods before age 12 and starting menopause after age 55 expose women to hormones longer, raising their risk of getting breast cancer
 
----
+## Boxplots stratified on conditions {.smaller}
+
+<div class="up_bar" style="width: 160px"></div><div class="arrow-right" style="margin-left: 160px"></div><br>
 
 ![Analysis boxplot of age on condition](/cloud/project/results/04_analysis_box_age_on_condition.png){width=50%}![Analysis boxplot of tumor on condition](/cloud/project/results/04_analysis_box_tumor_on_condition.png){width=50%}
 
@@ -113,11 +130,12 @@ We have created some plots in order to fully understand the data and we have don
 - 
 </div>
 
-## Plots {.background_white}
+## Boxplots of numerical variables {.background_white .smaller}
 
+<div class="up_bar" style="width: 180px"></div><div class="arrow-right" style="margin-left: 180px"></div><br>
 
-<div style="margin-left:20%">
-```{r, out.height="500px"}
+<div style="margin-left:10%">
+```{r, out.height="450px"}
 knitr::include_graphics("/cloud/project/results/04_analysis_boxplot_numeric_variables.png")
 ```
 </div>
@@ -128,13 +146,22 @@ knitr::include_graphics("/cloud/project/results/04_analysis_boxplot_numeric_vari
 [//]: #  The thickness tumor is the most changing variable
 
 
----
+## Histograms stratified on condition {.smaller}
 
-![Analysis count alcohol on condition](/cloud/project/results/04_analysis_count_alcohol_on_condition.png){width=40%}![Analysis count blood pressure medicine on condition](/cloud/project/results/04_analysis_count_blood_pressure_medicine_on_condition.png){width=40%}
+<div class="up_bar" style="width: 200px"></div><div class="arrow-right" style="margin-left: 200px"></div><br>
 
-![Analysis count gallbladder medicine on condition](/cloud/project/results/04_analysis_count_gallblader_medicine_on_condition.png){width=40%}![Analysis count heart medicine on condition](/cloud/project/results/04_analysis_count_heart_medicine_on_condition.png){width=40%}
+<div style="margin-left:0px">
+![Analysis count alcohol on condition](/cloud/project/results/04_analysis_count_alcohol_on_condition.png){width=45%}![Analysis count blood pressure medicine on condition](/cloud/project/results/04_analysis_count_blood_pressure_medicine_on_condition.png){width=45%}
 
----
+![Analysis count gallbladder medicine on condition](/cloud/project/results/04_analysis_count_gallblader_medicine_on_condition.png){width=45%}![Analysis count heart medicine on condition](/cloud/project/results/04_analysis_count_heart_medicine_on_condition.png){width=45%}
+</div>
+
+
+
+
+## Histograms stratified on condition {.smaller}
+
+<div class="up_bar" style="width: 220px"></div><div class="arrow-right" style="margin-left: 220px"></div><br>
 
 ![Analysis count on condition](/cloud/project/results/04_analysis_count_radiation_on_condition.png){width=50%}![Analysis count heart medicine on condition](/cloud/project/results/04_analysis_count_smoking_on_condition.png){width=50%}
 
@@ -147,7 +174,9 @@ knitr::include_graphics("/cloud/project/results/04_analysis_boxplot_numeric_vari
 [//]: #  When taking alcohol and smoking the death is lower (it doesn't make any sense)
 [//]: #  These are absolute values, maybe we should calculate some relative values
 
----
+## Densitograms stratified on condition {.smaller}
+
+<div class="up_bar" style="width: 240px"></div><div class="arrow-right" style="margin-left: 240px"></div><br>
 
 ![Analysis count on condition](/cloud/project/results/05_analysis_ii_densitograms_on_condition.png){width=50%}![Analysis count heart medicine on condition](/cloud/project/results/05_analysis_ii_densitograms_on_tumor.png){width=50%}
 
@@ -157,18 +186,22 @@ knitr::include_graphics("/cloud/project/results/04_analysis_boxplot_numeric_vari
 [//]: #  In addition, other group of persons who died weighted 75 kg
 [//]: #  Thickness of tumor is bigger in patients who died
 
----
+## Histograms stratified on condition {.smaller}
 
-```{r, out.width = "800px", out.height="600px"}
+<div class="up_bar" style="width: 260px"></div><div class="arrow-right" style="margin-left: 260px"></div><br>
+
+```{r, out.width = "750px", out.height="500px"}
 knitr::include_graphics("/cloud/project/results/06_analysis_iii_histogram_medicine_tumor.png")
 ```
 
 
 [//]: #  When the tumor thickness augments, the medical treatment has more impact
 
----
+## Heatmap of numerical variables {.smaller}
 
-```{r, out.width = "800px", out.height="600px"}
+<div class="up_bar" style="width: 280px"></div><div class="arrow-right" style="margin-left: 280px"></div><br>
+
+```{r, out.width = "750px", out.height="550px"}
 knitr::include_graphics("/cloud/project/results/07_heatmap.png")
 ```
 
@@ -177,10 +210,12 @@ knitr::include_graphics("/cloud/project/results/07_heatmap.png")
 [//]: #  So it is the age, but with positive values
 [//]: #  There is no a clear relation between the thickness tumor and the rest of variables
 
----
+## Dynamic representation of variables {.smaller}
+
+<div class="up_bar" style="width: 300px"></div><div class="arrow-right" style="margin-left: 300px"></div><br>
 
 <div style="margin-left:120px">
-```{r, out.width = "600px", out.height="600px"}
+```{r, out.width = "550px", out.height="550px"}
 knitr::include_graphics("/cloud/project/results/08_gif_birth_age_treatment_age.gif")
 ```
 </div>
@@ -194,7 +229,9 @@ knitr::include_graphics("/cloud/project/results/08_gif_birth_age_treatment_age.g
 
 
 
----
+## MCA analysis {.smaller}
+
+<div class="up_bar" style="width: 320px"></div><div class="arrow-right" style="margin-left: 320px"></div><br>
 
 ![MCA_contour_conditions](/cloud/project/results/09_MCA_contour_conditions.png){width=50%}![HMCA_contour_tumorType](/cloud/project/results/09_MCA_contour_tumorType.png){width=50%}
 
@@ -203,16 +240,23 @@ knitr::include_graphics("/cloud/project/results/08_gif_birth_age_treatment_age.g
 </div>
 
 # Discussion {#statistics}
-## Discussion 
+## Discussion {.smaller}
+
+<div class="up_bar" style="width: 360px"></div><div class="arrow-right" style="margin-left: 360px"></div><br>
+
 # Conclusion
 
----
+## Conclusion {.smaller}
+
+<div class="up_bar" style="width: 400px"></div><div class="arrow-right" style="margin-left: 400px"></div><br>
 
 We have reached the following conclusions
 
 # Bibliography
 
 ## Bibliography {.smaller}
+
+<div class="up_bar" style="width: 440px"></div><div class="arrow-right" style="margin-left: 440px"></div><br>
 
 - Breast cancer incidence (invasive) statistics (10 March 2020). [Cancer Research UK](https://www.cancerresearchuk.org/health-professional/cancer-statistics/statistics-by-cancer-type/breast-cancer/incidence-invasive#heading-One)
 - Height Percentile Calculator for Men and Women in the United States. [DQYDJ](https://dqydj.com/height-percentile-calculator-for-men-and-women/)
