@@ -210,24 +210,6 @@ knitr::include_graphics("/cloud/project/results/07_heatmap.png")
 [//]: #  So it is the age, but with positive values
 [//]: #  There is no a clear relation between the thickness tumor and the rest of variables
 
-## Dynamic representation of variables {.smaller}
-
-<div class="up_bar" style="width: 300px"></div><div class="arrow-right" style="margin-left: 300px"></div><br>
-
-<div style="margin-left:120px">
-```{r, out.width = "550px", out.height="550px"}
-knitr::include_graphics("/cloud/project/results/08_gif_birth_age_treatment_age.gif")
-```
-</div>
-
-
-[//]: # Along the years, the patients are treated before
-[//]: # Along the years, the education levels are more diverse
-[//]: #  The age of first giving birth is more or less consistent along the years
-[//]: #  When the age of treatment is reduced, the thickness tumor is more diverse
-
-
-
 
 ## MCA analysis {.smaller}
 
