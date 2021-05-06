@@ -31,8 +31,9 @@ myPlot <- my_data_clean_aug %>%
   theme_bw() +
   # gganimate specific bits:
   labs(title = 'Birth year: {frame_time}', x = 'Age of treatment', y = 'Tumor thickness') +
-  transition_time(birth_date) +
-  ease_aes('linear')
+  transition_time(as.integer(birth_date)) +
+  ease_aes('linear')+
+  theme(text = element_text(size=20))
 
 
 animate(myPlot, duration = 20, fps = 20, width = 800, height = 800, renderer = gifski_renderer())
