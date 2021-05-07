@@ -24,13 +24,13 @@ files <- list.files(path = temp_dir)
 data_names <- map_chr(files, ~str_remove(string = .x, ".xlsx")) %>%
                     map_chr(~str_replace(.x, " ", "_"))
 
-data_dfs <- map(paste(temp_dir, files, sep="/"), ~ read_excel(path = .x, na ="-"))
+data_dfs <- map(str_c(temp_dir, files, sep="/"), ~ read_excel(path = .x, na ="-"))
 
 unlink(temp_dir, recursive=TRUE) 
 # Write data --------------------------------------------------------------
 
-file_names = paste("01_", data_names,"_cases", ".csv", sep="")
-file_paths = paste("data/",file_names, sep="/")
+file_names = str_c("01_", data_names,"_cases", ".csv", sep="")
+file_paths = str_c("data/",file_names, sep="/")
 
 map2(data_dfs, file_paths, ~write_csv(x= .x, file = .y))
 
