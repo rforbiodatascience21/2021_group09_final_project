@@ -45,6 +45,7 @@ numeric_boxplot <- my_data_clean_aug %>%
                     theme(plot.title = element_text(size=15, 
                                                     hjust = 0.5))
 
+
 # Common histogram of numerical variables 
 numeric_hist_15_bins <- my_data_clean_aug %>%
                         select(-patient_id) %>%
@@ -112,11 +113,35 @@ box_age_condition <- box_plot(data_condition_dead_recovered,
                               condition, 
                               "Condition")
 
+violin_age_condition <- violin_plot(data_condition_dead_recovered, 
+                                    age, 
+                                    "Age", 
+                                    condition, 
+                                    "Condition")
+
 box_tumor_condition <- box_plot(data_condition_dead_recovered, 
                                 thickness_tumor, 
                                 "Tumor thickness", 
                                 condition, 
                                 "Condition")
+
+violin_tumor_condition <- violin_plot(data_condition_dead_recovered, 
+                                      thickness_tumor, 
+                                      "Tumor thickness", 
+                                      condition, 
+                                      "Condition")
+
+box_weight_condition <- box_plot(data_condition_dead_recovered, 
+                                weight, 
+                                "Weight", 
+                                condition, 
+                                "Condition")
+
+violin_weight_condition <- violin_plot(data_condition_dead_recovered, 
+                                      weight, 
+                                      "Weight", 
+                                      condition, 
+                                      "Condition")
 
 
 count_smoking_condition <- count_plot(data_condition_dead_recovered, 
@@ -148,7 +173,6 @@ count_brestpain_condition <- count_plot(data_condition_dead_recovered,
                                   "Breast Pain",
                                   condition, 
                                   "Condition")
-
 
 
 ### Densitogram on condition ###
@@ -343,7 +367,6 @@ ggsave(
   dpi = 500
 )
 
-
 ggsave(
   "04_analysis_box_tumor_on_condition.png",
   plot = box_tumor_condition,
@@ -356,6 +379,53 @@ ggsave(
   dpi = 500
 )
 
+ggsave(
+  "04_analysis_box_weight_on_condition.png",
+  plot = box_weight_condition,
+  path = "results/",
+  device = "png",
+  scale = 1,
+  width = 16,
+  height = 10,
+  units = "cm",
+  dpi = 500
+)
+
+ggsave(
+  "04_analysis_violin_tumor_on_condition.png",
+  plot = violin_tumor_condition,
+  path = "results/",
+  device = "png",
+  scale = 1,
+  width = 16,
+  height = 10,
+  units = "cm",
+  dpi = 500
+)
+
+ggsave(
+  "04_analysis_violin_age_on_condition.png",
+  plot = violin_age_condition,
+  path = "results/",
+  device = "png",
+  scale = 1,
+  width = 16,
+  height = 10,
+  units = "cm",
+  dpi = 500
+)
+
+ggsave(
+  "04_analysis_violin_weight_on_condition.png",
+  plot = violin_weight_condition,
+  path = "results/",
+  device = "png",
+  scale = 1,
+  width = 16,
+  height = 10,
+  units = "cm",
+  dpi = 500
+)
 
 
 ggsave(
