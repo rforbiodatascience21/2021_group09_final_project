@@ -4,7 +4,8 @@
 #### Barchart of all categorical variables in one plot
 #### Boxplots of 1 variable, stratified on another
 #### Countplots of 1 variable, stratified on another
-
+#### Densitograms stratified on condition
+#### Histograms of tumorthickness stratified on medcinies
 
 # Clear workspace ---------------------------------------------------------
 rm(list = ls())
@@ -21,10 +22,12 @@ source(file = "R/99_project_functions.R")
 # Load data ---------------------------------------------------------------
 my_data_clean_aug <- readRDS(file = "data/03_clean_augmented_combined_breastcancer_data.rds")
 
+
 # Wrangle data ---------------------------------------------------------------
 # Only look at samples with condition = dead or = recovered
 data_condition_dead_recovered <- my_data_clean_aug %>%
   filter(condition != "under treatment")
+
 
 # Visualise data ----------------------------------------------------------
 #### Overall distribution plots ####
@@ -122,35 +125,157 @@ count_smoking_condition <- count_plot(data_condition_dead_recovered,
                                       condition, 
                                       "Condition")
 
+count_alcohol_condition <- count_plot(data_condition_dead_recovered, 
+                                      alcohol, 
+                                      "Alcohol", 
+                                      condition, 
+                                      "Condition")
+
 count_radiation_condition <- count_plot(data_condition_dead_recovered, 
                                         radiation_history, 
                                         "Radiation History",
                                        condition, 
                                        "Condition")
 
-count_heart_medicine_condition <- count_plot(data_condition_dead_recovered, 
-                                      taking_heartMedicine, 
-                                      "Taking heart medicine", 
-                                      condition, 
-                                      "Condition")
+count_blood_condition <- count_plot(data_condition_dead_recovered, 
+                                    blood, 
+                                    "Blood Type",
+                                    condition, 
+                                    "Condition")
 
-count_blood_pressure_medicine_condition <- count_plot(data_condition_dead_recovered, 
-                                      taking_blood_pressure_medicine, 
-                                      "Taking blood pressure medicine", 
-                                      condition, 
-                                      "Condition")
+count_brestpain_condition <- count_plot(data_condition_dead_recovered, 
+                                  breast_pain, 
+                                  "Breast Pain",
+                                  condition, 
+                                  "Condition")
 
-count_gallblader_medicine_condition <- count_plot(data_condition_dead_recovered, 
-                                      taking_gallbladder_disease_medicine, 
-                                      "Taking gallblader disease medicine", 
-                                      condition, 
-                                      "Condition")
 
-count_alcohol_condition <- count_plot(data_condition_dead_recovered, 
-                                      alcohol, 
-                                      "Alcohol", 
-                                      condition, 
-                                      "Condition")
+
+### Densitogram on condition ###
+p_treatment_age_con <- densitogram_plot(data_condition_dead_recovered,
+                                        treatment_age,
+                                        "Age at Treatment",
+                                        condition,
+                                        "Condition")
+
+p_weight_con <- densitogram_plot(data_condition_dead_recovered,
+                                 weight, 
+                                 "Weight",
+                                 condition,
+                                 "Condition") 
+
+p_thickness_tumor_con <- densitogram_plot(data_condition_dead_recovered,
+                                          thickness_tumor, 
+                                          "Thickness of Tumor",
+                                          condition,
+                                          "Condition") 
+
+# Combine plots
+densitogram_condition <- (p_treatment_age_con) / (p_weight_con | p_thickness_tumor_con) + 
+  plot_annotation(title = "Differences in Treatment Age, Weight and Tumor Thickness", 
+                  subtitle = "Densitograms stratified by Condition") + 
+  plot_layout(guides = "collect") & # common legends
+  ylab("") &
+  theme(legend.position = "bottom", 
+        axis.text.x= element_text(size=9, 
+                                  hjust=1, 
+                                  vjust = 1), 
+        axis.text.y= element_text(size=9, 
+                                  hjust=1, 
+                                  vjust = 1),
+        legend.text = element_text(size=9.5), 
+        axis.title= element_text(size=11, 
+                                 hjust=0.5, 
+                                 vjust = 1), 
+        plot.title = element_text(size=13, 
+                                  hjust = 0.5),
+        plot.subtitle = element_text(size=11, 
+                                     hjust = 0.5)
+  )
+
+
+### Densitogram on tumor type ###
+p_treatment_age_tumor <- densitogram_plot(data_condition_dead_recovered,
+                                          treatment_age, 
+                                          "Age at Treatment",
+                                          Benign_malignant_cancer,
+                                          "Tumor Type")
+
+p_weight_tumor <- densitogram_plot(data_condition_dead_recovered,
+                                   weight, 
+                                   "Weight",
+                                   Benign_malignant_cancer,
+                                   "Tumor Type") 
+
+p_thickness_tumor_tumor <- densitogram_plot(data_condition_dead_recovered,
+                                            thickness_tumor, 
+                                            "Thickness of Tumor",
+                                            Benign_malignant_cancer,
+                                            "Tumor Type") 
+
+
+# Combine plots
+densitogram_tumor <- (p_treatment_age_tumor) / (p_weight_tumor | p_thickness_tumor_tumor) + 
+  plot_annotation(title = "Differences in Treatment Age, Weight and Tumor Thickness", 
+                  subtitle = "Densitograms stratified by Tumor Type") + 
+  plot_layout(guides = "collect") & # common legends
+  ylab("") &
+  theme(legend.position = "bottom", 
+        axis.text.x= element_text(size=9, 
+                                  hjust=1, 
+                                  vjust = 1), 
+        axis.text.y= element_text(size=9, 
+                                  hjust=1, 
+                                  vjust = 1),
+        legend.text = element_text(size=9.5), 
+        axis.title= element_text(size=11, 
+                                 hjust=0.5, 
+                                 vjust = 1), 
+        plot.title = element_text(size=13, 
+                                  hjust = 0.5),
+        plot.subtitle = element_text(size=11, 
+                                     hjust = 0.5)
+  )
+
+
+
+
+### Histogram tumor thicknesses stratified on medicines ###
+
+heart_tumor <- hist_plot(my_data_clean_aug, 
+                   thickness_tumor, 
+                   "Tumor thickness", 
+                   taking_heartMedicine, "
+                   Taking heart medicine")
+
+bloodp_tumor <- hist_plot(my_data_clean_aug, 
+                   thickness_tumor, 
+                   "Tumor thickness", 
+                   taking_blood_pressure_medicine, 
+                   "Taking blood pressure medicine")
+
+gallbladdar_tumor <- hist_plot(my_data_clean_aug, 
+                               thickness_tumor, 
+                               "Tumor thickness", 
+                               taking_gallbladder_disease_medicine, 
+                               "Taking gallbladder medicine")
+
+radiation_tumor <- hist_plot(my_data_clean_aug, 
+                             thickness_tumor, 
+                             "Tumor thickness", 
+                             radiation_history, 
+                             "Radiation history")
+
+
+medicine_hist <- heart_tumor + bloodp_tumor + gallbladdar_tumor + radiation_tumor +
+  plot_annotation(title = 'How does medicine affect tumor thickness')
+
+
+
+
+
+
+
 
 # Write data --------------------------------------------------------------
 ### Overall distribution plots ###
@@ -271,10 +396,21 @@ ggsave(
   dpi = 500
 )
 
+ggsave(
+  "04_analysis_count_brestpain_on_condition.png",
+  plot = count_brestpain_condition,
+  path = "results/",
+  device = "png",
+  scale = 1,
+  width = 16,
+  height = 10,
+  units = "cm",
+  dpi = 500
+)
 
 ggsave(
-  "04_analysis_count_heart_medicine_on_condition.png",
-  plot = count_heart_medicine_condition,
+  "04_analysis_count_blood_on_condition.png",
+  plot = count_blood_condition,
   path = "results/",
   device = "png",
   scale = 1,
@@ -285,30 +421,43 @@ ggsave(
 )
 
 
+### Densitograms
 ggsave(
-  "04_analysis_count_blood_pressure_medicine_on_condition.png",
-  plot = count_blood_pressure_medicine_condition,
+  "04_analysis_densitograms_on_condition.png",
+  plot = densitogram_condition,
   path = "results/",
   device = "png",
   scale = 1,
-  width = 16,
-  height = 10,
+  width = 17,
+  height = 12,
+  units = "cm",
+  dpi = 500)
+
+ggsave(
+  "04_analysis_densitograms_on_tumor.png",
+  plot = densitogram_tumor,
+  path = "results/",
+  device = "png",
+  scale = 1,
+  width = 17,
+  height = 12,
+  units = "cm",
+  dpi = 500)
+
+
+# medicine histograms
+ggsave(
+  "04_analysis_histogram_medicine_tumor.png",
+  plot = medicine_hist,
+  path = "results/",
+  device = "png",
+  scale = 1,
+  width = 20,
+  height = 16,
   units = "cm",
   dpi = 500
 )
 
-
-ggsave(
-  "04_analysis_count_gallblader_medicine_on_condition.png",
-  plot = count_gallblader_medicine_condition,
-  path = "results/",
-  device = "png",
-  scale = 1,
-  width = 16,
-  height = 10,
-  units = "cm",
-  dpi = 500
-)
 
 # Show cols with NAs
 #my_data_clean_aug %>% 

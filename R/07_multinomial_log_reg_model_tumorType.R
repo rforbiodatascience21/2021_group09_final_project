@@ -107,6 +107,6 @@ suma <- test %>%
 
 
 
-write.csv(suma, "results/10_Model_performance_tumor.csv",row.names = FALSE)
-saveRDS(multinom.fit, "results/10_maxModel_tumor.RDS")
+write.csv(suma, "results/07_Model_performance_tumor.csv",row.names = FALSE)
+saveRDS(multinom.fit, "results/07_maxModel_tumor.RDS")
 

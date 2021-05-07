@@ -105,5 +105,5 @@ suma <- test %>%
 
 # Writing performance and model -------------------------------------------
 
-write.csv(suma, "results/11_Model_performance_condition.csv", row.names = FALSE)
-saveRDS(multinom.fit, "results/11_maxModel_condition.RDS")
+write.csv(suma, "results/08_Model_performance_condition.csv", row.names = FALSE)
+saveRDS(multinom.fit, "results/08_maxModel_condition.RDS")

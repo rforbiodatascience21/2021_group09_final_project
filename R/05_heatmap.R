@@ -55,7 +55,7 @@ corr_heatmap <- corr_longer %>%
 
 # Write data --------------------------------------------------------------
 ggsave(
-  "07_heatmap.png",
+  "05_heatmap.png",
   plot = corr_heatmap,
   path = "results/",
   device = "png",

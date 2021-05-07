@@ -1,0 +1,10 @@
+"model","term","class","estimate"
+"Max_pred","accuracy",NA,0.756944444444444
+"Red_pred","accuracy",NA,0.75
+"baseline","accuracy",NA,0.770833333333333
+"Max_pred","sensitivity","death",0.873873873873874
+"Red_pred","sensitivity","death",0.864864864864865
+"baseline","sensitivity","death",1
+"Max_pred","specificity","death",0.363636363636364
+"Red_pred","specificity","death",0.363636363636364
+"baseline","specificity","death",0
