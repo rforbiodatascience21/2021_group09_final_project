@@ -1,10 +1,10 @@
 "model","term","class","estimate"
-"Max_pred","accuracy",NA,0.596330275229358
-"Red_pred","accuracy",NA,0.587155963302752
-"baseline","accuracy",NA,0.591743119266055
-"Max_pred","sensitivity","Malignant",0.767441860465116
-"Red_pred","sensitivity","Malignant",0.821705426356589
+"Max_pred","sensitivity","Malignant",0.689922480620155
+"Red_pred","sensitivity","Malignant",0.813953488372093
 "baseline","sensitivity","Malignant",1
-"Max_pred","specificity","Malignant",0.348314606741573
-"Red_pred","specificity","Malignant",0.247191011235955
+"Max_pred","specificity","Malignant",0.277777777777778
+"Red_pred","specificity","Malignant",0.244444444444444
 "baseline","specificity","Malignant",0
+"Max_pred","balanced_accuracy","Malignant",0.483850129198966
+"Red_pred","balanced_accuracy","Malignant",0.529198966408269
+"baseline","balanced_accuracy","Malignant",0.5

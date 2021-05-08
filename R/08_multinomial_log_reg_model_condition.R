@@ -27,7 +27,7 @@ col_of_interest = c(
   "age",
   "weight",
   "thickness_tumor",
-  "Benign_malignant_cancer",
+  #"Benign_malignant_cancer",
   "hereditary_history",
   "blood",
   "taking_heartMedicine",
@@ -99,7 +99,7 @@ suma <- test %>%
   bind_cols(pluck(., "terms")) %>%   # couldn't be done with unnest() since "terms" had dim= [,6] [28,6]?
   select(-terms) %>%
   select(model, term, class, estimate) %>%
-  filter(term %in% c("accuracy", "sensitivity", "specificity"))
+  filter(term %in% c("balanced_accuracy", "sensitivity", "specificity"))
 
 
 
@@ -107,3 +107,4 @@ suma <- test %>%
 
 write.csv(suma, "results/08_Model_performance_condition.csv", row.names = FALSE)
 saveRDS(multinom.fit, "results/08_maxModel_condition.RDS")
+saveRDS(multinom.fit.reduced, "results/08_redModel_condition.RDS")

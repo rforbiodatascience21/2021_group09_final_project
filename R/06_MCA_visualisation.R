@@ -18,6 +18,9 @@ rm(list = ls())
 # Load libraries ----------------------------------------------------------
 library(tidyverse)
 library(patchwork)
+library(cowplot)
+library(ggrepel)
+
 
 
 # Define functions --------------------------------------------------------
@@ -107,4 +110,34 @@ MCA_aug_df %>%
 # NOTE one could consider plotting the column values for the MCA variables.
 # This would show which categories tend to group.
 
+# Include arrows describing the rotation matrix.
 
+mca_rot <- mca_ana %>%
+  pluck("cs") %>%
+  as_tibble(rownames = NA) %>%
+  rownames_to_column() %>%
+  rename(
+    MCA_1=`1`, 
+    MCA_2=`2`
+         )%>%
+  filter(
+    sqrt(MCA_1**2+MCA_1**2)> median(sqrt(MCA_1**2+MCA_2**2))
+  )
+
+arrow_style <- arrow(
+  angle = 20, ends = "first", type = "closed", length = grid::unit(6, "pt")
+)
+  
+p = MCA_aug_df %>%
+  filter(condition != "under treatment") %>%
+  ggplot(aes(x = MCA_1, y = MCA_2, col=condition)) +
+    geom_point(alpha=0.4)+
+    geom_segment(xend=0, yend=0, data=mca_rot, aes(color=NULL), arrow=arrow_style)+
+    geom_text_repel(data=mca_rot, aes(label=rowname, color=NULL))+
+    theme_minimal()+
+    theme(legend.position = "bottom") +
+    labs(
+      title="MCA Rotation matrix superimposed on MCA1 v. MCA2",
+      subtitle = "Categories and factors with euclidian norm above the median included."
+    ) 
+ggsave(p,filename = "results/06_MCA_supImp_rotation.png")
