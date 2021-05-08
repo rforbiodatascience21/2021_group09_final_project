@@ -272,7 +272,7 @@ heart_tumor <- hist_plot(my_data_clean_aug,
                    taking_heartMedicine, "
                    Taking heart medicine")
 
-bloodp_tumor <- hist_plot(my_data_clean_aug, 
+blood_tumor <- hist_plot(my_data_clean_aug, 
                    thickness_tumor, 
                    "Tumor thickness", 
                    taking_blood_pressure_medicine, 
@@ -291,11 +291,8 @@ radiation_tumor <- hist_plot(my_data_clean_aug,
                              "Radiation history")
 
 
-medicine_hist <- heart_tumor + bloodp_tumor + gallbladdar_tumor + radiation_tumor +
-  plot_annotation(title = 'How does medicine affect tumor thickness')
-
-
-
+medicine_hist <- heart_tumor + blood_tumor + gallbladdar_tumor + radiation_tumor +
+  plot_annotation(title = 'Distribution of tumor thickness stratified on:')
 
 
 
