@@ -51,6 +51,14 @@
   height: auto;
 }
 
+.fa-check{
+  color: green;
+}
+
+.fas{
+  padding: 2%;
+}
+
 slides > slide {
   background: linear-gradient(#ffffff, #ffffff 85%, #ffffff);
   background-color: white;
