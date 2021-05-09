@@ -59,7 +59,11 @@ comb_clean_data <- comb_data %>%
   # low age and low weight
   filter(age >= 20, weight >= 35) %>%
   # not got period yet, but gave birth (= does not make sense) (1 person)
-  filter(!(menstrual_age == "not yet" & pregnency_experience == 0))
+  filter(!(menstrual_age == "not yet" & pregnency_experience == 0))%>%
+  
+  
+  # Filter out men
+  filter(gender == 0) 
 
 # Remove inconsistencies in the data
 # Based on UK statistics, only look at women above 20 years old

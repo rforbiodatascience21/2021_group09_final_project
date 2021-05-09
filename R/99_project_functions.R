@@ -31,7 +31,28 @@ box_plot <- function(data, col_name, x_label_str, stratify_col, legend_str) {
   return(plot)
 }
 
-# Densitogram function
+# Basic violin plot of 1 variable, stratified on another, eg condition or tumor
+violin_plot <- function(data, col_name, y_label_str, stratify_col, stratify_str) {
+  title_string <- str_c("Violinplot of", y_label_str, "stratified on", stratify_str , sep = " ")
+  plot <- data %>%
+    ggplot(mapping = aes(x = {{stratify_col}},
+                         y = {{col_name}},
+                         fill = {{stratify_col}})) +
+    geom_violin(alpha=0.5) +
+    labs(x = stratify_str,
+         y = y_label_str) +
+    ggtitle(title_string) +
+    theme_minimal(base_family = "Avenir") +
+    theme(legend.position = "none",
+          axis.text.y = element_text(size=13, hjust=1, vjust = 1),
+          axis.title = element_text(size=13, hjust=0.5, vjust = 1),
+          axis.text.x = element_text(size=12, hjust=1, vjust = 1))
+  
+  return(plot)
+}
+
+
+# Densitogram function for common plots
 densitogram_plot <- function(data, col_name, x_label_str, stratify_col, legend_str) {
   plot <- data %>%
     ggplot(mapping = aes(x = {{col_name}}, 
@@ -46,14 +67,14 @@ densitogram_plot <- function(data, col_name, x_label_str, stratify_col, legend_s
 
 # Basic histogram of 1 variable, stratified on another, eg condition or tumor
 hist_plot <- function(data, col_name, x_label_str, stratify_col, legend_str) {
-  title_string <- str_c("Distribution of", x_label_str, "stratified on", legend_str , sep = " ")
+  title_string <- legend_str
   plot <- data %>%
     ggplot(mapping = aes(x = {{col_name}}, 
                          fill = {{stratify_col}})) +
-    geom_histogram(binwidth = 0.05) +
+    geom_histogram(binwidth = 0.1, alpha=0.5) +
     ggtitle(title_string) +
-    theme(legend.title = element_text(size = 7)) +
-    scale_x_discrete(name = x_label_str)+
+    theme(legend.title = element_text(size = 7), legend.position="bottom", legend.box = "horizontal") +
+
     labs(fill=legend_str)
   
   return(plot)
