@@ -11,22 +11,27 @@ library(tidyr)
 library(ggplot2)
 
 # Load data ---------------------------------------------------------------
-clean_data <- readRDS(file = "data/03_clean_augmented_combined_breastcancer_data.rds")
+clean_data <- read_csv(file = "data/02_clean_combined_cases.csv")
 
 # Heatmap Correlation Plot between numeric values
 heatmap_subset <- clean_data %>% 
-  mutate(education = as.numeric(education),
-         marital_length = as.numeric(marital_length),
-         giving_birth = as.numeric(giving_birth),
-         age_FirstGivingBirth = as.numeric(age_FirstGivingBirth),
-         menstrual_age = as.numeric(menstrual_age),
-         treatment_age = as.numeric(treatment_age)
-         )
-
+  mutate(treatment_age = treatment_data-as.numeric(birth_date)) %>% 
+  select(treatment_age, education,birth_date,age,weight, thickness_tumor,giving_birth,menstrual_age,menopausal_age) %>% 
+  mutate(across(.cols = everything(), as.numeric))
+  
+  
+ # mutate(education = as.numeric(education),
+  #       marital_length = as.numeric(marital_length),
+   #      giving_birth = as.numeric(giving_birth),
+    #     age_FirstGivingBirth = as.numeric(age_FirstGivingBirth),
+     #    menstrual_age = as.numeric(menstrual_age),
+    #     menopausal_age = as.numeric(menopausal_age),
+     #    birth_date = as.numeric(birth_date)
+      #   )
 
 corr <- heatmap_subset %>% 
   select(where(is.numeric)) %>%
-  cor() %>% 
+  cor(x=.,use="pairwise.complete.obs") %>% 
   round(digits = 2) %>% 
   as_tibble(rownames = "Var1")
 
@@ -48,10 +53,11 @@ corr_heatmap <- corr_longer %>%
         plot.title = element_text(size=9, 
                                   hjust = 0.5),
         legend.title=element_blank(),
-        legend.text=element_text(size=6)
-  ) #+      #I prefer that it has different colours, here are two possibilities
-  #scale_fill_gradient2() +
-  #scale_fill_gradientn(colours = terrain.colors(10))
+        legend.text=element_text(size=6)) +
+  scale_fill_gradient2(low = "darkorange3",
+                       mid = "azure2",
+                       high = "darkseagreen4",
+                       midpoint = 0)
 
 # Write data --------------------------------------------------------------
 ggsave(
@@ -65,6 +71,4 @@ ggsave(
   units = "cm",
   dpi = 500
 )
-
-
 
