@@ -333,6 +333,11 @@ redMod_tumor %>%
 - 2020 Cancer incidence and mortality in EU-27 countries [EU Science Hub](https://ec.europa.eu/jrc/en/news/2020-cancer-incidence-and-mortality-eu-27-countries)
 - WHO Guide to cancer early diagnosis [World Health Organization. Cancer](https://www.who.int/cancer/publications/cancer_early_diagnosis/en/)
 - Breast Cancer Dataset [Kaggle](https://www.kaggle.com/homayoonkhadivi/breast-cancer-datasets)
+- Breast cancer incidence (invasive) statistics (10 March 2020). [Cancer Research UK](www.cancerresearchuk.org/health-professional/cancer-statistics/statistics-by-cancer-type/breast-cancer/incidence-invasive)
+- Height Percentile Calculator for Men and Women in the United States [DQYDJ](https://dqydj.com/height-percentile-calculator-for-men-and-women)
+- Weight Gain After Breast Cancer Diagnosis May Be a Bigger Issue Than Thought in Australia (13 March 2020) [Breastcancer.org](https://www.breastcancer.org/research-news/gaining-weight-after-dx-big-problem-in-australia#:~:text=The%20survey%20found%20that%20nearly,diagnosed%20was%20about%20157%20pounds)
+- Github Repository [Group 9 Final Project](https://github.com/rforbiodatascience21/2021_group09_final_project)
+
 
 
 
