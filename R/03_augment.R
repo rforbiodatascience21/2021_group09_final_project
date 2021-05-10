@@ -52,10 +52,7 @@ aug_data <- clean_data %>%
 
   # Add new columns
   mutate(
-    treatment_age = treatment_data-as.numeric(birth_date),
-    norm_age = age / max(age),
-    norm_weight = weight / max(weight),
-    norm_thickness_tumor = thickness_tumor / max(thickness_tumor),
+    treatment_age = treatment_data-as.numeric(birth_date)
     ) %>%
   
   # Change to categories

@@ -15,6 +15,14 @@ set.seed(777)
 data_clean_aug <- readRDS(file = "data/03_clean_augmented_combined_breastcancer_data.rds")
 
 
+# Wrangle data ---------------------------------------------------------------
+data_clean_aug <- data_clean_aug %>%
+  # Add new columns; scaled down
+  mutate(
+    norm_age = age / max(age),
+    norm_weight = weight / max(weight),
+    norm_thickness_tumor = thickness_tumor / max(thickness_tumor)
+  ) 
 
 # Split into training and test --------------------------------------------
 

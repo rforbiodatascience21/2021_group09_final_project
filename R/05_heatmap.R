@@ -34,6 +34,7 @@ corr_heatmap <- corr_longer %>%
   geom_tile()+
   ggtitle("Heatmap - Correlation of numeric variables") + 
   labs(y="",x="")+
+  theme_minimal(base_family = "Avenir") +
   theme(axis.text.x = element_text(angle = 45, 
                                    size=6, 
                                    hjust=1, 
