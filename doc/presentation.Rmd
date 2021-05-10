@@ -11,7 +11,7 @@ output:
   ioslides_presentation:
     widescreen: true
     transition: slower
-    css: slidestyle.css
+    css: images/slidestyle.css
     df_print: kable
 
 
@@ -47,7 +47,7 @@ all_cases<- death_cases %>%
 [EU Science Hub](https://ec.europa.eu/jrc/en/news/2020-cancer-incidence-and-mortality-eu-27-countries)
 
 ```{r out.width="90%", fig.align = 'center' }
-knitr::include_graphics("incidence_2020.png",
+knitr::include_graphics("images/incidence_2020.png",
                         error = FALSE)
 ```
 
@@ -80,7 +80,7 @@ all_cases %>%
 ## Process
 
 ```{r out.width = '65%', fig.align = 'center'}
-knitr::include_graphics("flow_chart.png", error = FALSE)
+knitr::include_graphics("images/flow_chart.png", error = FALSE)
 ```
 
 
@@ -280,7 +280,7 @@ redMod_tumor %>%
 ## [Shiny App](https://bernadettekc.shinyapps.io/breast_cancer_survivalcalculator)
 
 ```{r out.width="90%"}
-knitr::include_graphics("app_screenshot.png", 
+knitr::include_graphics("images/app_screenshot.png", 
                         error = F)
 ```
 
