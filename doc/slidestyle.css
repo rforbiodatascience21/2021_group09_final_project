@@ -1,0 +1,71 @@
+<style>
+#future-steps {
+  color: red;
+}
+
+.emphasized {
+  font-size: 1.2em;
+}
+
+.up_bar{
+  background-color: rgb(47, 142, 194);
+  margin-top: 0px;
+  margin-bottom: 50px;
+  height: 10px;
+  position: absolute;
+}
+
+.arrow-right {
+  width: 0; 
+  height: 0; 
+  border-top: 5px solid transparent;
+  border-bottom: 5px solid transparent;
+  border-left: 5px solid rgb(47, 142, 194);
+}
+
+.title{
+  font-size: 1.5em;
+  color: rgb(56, 104, 132);
+  margin-top: 0;
+  top:0;
+}
+
+.final{
+  color: rgb(47, 142, 194);
+  font-size: 3em;
+  font-family: Trebuchet MS;
+  text-align: center;
+}
+#final_box{
+  margin-top: 200px;
+}
+
+.midcenter {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+}
+
+#image{
+  width: 60%;
+  height: auto;
+}
+
+.fa-check{
+  color: green;
+}
+
+.fas{
+  padding: 2%;
+}
+
+.progress{
+  height:50px;
+}
+
+slides > slide {
+  background: linear-gradient(#ffffff, #ffffff 85%, #ffffff);
+  background-color: white;
+  }
+
+</style>

@@ -62,7 +62,7 @@ mca_ana <- my_data_clean_aug %>%
 mca_row_val <- mca_ana %>%
   pluck("rs") %>%
   as_tibble() %>%
-  rename_with(.fn = ~ paste("MCA", .x, sep = "_"))
+  rename_with(.fn = ~ str_c("MCA", .x, sep = "_"))
 
 MCA_aug_df <- my_data_clean_aug %>%
   bind_cols(mca_row_val)

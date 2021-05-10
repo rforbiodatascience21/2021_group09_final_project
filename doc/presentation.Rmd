@@ -7,9 +7,9 @@ author:
 - Ida Frich Hansen
 output:
   ioslides_presentation:
-    widescreen: false
+    widescreen: true
     transition: slower
-    css: /cloud/project/presentation/slidestyle.css
+    css: slidestyle.css
     df_print: kable
 
 ---
@@ -21,50 +21,66 @@ library(tidyverse)
 library(kableExtra)
 knitr::opts_knit$set(root.dir = here::here()) #root dir for file to project root dir
 
-death_cases <- read_csv("/cloud/project/data/01_death_cases.csv")
-recovered_cases <- read_csv("/cloud/project/data/01_recovered_cases.csv")
-under_treatment_cases <- read_csv("/cloud/project/data/01_under_treatment_cases.csv")
-all_cases<- death_cases %>%
-  mutate(birth_date=as.double(birth_date))%>%
-  full_join(recovered_cases)%>%
-  full_join(under_treatment_cases)
 
 ```
 
 
----
+```{r message = FALSE, warning= FALSE}
+death_cases <- read_csv("data/01_death_cases.csv")
+recovered_cases <- read_csv("data/01_recovered_cases.csv")
+under_treatment_cases <- read_csv("data/01_under_treatment_cases.csv")
+all_cases<- death_cases %>%
+  mutate(birth_date=as.double(birth_date))%>%
+  full_join(recovered_cases)%>%
+  full_join(under_treatment_cases)
+```
+
 
 ## Introduction
 
 <div class="up_bar" style="width: 20px"></div><div class="arrow-right" style="margin-left: 20px"></div><br>
 
-The main aim is predicting breast cancer patients chance of survival.  
+[EU Science Hub](https://ec.europa.eu/jrc/en/news/2020-cancer-incidence-and-mortality-eu-27-countries)
+
+- 13.3% of all cancer diagnoses.
+- 7.1% of all cancer related deaths.
+
+[WHO Guide to cancer early diagnosis](https://www.who.int/cancer/publications/cancer_early_diagnosis/en/)
+
+- Early diagnosis and prognosis may aid treatment and focus resources where needed.
+
+
+## Process
+
+Investigate and establish a prognosis for potential breast cancer patients. 
 
 We have follow these steps:
 
-- [Clean the data](#5)
-- [Augment the data](#7)
-- [Create some plots](#10)
-- Statistical analysis
+- Cleaning and data validation
+- Augmenting data
+- Visualizing data
 - Create the prediction tool
-- Create the presentation
+- Host prediction tool
 
 
 # Materials and methods
 
 ## Materials {.smaller}
 
-<div class="up_bar" style="width: 40px"></div><div class="arrow-right" style="margin-left: 40px"></div><br>
+[Kaggle breast cancer data](https://www.kaggle.com/homayoonkhadivi/breast-cancer-datasets)
 
-We are working with a dataset about Breast Cancer that we have obtained from [kaggle website](https://www.kaggle.com/)
+26 explanatory variables.
 
-This is the dataset we are working with:
-
+- Condition
+- tumor type
 
 ```{r dataset}
-kbl(all_cases) %>%
+#<div class="up_bar" style="width: 40px"></div><div class="arrow-right" style="margin-left: 40px"></div><br>
+all_cases %>%
+  head(10) %>%
+  kbl("html") %>%
   kable_paper() %>%
-  scroll_box(width = "700px", height = "350px")
+  scroll_box(width = "1000px")
 ```
 
 
@@ -72,15 +88,14 @@ kbl(all_cases) %>%
 
 <div class="up_bar" style="width: 60px"></div><div class="arrow-right" style="margin-left: 60px"></div><br>
 
+Unrealistic age and weight proportions.
 
 ```{r}
-under_20 <- all_cases%>%
-  filter(age<20) %>%
-  ggplot(aes(x = age, y = weight)) +
-  geom_point()+
-  geom_smooth()
-
-under_20
+all_cases %>%
+  mutate(included = ifelse((age >= 20 & weight >= 35), yes="yes", no="no")) %>%
+  ggplot(aes(x = age, y = weight, col=included)) +
+  geom_point() +
+  theme_minimal()
 ```
 
 
@@ -90,14 +105,23 @@ under_20
 
 
 ```{r}
-y <- data.frame(Changes = c("Variable names contained special invisible chars (\r\n) which were removed" , "Birth_control was renamed to not contain parenthesis in variable name", "Missing values were encoded to NA_real (numeric NA)", "For binary variables, if another char than 0 or 1 is found, this is assumed to be a typing error and is set = 1 (greedy approach)", "Blood type had one value of 44 (mistake) which was changed to NA", "Birth dates of other than 4 numbers were set to NA",  "Only look at women as they are the risk group of breast cancer (few men are hit)", "Only look at women > 20 years, as we wish to mainly focus on the risk group (age =risk) (0 cases in UK for women < 20 over 3 years)", "Filter out samples that are believed to have errors in weight", "Filter out a single woman who is set to not yet have her period, but have experience in pregnancy (does not make sense = error)", "Remove singular columns (with only one value for all samples)"))
+y <- data.frame(Changes = c(
+  "Removed special characters from variable names" , 
+  "Greedy cleanup of binary variables: None binary values set to 1",
+  "Blood type had one value of 44 (mistake) which was changed to NA", 
+  "Birth dates of other than 4 numbers were set to NA",  
+  "Only include women as they are the risk group of breast cancer (few men are hit)", 
+  "Only include women > 20 years, as they are the primary risk group", #as we wish to mainly focus on the risk group (age = risk) (0 cases in UK for women < 20 over 3 years)", 
+  "Remove samples with abnormal weight age proportions", 
+  "Filter out a single woman who is set to not yet have her period, but have experience in pregnancy", 
+  "Remove singular columns (with only one value for all samples)"))
 
 x <- knitr::kable(y, "html") %>%
   kable_styling(font_size = 16) %>%
-  pack_rows("Column names",1,2) %>%
-  pack_rows("Variable values",3,6) %>%
-  pack_rows("Filter out samples",7,10) %>%
-  pack_rows("Removing columns", 11,11)
+  pack_rows("Column names",1,1) %>%
+  pack_rows("Variable values",2,4) %>%
+  pack_rows("Filter out samples",5,8) %>%
+  pack_rows("Removing columns", 9,9)
 
 x
 ```
@@ -109,20 +133,146 @@ x
 
 
 ```{r}
-y <- data.frame(Changes = c("Categorical variables or more than 2 categories where encoded by their name instead of numbers", "Binary categories were kept", "All categorical values were changed to type; factor", "Numeric values were kept", "Columns explaining factor variables, like education, mestrual_age, menopausal_age...", "Age at treatment were calculated from birthdate year treatment year"))
+y <- data.frame(Changes = c(
+  "Categorical variables encoded with label and encoded as factor", 
+  "Age at treatment",
+  "Normalised numerical variables"))
 
 x <- knitr::kable(y, "html") %>%
   kable_styling(font_size = 16) %>%
-  pack_rows("Values changed",1,4) %>%
-  pack_rows("Adding columns",5,6) 
+  pack_rows("Values changed",1,1) %>%
+  pack_rows("Adding columns",2,3) 
 
 x
 ```
 
 
-<div style="font-size: 0.75em">
-- 
+# Exploratory Analysis
+
+## Distributions
+```{r, out.width='80%', fig.align='center'}
+knitr::include_graphics("../results/04_analysis_barchart_categorical_education_to_heartmedicine.png", error = F)
+```
+
+
+## Distributions
+```{r out.width="80%", fig.align='center'}
+knitr::include_graphics("../results/04_analysis_barchart_categorical_gallmedicine_to_condition.png", error = F)
+```
+
+## Distributions
+```{r out.width = "90%", fig.show = 'hold', fig.align = 'center'}
+
+knitr::include_graphics("../results/04_analysis_densitograms_on_condition.png", 
+  error = F)
+```
+
+## Distributions
+```{r out.width = "90%", fig.show = 'hold', fig.align = 'center'}
+
+knitr::include_graphics("../results/04_analysis_densitograms_on_tumor.png", 
+  error = F)
+```
+
+## MCA Tumortype
+```{r out.width = "60%", fig.show = 'hold', fig.align = 'center'}
+
+knitr::include_graphics("../results/06_MCA_contour_tumorType.png", 
+  error = F)
+```
+
+## MCA Condition
+```{r out.width = "60%", fig.show = 'hold', fig.align = 'center'}
+
+knitr::include_graphics("../results/06_MCA_contour_conditions.png", 
+  error = F)
+```
+
+## MCA Rotation 
+<div style="float: left; width: 50%;">
+```{r out.width = "100%", fig.show = 'hold', fig.align = 'center'}
+
+knitr::include_graphics("../results/06_MCA_contour_conditions.png", 
+  error = F)
+```
 </div>
+
+<div style="float: left; width: 50%;">
+```{r out.width = "100%", fig.show = 'hold', fig.align = 'center'}
+
+knitr::include_graphics("../results/06_MCA_supImp_rotation.png", 
+  error = F)
+```
+</div>
+# Model
+
+
+## Predicting tumortype
+<div style="float: left; width: 40%;">
+**Reduced Model**
+
+- Age (norm)
+- Weight (norm)
+- Hereditary history
+- Smoking
+- Radiation therapy
+- Menstrual age
+- Pregnancy experience
+- Abortion
+- Breast pain
+</div>
+
+<div style="float: right; width: 60%;">
+```{r}
+redMod_tumor = read.csv("results/07_Model_performance_tumor.csv")
+
+redMod_tumor %>%
+  pivot_wider(names_from = "term", values_from = "estimate") %>%
+  select(-class) %>%
+  mutate(across(-model, function(x) str_c(round(x*100),"%"))) %>%
+  kbl("html") %>%
+  kable_minimal() %>%
+    kable_styling(font_size = 20) %>%
+  footnote(general= "Positive class = Malignant",
+           fixed_small_size = TRUE)
+
+```
+</div>
+
+
+
+## Predicting Condition
+<div style="float: left; width: 40%;">
+**Reduced Model**
+
+- Age
+- Gallbladder medicine
+- Menupausal age
+- Abortion
+
+
+</div>
+
+<div style="float: right; width: 60%;">
+```{r}
+redMod_tumor = read.csv("results/08_Model_performance_condition.csv")
+
+redMod_tumor %>%
+  pivot_wider(names_from = "term", values_from = "estimate") %>%
+  select(-class) %>%
+  mutate(across(-model, function(x) str_c(round(x*100),"%"))) %>%
+  kbl("html") %>%
+  kable_minimal() %>%
+  kable_styling(font_size = 20) %>%
+  footnote(general= "Positive class = Death",
+           fixed_small_size = TRUE)
+
+```
+</div>
+
+
+
+
 
 # Discussion {#statistics}
 ## Discussion {.smaller}
