@@ -26,17 +26,27 @@ aug_data <- clean_data %>%
                                  education == 4 ~ "Diploma",
                                  education == 5 ~ "Associate",
                                  education == 6 ~ "Bachelor",
-                                 education == 7 ~ "Master")) %>%
-           
+                                 education == 7 ~ "Master"),
+         # Keep order of categories
+         fct_relevel(education, 
+                     "Illiterate", 
+                     "Elementary", 
+                     "Middle School", 
+                     "High School", 
+                     "Diploma", 
+                     "Associate", 
+                     "Bachelor", 
+                     "Master")) %>%
+  
   mutate("blood" = case_when(blood == 0 ~ "A+",
                              blood == 1 ~ "A-",
                              blood == 2 ~ "AB+",
                              blood == 3 ~ "AB-",
                              blood == 4 ~ "B+",
                              blood == 5 ~ "B-",
-                                  blood == 6 ~ "O+",
-                                  blood == 7 ~ "O-")) %>%
-           
+                             blood == 6 ~ "O+",
+                             blood == 7 ~ "O-")) %>%
+  
   mutate("age_FirstGivingBirth" = case_when(age_FirstGivingBirth == 0 ~ "under 30",
                                             age_FirstGivingBirth == 1 ~ "above 30")) %>%
   
@@ -53,26 +63,21 @@ aug_data <- clean_data %>%
   
   mutate("marital_length" = case_when(marital_length == 0 ~ "under 10 years",
                                       marital_length == 1 ~ "above 10 years")) %>%
-
+  
   # Add new columns
-  mutate(
-    treatment_age = treatment_data - as.numeric(birth_date)) %>%
+  mutate(treatment_age = treatment_data - as.numeric(birth_date)) %>%
   
   # Change to categories
   mutate(across(
-    .cols = -c(age, treatment_age, weight, thickness_tumor, birth_date),
+    .cols = -c(age, 
+               treatment_age, 
+               weight, 
+               thickness_tumor, 
+               birth_date),
     as.factor)) %>%
-  
-  #Change order of education
-  mutate(education = fct_relevel(education, "Illiterate", "Elementary", "Middle School", "High School", "Diploma", "Associate", "Bachelor", "Master")) %>%
   
   # Remove singular columns
   select_if(function(col) length(unique(col)) > 1) 
-
-
-
-
-
 
 
 
