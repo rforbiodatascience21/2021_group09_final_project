@@ -4,11 +4,12 @@
 count_plot <- function(data, col_name, x_label_str, stratify_col, legend_str) {
   title_string <- str_c("Distribution of", x_label_str, "stratified on", legend_str , sep = " ")
   plot <- data %>%
-    ggplot(mapping = aes(x = {{col_name}}, 
+    ggplot(mapping = aes(x = {{col_name}},
+                         y = (..count..)/sum(..count..)*100,
                          fill = {{stratify_col}})) +
     geom_bar(alpha=0.5, position = position_dodge(width = 0.95)) +
     labs(x = x_label_str,
-         y = "Count",
+         y = "Percentage",
          fill = legend_str) +
     ggtitle(title_string) +
     theme_minimal(base_family = "Avenir") 
