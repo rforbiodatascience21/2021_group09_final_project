@@ -1,10 +1,10 @@
 # Load R packages
-library(shiny)
-library(shinythemes)
-library(devtools)
-library(tidyverse)
-require(nnet)
-library(rsconnect)
+library("shiny")
+library("shinythemes")
+library("devtools")
+library("tidyverse")
+require("nnet")
+library("rsconnect")
 
 # Load model 
 multinom.fit.reduced <- readRDS(file = "08_redModel_condition.rds")
