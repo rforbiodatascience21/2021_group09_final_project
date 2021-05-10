@@ -3,9 +3,10 @@ library(shiny)
 library(shinythemes)
 library(devtools)
 library(tidyverse)
+require(nnet)
 
 # Load model 
-multinom.fit.reduced <- readRDS(file = "../results/08_redModel_condition.RDS")
+multinom.fit.reduced <- readRDS(file = "08_redModel_condition.rds")
 
 # Define UI
 ui <- fluidPage(
