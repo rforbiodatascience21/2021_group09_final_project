@@ -1,10 +1,10 @@
 "model","term","class","estimate"
-"Max_pred","sensitivity","death",0.90990990990991
+"Max_pred","sensitivity","death",0.882882882882883
 "Red_pred","sensitivity","death",0.891891891891892
 "baseline","sensitivity","death",1
-"Max_pred","specificity","death",0.424242424242424
-"Red_pred","specificity","death",0.393939393939394
+"Max_pred","specificity","death",0.484848484848485
+"Red_pred","specificity","death",0.515151515151515
 "baseline","specificity","death",0
-"Max_pred","balanced_accuracy","death",0.667076167076167
-"Red_pred","balanced_accuracy","death",0.642915642915643
+"Max_pred","balanced_accuracy","death",0.683865683865684
+"Red_pred","balanced_accuracy","death",0.703521703521704
 "baseline","balanced_accuracy","death",0.5
