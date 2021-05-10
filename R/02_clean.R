@@ -45,10 +45,21 @@ comb_clean_data <- comb_data %>%
   
   # Cleanup of binary variables
   mutate(across(
-    .cols = c(hereditary_history, marital_status, marital_length,
-              pregnency_experience, age_FirstGivingBirth, abortion, taking_heartMedicine,
-              taking_blood_pressure_medicine, taking_gallbladder_disease_medicine, smoking,
-              alcohol, breast_pain, radiation_history, Birth_control, Benign_malignant_cancer),
+    .cols = c(hereditary_history, 
+              marital_status, 
+              marital_length,
+              pregnency_experience, 
+              age_FirstGivingBirth, 
+              abortion, t
+              aking_heartMedicine,
+              taking_blood_pressure_medicine, 
+              taking_gallbladder_disease_medicine, 
+              smoking,
+              alcohol, 
+              breast_pain, 
+              radiation_history, 
+              Birth_control, 
+              Benign_malignant_cancer),
     ~ case_when(is.na(.) ~ NA_real_,
                 . == 0   ~  0,
                 TRUE     ~  1)
