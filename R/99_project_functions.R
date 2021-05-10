@@ -82,7 +82,7 @@ hist_plot <- function(data, col_name, x_label_str, stratify_col, legend_str) {
 }
 
 
-  # MCA analysis function -----------------------------------------------
+# MCA analysis function -----------------------------------------------
 comb_countour_plot <- function(df, x, y, grouping, legend_str){
   
   p_main <-  ggplot(df, 
