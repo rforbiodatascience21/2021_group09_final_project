@@ -51,16 +51,9 @@ all_cases<- death_cases %>%
 
 
 ## Process
-
-Investigate and establish a prognosis for potential breast cancer patients. 
-
-We have follow these steps:
-
-- Cleaning and data validation
-- Augmenting data
-- Visualizing data
-- Create the prediction tool
-- Host prediction tool
+```{r out.width = '75%', fig.align = 'center'}
+knitr::include_graphics("flow_chart.png", error = FALSE)
+```
 
 
 # Materials and methods
@@ -75,7 +68,6 @@ We have follow these steps:
 - tumor type
 
 ```{r dataset}
-#<div class="up_bar" style="width: 40px"></div><div class="arrow-right" style="margin-left: 40px"></div><br>
 all_cases %>%
   head(10) %>%
   kbl("html") %>%
@@ -247,7 +239,7 @@ redMod_tumor %>%
 
 - Age
 - Gallbladder medicine
-- Menupausal age
+- Menopausal age
 - Abortion
 
 
@@ -264,7 +256,7 @@ redMod_tumor %>%
   kbl("html") %>%
   kable_minimal() %>%
   kable_styling(font_size = 20) %>%
-  footnote(general= "Positive class = Death",
+  footnote(general = "Positive class = Death",
            fixed_small_size = TRUE)
 
 ```
@@ -274,18 +266,21 @@ redMod_tumor %>%
 
 
 
-# Discussion {#statistics}
-## Discussion {.smaller}
+# Discussion & Conclusion
+## Discussion 
 
-<div class="up_bar" style="width: 360px"></div><div class="arrow-right" style="margin-left: 360px"></div><br>
+- Greedy cleaning approach
+- Disagreement between MCA and reduced model 
+- A general set of rules for valid entries
 
-# Conclusion
 
-## Conclusion {.smaller}
 
-<div class="up_bar" style="width: 400px"></div><div class="arrow-right" style="margin-left: 400px"></div><br>
+## Conclusion
 
-We have reached the following conclusions
+- Possible to predict both tumor type and outcome.
+- 
+
+
 
 # Bibliography
 
