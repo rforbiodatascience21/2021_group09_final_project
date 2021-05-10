@@ -1,10 +1,12 @@
 ---
 title: "Final project"
+subtitle: "22100 - R for Bio Data Science"
 author:
-- Ángela Miranda Segura
-- Bernadette Kofoed Christiansen
-- Henrik Spiegelhauer
-- Ida Frich Hansen
+- Ángela Miranda Segura 210496
+- Bernadette Kofoed Christiansen 174604
+- Henrik Spiegelhauer 174571
+- Ida Frich Hansen 174601
+
 output:
   ioslides_presentation:
     widescreen: true
@@ -18,8 +20,8 @@ output:
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE)
-library(tidyverse)
-library(kableExtra)
+library("tidyverse")
+library("kableExtra")
 knitr::opts_knit$set(root.dir = here::here()) #root dir for file to project root dir
 
 
