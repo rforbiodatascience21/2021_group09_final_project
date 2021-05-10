@@ -65,21 +65,26 @@ MCA_aug_df <- my_data_clean_aug %>%
   bind_cols(mca_row_val)
 
 
-
 # Visualise Analysis ------------------------------------------------------
 MCA_aug_df %>%
   comb_countour_plot(x = "MCA_1", 
                      y = "MCA_2", 
-                     grouping = "Benign_malignant_cancer") %>%
-  ggsave(filename = "results/06_MCA_contour_tumorType.png")
+                     grouping = "Benign_malignant_cancer",
+                     legend_str = "Tumor Type") %>%
+  ggsave(filename = "results/06_MCA_contour_tumorType.png",
+         width = 9,
+         height = 5)
 
 
 MCA_aug_df %>%
   filter(condition != "under treatment") %>%
   comb_countour_plot(x = "MCA_1", 
                      y = "MCA_2", 
-                     grouping = "condition") %>%
-  ggsave(filename = "results/06_MCA_contour_conditions.png")
+                     grouping = "condition",
+                     legend_str = "Condition") %>%
+  ggsave(filename = "results/06_MCA_contour_conditions.png",
+         width = 9,
+         height = 5)
 
 
 # NOTE one could consider plotting the column values for the MCA variables.
@@ -123,5 +128,7 @@ p = MCA_aug_df %>%
 
 
 ggsave(p, 
-       filename = "results/06_MCA_supImp_rotation.png")
+       filename = "results/06_MCA_supImp_rotation.png",
+       width = 8,
+       height = 5)
 

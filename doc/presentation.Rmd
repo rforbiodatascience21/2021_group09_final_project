@@ -49,7 +49,7 @@ all_cases<- death_cases %>%
 
 [WHO Guide to cancer early diagnosis](https://www.who.int/cancer/publications/cancer_early_diagnosis/en/)
 
-- Early diagnosis and prognosis.
+- Early diagnosis and prognosis may aid treatment and focus resources where needed.
 
 <!-- ############### SLIDE ############### -->
 
@@ -62,7 +62,7 @@ all_cases<- death_cases %>%
 26 explanatory variables.
 
 - Condition
-- Tumor type
+- tumor type
 
 ```{r dataset}
 all_cases %>%
@@ -101,21 +101,23 @@ all_cases %>%
 ## Cleaning the data 
 
 ```{r}
-y <- data.frame(changes = c(
+y <- data.frame(Changes = c(
   "Removed special characters from variable names" , 
-  "Greedy cleanup of binary variables",
+  "Greedy cleanup of binary variables: None binary values set to 1",
   "Blood type had non-conforming entries which were set to NA", 
   "Birth dates of other than 4 numbers were set to NA",  
-  "Only include women > 20 years, as they are the primary risk group",  
-  "Remove abnormal attribute combinations", 
+  "Only include women as they are the risk group of breast cancer (few men are hit)", 
+  "Only include women > 20 years, as they are the primary risk group", #as we wish to mainly focus on the risk group (age = risk) (0 cases in UK for women < 20 over 3 years)", 
+  "Remove samples with abnormal weight age proportions", 
+  "Filter out a single woman who is set to not yet have her period, but have experience in pregnancy", 
   "Remove singular columns (with only one value for all samples)"))
 
-x <- knitr::kable(y, "html", col.names = NULL) %>%
+x <- knitr::kable(y, "html") %>%
   kable_styling(font_size = 23) %>%
   pack_rows("Column names",1,1) %>%
   pack_rows("Variable values",2,4) %>%
-  pack_rows("Filter out samples",5,6) %>%
-  pack_rows("Removing columns", 7,7)
+  pack_rows("Filter out samples",5,8) %>%
+  pack_rows("Removing columns", 9,9)
 
 x
 ```
@@ -125,16 +127,15 @@ x
 ## Augmenting the data
 
 ```{r}
-y <- data.frame(changes = c(
-  "Categorical variables as factor",
-  "Explicit values for categorical variables",
+y <- data.frame(Changes = c(
+  "Categorical variables encoded with label as factor", 
   "Age at treatment",
   "Normalised numerical variables"))
 
-x <- knitr::kable(y, "html", col.names = NULL) %>%
+x <- knitr::kable(y, "html") %>%
   kable_styling(font_size = 23) %>%
-  pack_rows("Values changed",1,2) %>%
-  pack_rows("Adding columns",3,4) 
+  pack_rows("Values changed",1,1) %>%
+  pack_rows("Adding columns",2,3) 
 
 x
 ```
@@ -145,22 +146,22 @@ x
 
 <!-- ############### SLIDE ############### -->
 
-## Distributions {#slide}
+## Distributions
 ```{r, out.width='75%', fig.align='center'}
 knitr::include_graphics("../results/04_analysis_barchart_categorical_education_to_heartmedicine.png", error = F)
 ```
 
 <!-- ############### SLIDE ############### -->
 
-## Distributions {#slide}
+## Distributions
 ```{r out.width="75%", fig.align='center'}
 knitr::include_graphics("../results/04_analysis_barchart_categorical_gallmedicine_to_condition.png", error = F)
 ```
 
 <!-- ############### SLIDE ############### -->
 
-## Distributions {#slide}
-```{r out.width = "85%", fig.show = 'hold', fig.align = 'center'}
+## Distributions
+```{r out.width = "90%", fig.show = 'hold', fig.align = 'center'}
 
 knitr::include_graphics("../results/04_analysis_densitograms_on_condition.png", 
   error = F)
@@ -168,8 +169,8 @@ knitr::include_graphics("../results/04_analysis_densitograms_on_condition.png",
 
 <!-- ############### SLIDE ############### -->
 
-## Distributions {#slide}
-```{r out.width = "85%", fig.show = 'hold', fig.align = 'center'}
+## Distributions
+```{r out.width = "90%", fig.show = 'hold', fig.align = 'center'}
 
 knitr::include_graphics("../results/04_analysis_densitograms_on_tumor.png", 
   error = F)
@@ -177,7 +178,7 @@ knitr::include_graphics("../results/04_analysis_densitograms_on_tumor.png",
 
 <!-- ############### SLIDE ############### -->
 
-## MCA Tumortype {#slide}
+## MCA Tumortype
 ```{r out.width = "60%", fig.show = 'hold', fig.align = 'center'}
 
 knitr::include_graphics("../results/06_MCA_contour_tumorType.png", 
@@ -186,7 +187,7 @@ knitr::include_graphics("../results/06_MCA_contour_tumorType.png",
 
 <!-- ############### SLIDE ############### -->
 
-## MCA Condition {#slide}
+## MCA Condition
 ```{r out.width = "60%", fig.show = 'hold', fig.align = 'center'}
 
 knitr::include_graphics("../results/06_MCA_contour_conditions.png", 
@@ -195,21 +196,28 @@ knitr::include_graphics("../results/06_MCA_contour_conditions.png",
 
 <!-- ############### SLIDE ############### -->
 
-## MCA Rotation {#slide}
+## MCA Rotation 
+<div style="float: left; width: 50%;">
+```{r out.width = "100%", fig.show = 'hold', fig.align = 'center'}
 
+knitr::include_graphics("../results/06_MCA_contour_conditions.png", 
+  error = F)
+```
+</div>
 
-```{r out.width = "60%", fig.align = 'center'}
+<div style="float: left; width: 50%;">
+```{r out.width = "100%", fig.show = 'hold', fig.align = 'center'}
 
 knitr::include_graphics("../results/06_MCA_supImp_rotation.png", 
   error = F)
 ```
-
+</div>
 
 <!-- ############### SLIDE ############### -->
 
-## 
+## Binary correlation
 
-```{r out.width = "90%", fig.align = 'center'}
+```{r out.width = "100%", fig.align = 'center'}
 
 knitr::include_graphics("../results/05_heatmap_binary.png", 
   error = F)
@@ -218,9 +226,9 @@ knitr::include_graphics("../results/05_heatmap_binary.png",
 
 <!-- ############### SLIDE ############### -->
 
-## 
+## Numeric correlations
 
-```{r out.width = "80%", fig.align = 'center'}
+```{r out.width = "100%", fig.align = 'center'}
 
 knitr::include_graphics("../results/05_heatmap_numeric.png", 
   error = F)
@@ -232,10 +240,7 @@ knitr::include_graphics("../results/05_heatmap_numeric.png",
 
 # Model
 
-
-
 <!-- ############### SLIDE ############### -->
-<!-- Tumortype model removed
 
 ## Predicting tumortype
 
@@ -273,7 +278,6 @@ redMod_tumor %>%
 
 ```
 </div>
--->
 
 <!-- ############### SLIDE ############### -->
 
@@ -297,7 +301,6 @@ redMod_tumor %>%
   pivot_wider(names_from = "term", values_from = "estimate") %>%
   select(-class) %>%
   mutate(across(-model, function(x) str_c(round(x*100),"%"))) %>%
-  rename_with(.fn = function(x) str_replace(x, "_", " ") %>% str_to_sentence()) %>%
   kbl("html") %>%
   kable_minimal() %>%
   kable_styling(font_size = 20) %>%
@@ -306,19 +309,6 @@ redMod_tumor %>%
 
 ```
 </div>
-
-<!-- ############### SLIDE ############### -->
-
-# Shiny app
-
-<!-- ############### SLIDE ############### -->
-
-## [Shiny App](https://bernadettekc.shinyapps.io/breast_cancer_survivalcalculator)
-
-```{r out.width="90%"}
-knitr::include_graphics("app_screenshot.png", 
-  error = F)
-```
 
 <!-- ############### SLIDE ############### -->
 
@@ -356,6 +346,18 @@ knitr::include_graphics("app_screenshot.png",
 
 
 
+<!-- ############### SLIDE ############### -->
+
+# Shiny app
+
+<!-- ############### SLIDE ############### -->
+
+## [Shiny App](https://bernadettekc.shinyapps.io/breast_cancer_survivalcalculator)
+
+```{r out.width="90%"}
+knitr::include_graphics("app_screenshot.png", 
+  error = F)
+```
 
 
 <!--
