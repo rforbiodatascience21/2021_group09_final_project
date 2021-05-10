@@ -126,7 +126,7 @@ p = MCA_aug_df %>%
        subtitle = "Categories and factors with euclidian norm above the median included."
   ) 
 
-
+# Write data ---------------------------------------------------------------
 ggsave(p, 
        filename = "results/06_MCA_supImp_rotation.png",
        width = 8,
