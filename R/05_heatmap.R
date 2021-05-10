@@ -4,56 +4,92 @@
 rm(list = ls())
 
 # Load libraries ----------------------------------------------------------
-library(tidyverse)
-library(purrr)
-library(tidyr)
-library(ggplot2)
+library("tidyverse")
+library("purrr")
+library("tidyr")
+library("ggplot2")
 
 # Load data ---------------------------------------------------------------
 clean_data <- read_csv(file = "data/02_clean_combined_cases.csv")
 
 # Subset data ---------------------------------------------------------------
 # Subset of numeric and ordinal variables
+numeric_col_of_interest = c("treatment_age", 
+                    "education", 
+                    "birth_date", 
+                    "age", 
+                    "weight", 
+                    "thickness_tumor", 
+                    "giving_birth", 
+                    "menstrual_age", 
+                    "menopausal_age")
+
 subset_numeric <- clean_data %>% 
   mutate(treatment_age = treatment_data - as.numeric(birth_date)) %>% 
-  select(treatment_age, education, birth_date, age, weight, thickness_tumor, giving_birth, menstrual_age, menopausal_age) %>% 
-  mutate(across(.cols = everything(), as.numeric))
+  select(all_of(numeric_col_of_interest)) %>% 
+  mutate(across(.cols = everything(), 
+                as.numeric))
 
 # Subset of binary variables
+binary_col_of_interest = c("hereditary_history", 
+                           "marital_status", 
+                           "pregnency_experience", 
+                           "age_FirstGivingBirth",
+                           "abortion", 
+                           "taking_heartMedicine", 
+                           "taking_blood_pressure_medicine",
+                           "taking_gallbladder_disease_medicine", 
+                           "smoking",
+                           "alcohol", 
+                           "breast_pain",
+                           "radiation_history", 
+                           "Birth_control", 
+                           "Benign_malignant_cancer")
+  
 subset_binary<- clean_data %>% 
-  select(hereditary_history, marital_status, pregnency_experience, age_FirstGivingBirth,
-         abortion, taking_heartMedicine, taking_blood_pressure_medicine,
-         taking_gallbladder_disease_medicine, smoking, alcohol, breast_pain,
-         radiation_history, Birth_control, Benign_malignant_cancer) %>% 
-  mutate(across(.cols = everything(), as.numeric))
+  select(all_of(binary_col_of_interest)) %>% 
+  mutate(across(.cols = everything(), 
+                as.numeric))
 
-# Correlation Matrix ---------------------------------------------------------------
-
+# Correlation Matrices ---------------------------------------------------------------
+# Numeric variables
 corr_numeric <- subset_numeric %>% 
   select(where(is.numeric)) %>%
-  cor(x=., use="pairwise.complete.obs", method= "spearman") %>% 
+  cor(x=., 
+      use="pairwise.complete.obs", 
+      method= "spearman") %>% 
   round(digits = 5) %>% 
   as_tibble(rownames = "Var1")
 
 corr_numeric_longer <- corr_numeric %>% 
-  pivot_longer(cols = -Var1,names_to = "Var2", values_to = "corr")
+  pivot_longer(cols = -Var1,
+               names_to = "Var2", 
+               values_to = "corr")
 
+# Binary variables
 corr_binary <- subset_binary %>% 
   select(where(is.numeric)) %>%
-  cor(x=., use="pairwise.complete.obs", method= "spearman") %>% 
+  cor(x=., 
+      use="pairwise.complete.obs", 
+      method= "spearman") %>% 
   round(digits = 5) %>% 
   as_tibble(rownames = "Var1")
 
 corr_binary_longer <- corr_binary %>% 
-  pivot_longer(cols = -Var1,names_to = "Var2", values_to = "corr")
+  pivot_longer(cols = -Var1,
+               names_to = "Var2", 
+               values_to = "corr")
 
-# Heatmap of correlation matrix ---------------------------------------------------------------
 
+# Heatmap of correlation matrices ---------------------------------------------------------------
 corr_numeric_heatmap <- corr_numeric_longer %>% 
-  ggplot(aes(x = Var1, y = Var2, fill = corr)) + 
-  geom_tile()+
+  ggplot(aes(x = Var1, 
+             y = Var2, 
+             fill = corr)) + 
+  geom_tile() +
   ggtitle("Correlation of numeric and ordinal variables") + 
-  labs(y = "", x = "")+
+  labs(y = "", 
+       x = "") +
   theme_minimal(base_family = "Avenir") +
   theme(axis.text.x = element_text(angle = 45, 
                                    size = 6, 
@@ -72,11 +108,14 @@ corr_numeric_heatmap <- corr_numeric_longer %>%
                        midpoint = 0)
 
 corr_binary_heatmap <- corr_binary_longer %>% 
-  ggplot(aes(x=Var1, y=Var2, fill=corr)) + 
-  geom_tile()+
+  ggplot(aes(x = Var1, 
+             y = Var2, 
+             fill = corr)) + 
+  geom_tile() +
   ggtitle("Correlation of binary variables") + 
-  labs(y = "", x = "")+
-  theme_minimal(base_family = "Avenir")+
+  labs(y = "", 
+       x = "") +
+  theme_minimal(base_family = "Avenir") +
   theme(axis.text.x = element_text(angle = 60, 
                                    size = 5, 
                                    hjust = 1, 
