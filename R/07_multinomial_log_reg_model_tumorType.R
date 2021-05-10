@@ -5,7 +5,9 @@ rm(list = ls())
 # Load libraries ----------------------------------------------------------
 library(tidyverse)
 library(patchwork)
+library(broom)
 require(nnet)
+set.seed(777)
 
 
 # Define functions --------------------------------------------------------
@@ -23,9 +25,9 @@ set.seed(777)
 col_of_interest = c(
   "patient_id",  
   "education",
-  "age",
-  "weight",
-  "thickness_tumor",
+  "norm_age",
+  "norm_weight",
+  "norm_thickness_tumor",
   "Benign_malignant_cancer",
   "hereditary_history",
   "blood",
@@ -34,7 +36,7 @@ col_of_interest = c(
   "taking_gallbladder_disease_medicine",
   "smoking",
   "alcohol",
-  #"radiation_history",
+  "radiation_history",
   "Birth_control",
   "menstrual_age",
   "menopausal_age",
@@ -76,8 +78,6 @@ summary(multinom.fit.reduced)
 
 
 # Testing models ----------------------------------------------------------
-
-
 
 # Prediction
 test <- test %>%
