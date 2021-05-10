@@ -73,8 +73,8 @@ hist_plot <- function(data, col_name, x_label_str, stratify_col, legend_str) {
                          fill = {{stratify_col}})) +
     geom_histogram(binwidth = 0.1, alpha=0.5) +
     ggtitle(title_string) +
+    theme_minimal(base_family = "Avenir")+
     theme(legend.title = element_text(size = 7), legend.position="bottom", legend.box = "horizontal") +
-
     labs(fill=legend_str)
   
   return(plot)
