@@ -203,22 +203,24 @@ knitr::include_graphics("../results/06_MCA_supImp_rotation.png",
 
 <!-- ############### SLIDE ############### -->
 
-## {#slide}
 
-```{r out.width = "90%", fig.align = 'center'}
-
-knitr::include_graphics("../results/05_heatmap_binary.png", 
-                        error = F)
-```
-
-
-<!-- ############### SLIDE ############### -->
 
 ## {#slide}
 
 ```{r out.width = "80%", fig.align = 'center'}
 
 knitr::include_graphics("../results/05_heatmap_numeric.png", 
+                        error = F)
+```
+
+<!-- ############### SLIDE ############### -->
+
+
+## {#slide}
+
+```{r out.width = "90%", fig.align = 'center'}
+
+knitr::include_graphics("../results/05_heatmap_binary.png", 
                         error = F)
 ```
 
