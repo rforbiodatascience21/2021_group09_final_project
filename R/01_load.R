@@ -32,7 +32,7 @@ data_dfs <- map(str_c(temp_dir,
                       sep = "/"), 
                 ~ read_excel(path = .x, 
                              na = "-"))
-
+# Delete temp
 unlink(temp_dir, recursive = TRUE) 
 
 # Write data --------------------------------------------------------------
