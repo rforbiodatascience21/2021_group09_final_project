@@ -177,17 +177,8 @@ knitr::include_graphics("../results/04_analysis_densitograms_on_tumor.png",
 
 <!-- ############### SLIDE ############### -->
 
-## MCA Tumortype {#slide}
-```{r out.width = "60%", fig.show = 'hold', fig.align = 'center'}
-
-knitr::include_graphics("../results/06_MCA_contour_tumorType.png", 
-  error = F)
-```
-
-<!-- ############### SLIDE ############### -->
-
 ## MCA Condition {#slide}
-```{r out.width = "60%", fig.show = 'hold', fig.align = 'center'}
+```{r out.width = "100%", fig.show = 'hold', fig.align = 'center'}
 
 knitr::include_graphics("../results/06_MCA_contour_conditions.png", 
   error = F)
@@ -197,8 +188,7 @@ knitr::include_graphics("../results/06_MCA_contour_conditions.png",
 
 ## MCA Rotation {#slide}
 
-
-```{r out.width = "60%", fig.align = 'center'}
+```{r out.width = "90%", fig.align = 'center'}
 
 knitr::include_graphics("../results/06_MCA_supImp_rotation.png", 
   error = F)
@@ -207,7 +197,7 @@ knitr::include_graphics("../results/06_MCA_supImp_rotation.png",
 
 <!-- ############### SLIDE ############### -->
 
-## 
+## {#slide}
 
 ```{r out.width = "90%", fig.align = 'center'}
 
@@ -218,7 +208,7 @@ knitr::include_graphics("../results/05_heatmap_binary.png",
 
 <!-- ############### SLIDE ############### -->
 
-## 
+## {#slide}
 
 ```{r out.width = "80%", fig.align = 'center'}
 
@@ -232,52 +222,9 @@ knitr::include_graphics("../results/05_heatmap_numeric.png",
 
 # Model
 
-
-
-<!-- ############### SLIDE ############### -->
-<!-- Tumortype model removed
-
-## Predicting tumortype
-
-<div class="total_bar">
-<div class="up_bar" style="width: 300px"></div><div class="arrow-right" style="margin-left: 300px"></div>
-</div><br>
-
-<div style="float: left; width: 40%;">
-**Reduced Model**
-
-- Age (norm)
-- Weight (norm)
-- Hereditary history
-- Smoking
-- Radiation therapy
-- Menstrual age
-- Pregnancy experience
-- Abortion
-- Breast pain
-</div>
-
-<div style="float: right; width: 60%;">
-```{r}
-redMod_tumor = read.csv("results/07_Model_performance_tumor.csv")
-
-redMod_tumor %>%
-  pivot_wider(names_from = "term", values_from = "estimate") %>%
-  select(-class) %>%
-  mutate(across(-model, function(x) str_c(round(x*100),"%"))) %>%
-  kbl("html") %>%
-  kable_minimal() %>%
-    kable_styling(font_size = 20) %>%
-  footnote(general= "Positive class = Malignant",
-           fixed_small_size = TRUE)
-
-```
-</div>
--->
-
 <!-- ############### SLIDE ############### -->
 
-## Predicting Condition
+## Predicting Condition {#slide}
 
 <div style="float: left; width: 40%;">
 **Reduced Model**
@@ -353,38 +300,49 @@ knitr::include_graphics("app_screenshot.png",
 - Weight Gain After Breast Cancer Diagnosis May Be a Bigger Issue Than Thought in Australia (13 March 2020) [Breastcancer.org](https://www.breastcancer.org/research-news/gaining-weight-after-dx-big-problem-in-australia#:~:text=The%20survey%20found%20that%20nearly,diagnosed%20was%20about%20157%20pounds)
 - Github Repository [Group 9 Final Project](https://github.com/rforbiodatascience21/2021_group09_final_project)
 
+<!-- ############### SLIDE ############### -->
 
 
+## MCA Tumortype {#slide}
+```{r out.width = "100%", fig.show = 'hold', fig.align = 'center'}
 
+knitr::include_graphics("../results/06_MCA_contour_tumorType.png", 
+  error = F)
+```
 
+<!-- ############### SLIDE ############### -->
 
-<!--
----
+## Predicting tumortype {#slide}
 
-<div class="total_bar">
-<div class="up_bar" style="width: 400px"></div><div class="arrow-right" style="margin-left: 400px"></div>
-</div><br>
+<div style="float: left; width: 40%;">
+**Reduced Model**
 
-<div id="final_box">
-<div style="color: rgb(47, 142, 194); font-size: 3em; text-align:center">THANKS</div> 
-<div style="color: rgb(91, 175, 222); font-size: 2em; text-align:center"> FOR YOUR ATTENTION</div>
+- Age (norm)
+- Weight (norm)
+- Hereditary history
+- Smoking
+- Radiation therapy
+- Menstrual age
+- Pregnancy experience
+- Abortion
+- Breast pain
 </div>
 
-## Learning objectives {.smaller}
+<div style="float: right; width: 60%;">
+```{r}
+redMod_tumor = read.csv("results/07_Model_performance_tumor.csv")
 
-<div class="total_bar">
-<div class="up_bar" style="width: 420px"></div><div class="arrow-right" style="margin-left: 420px"></div>
-</div><br>
+redMod_tumor %>%
+  pivot_wider(names_from = "term", values_from = "estimate") %>%
+  select(-class) %>%
+  mutate(across(-model, function(x) str_c(round(x*100),"%"))) %>%
+  kbl("html") %>%
+  kable_minimal() %>%
+    kable_styling(font_size = 20) %>%
+  footnote(general= "Positive class = Malignant",
+           fixed_small_size = TRUE)
 
-- Explain why reproducible data analysis is important, as well as identify relevant challenges and explain replicability versus reproducibility <i class="fas fa-check"></i>
-- Describe the components of a reproducible data analysis <i class="fas fa-check"></i>
-- Use Tidyverse R to perform exploratory data analysis (EDA) for data insights, including using ggplot to visualize multilayer data from e.g. high-througput -omics platforms <i class="fas fa-check"></i>
-- Use Tidyverse R to perform data cleansing, transformation, visualization and communication <i class="fas fa-check"></i>
-- Use RStudio and git/GitHub for collaborative analysis projects <i class="fas fa-check"></i>
-- Perform and interpret standard dimension reduction and clustering techniques, as well as basic statistical tests and models <i class="fas fa-check"></i>
+```
+</div>
 
-
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
-
--->
-
+<!-- ############### SLIDE ############### -->
