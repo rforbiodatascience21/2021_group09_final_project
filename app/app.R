@@ -6,10 +6,10 @@ library("tidyverse")
 require("nnet")
 library("rsconnect")
 
-# Load model 
+# Load model ---------------------------------------------------------------
 multinom.fit.reduced <- readRDS(file = "08_redModel_condition.rds")
 
-# Define UI
+# Define UI ---------------------------------------------------------------
 ui <- fluidPage(
     theme = shinytheme("flatly"),
     navbarPage( "Breast Cancer Survival Rate",
@@ -28,22 +28,22 @@ ui <- fluidPage(
                                  "High School"),
                      radioButtons("tumor_type", "Tumor Type:", 
                                   c("Benign","Malignant"),
-                                  inline=TRUE),
+                                  inline = TRUE),
                      radioButtons("hereditary", "Hereditary History:", 
-                                  c("No"=0,"Yes"=1),
-                                  inline=TRUE),
+                                  c("No" = 0,"Yes" = 1),
+                                  inline = TRUE),
                      radioButtons("alcohol", "Alcohol:", 
-                                  c("No"=0,"Yes"=1),
-                                  inline=TRUE),
+                                  c("No" = 0,"Yes" = 1),
+                                  inline = TRUE),
                      radioButtons("radiation", "Radiation:", 
-                                  c("No"=0,"Yes"=1),
-                                  inline=TRUE),
+                                  c("No" = 0,"Yes" = 1),
+                                  inline = TRUE),
                      radioButtons("abortion", "Abortion Experience:", 
-                                  c("No"=0,"Yes"=1),
-                                  inline=TRUE),
+                                  c("No" = 0,"Yes" = 1),
+                                  inline = TRUE),
                      radioButtons("breast_pain", "Breast Pain:", 
-                                  c("No"=0,"Yes"=1),
-                                  inline=TRUE)
+                                  c("No" = 0,"Yes" = 1),
+                                  inline = TRUE)
                  ), # sidebarPanel
                  
                  mainPanel(h3("Description"),
@@ -62,23 +62,26 @@ ui <- fluidPage(
                  ) # tabPanel (Field Information)
     )) # navbarPage end, UI end  
 
-# Define server logic
+
+# Define server logic ---------------------------------------------------------------
+
 server <- function(input, output) {
     observe({unknown_input <- tibble_row(
-                        "age"=as.numeric(input$age),
-                        "education"=input$education,
-                        "Benign_malignant_cancer"=input$tumor_type,
-                        "weight"=as.numeric(input$weight),
-                        "hereditary_history"=input$hereditary,
-                        "alcohol"=input$alcohol,
-                        "radiation_history"=input$radiation,
-                        "menstrual_age"=input$menstrual,
-                        "giving_birth"=input$given_birth,
-                        "abortion"=input$abortion,
-                        "breast_pain"=input$breast_pain)
+                        "age" = as.numeric(input$age),
+                        "education" = input$education,
+                        "Benign_malignant_cancer" = input$tumor_type,
+                        "weight" = as.numeric(input$weight),
+                        "hereditary_history" = input$hereditary,
+                        "alcohol" = input$alcohol,
+                        "radiation_history" = input$radiation,
+                        "menstrual_age" = input$menstrual,
+                        "giving_birth" = input$given_birth,
+                        "abortion" = input$abortion,
+                        "breast_pain" = input$breast_pain)
     output$model_prediction<- renderText(predict(multinom.fit.reduced, 
                                                  newdata = unknown_input, 
-                                                 type="probs")%>% round(4)*100)
+                                                 type = "probs") %>% 
+                                         round(4) * 100)
         })
     field_tibble <- tibble(
         "Field Name" = c("Age", "Weight", "Menstrual Age","Given Birth","Education","Tumor Type","Hereditary History", "Alcohol",
@@ -107,8 +110,9 @@ server <- function(input, output) {
                                     striped = TRUE,  
                                     spacing = 'l',
                                     align = 'l',
-                                    sanitize.text.function=identity) 
+                                    sanitize.text.function = identity) 
 } # Server end
 
-# Run the application 
+# Run the application ---------------------------------------------------------------
+
 shinyApp(ui = ui, server = server)
