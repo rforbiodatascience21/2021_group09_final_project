@@ -42,9 +42,6 @@ all_cases<- death_cases %>%
 
 ## Introduction: Breast cancer
 
-<div class="up_bar" style="width: 20px"></div><div class="arrow-right" style="margin-left: 20px"></div><br>
-
-
 [EU Science Hub](https://ec.europa.eu/jrc/en/news/2020-cancer-incidence-and-mortality-eu-27-countries)
 
 - 13.3% of all cancer diagnoses.
@@ -59,10 +56,6 @@ all_cases<- death_cases %>%
 # Materials and methods
 
 ## Materials {.smaller}
-
-<div class="total_bar">
-<div class="up_bar" style="width: 40px"></div><div class="arrow-right" style="margin-left: 40px"></div>
-</div><br>
 
 [Kaggle breast cancer data](https://www.kaggle.com/homayoonkhadivi/breast-cancer-datasets)
 
@@ -83,10 +76,6 @@ all_cases %>%
 
 ## Process
 
-<div class="total_bar">
-<div class="up_bar" style="width: 60px"></div><div class="arrow-right" style="margin-left: 60px"></div>
-</div><br>
-
 ```{r out.width = '65%', fig.align = 'center'}
 knitr::include_graphics("flow_chart.png", error = FALSE)
 ```
@@ -95,10 +84,6 @@ knitr::include_graphics("flow_chart.png", error = FALSE)
 <!-- ############### SLIDE ############### -->
 
 ## Cleaning the data {.smaller}
-
-<div class="total_bar">
-<div class="up_bar" style="width: 80px"></div><div class="arrow-right" style="margin-left: 80px"></div>
-</div><br>
 
 Unrealistic age and weight proportions.
 
@@ -114,11 +99,6 @@ all_cases %>%
 <!-- ############### SLIDE ############### -->
 
 ## Cleaning the data 
-
-<div class="total_bar">
-<div class="up_bar" style="width: 100px"></div><div class="arrow-right" style="margin-left: 100px"></div>
-</div><br>
-
 
 ```{r}
 y <- data.frame(changes = c(
@@ -143,11 +123,6 @@ x
 <!-- ############### SLIDE ############### -->
 
 ## Augmenting the data
-
-<div class="total_bar">
-<div class="up_bar" style="width: 120px"></div><div class="arrow-right" style="margin-left: 120px"></div>
-</div><br>
-
 
 ```{r}
 y <- data.frame(changes = c(
@@ -304,10 +279,6 @@ redMod_tumor %>%
 
 ## Predicting Condition
 
-<div class="total_bar">
-<div class="up_bar" style="width: 320px"></div><div class="arrow-right" style="margin-left: 320px"></div>
-</div><br>
-
 <div style="float: left; width: 40%;">
 **Reduced Model**
 
@@ -315,7 +286,6 @@ redMod_tumor %>%
 - Gallbladder medicine
 - Menopausal age
 - Abortion
-
 
 </div>
 
@@ -358,10 +328,6 @@ knitr::include_graphics("app_screenshot.png",
 
 ## Discussion 
 
-<div class="total_bar">
-<div class="up_bar" style="width: 340px"></div><div class="arrow-right" style="margin-left: 340px"></div>
-</div><br>
-
 - Greedy cleaning approach
 - Disagreement between MCA and reduced model 
 - A general set of rules for valid entries
@@ -369,10 +335,6 @@ knitr::include_graphics("app_screenshot.png",
 <!-- ############### SLIDE ############### -->
 
 ## Conclusion
-
-<div class="total_bar">
-<div class="up_bar" style="width: 360px"></div><div class="arrow-right" style="margin-left: 360px"></div>
-</div><br>
 
 - Possible to predict both tumor type and outcome.
 - The prediction accuracy.
@@ -382,10 +344,6 @@ knitr::include_graphics("app_screenshot.png",
 <!-- ############### SLIDE ############### -->
 
 ## Bibliography {.smaller}
-
-<div class="total_bar">
-<div class="up_bar" style="width: 380px"></div><div class="arrow-right" style="margin-left: 380px"></div>
-</div><br>
 
 - 2020 Cancer incidence and mortality in EU-27 countries [EU Science Hub](https://ec.europa.eu/jrc/en/news/2020-cancer-incidence-and-mortality-eu-27-countries)
 - WHO Guide to cancer early diagnosis [World Health Organization. Cancer](https://www.who.int/cancer/publications/cancer_early_diagnosis/en/)
