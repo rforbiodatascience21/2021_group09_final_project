@@ -13,42 +13,47 @@ library(ggplot2)
 # Load data ---------------------------------------------------------------
 clean_data <- read_csv(file = "data/02_clean_combined_cases.csv")
 
-# Heatmap Correlation Plot between numeric values
-heatmap_subset_numeric <- clean_data %>% 
+# Subset data ---------------------------------------------------------------
+# Subset of numeric and ordinal variables
+subset_numeric <- clean_data %>% 
   mutate(treatment_age = treatment_data-as.numeric(birth_date)) %>% 
   select(treatment_age, education,birth_date,age,weight, thickness_tumor,giving_birth,menstrual_age,menopausal_age) %>% 
   mutate(across(.cols = everything(), as.numeric))
 
-# Heatmap Correlation Plot between binary values
-heatmap_subset_binary<- clean_data %>% 
+# Subset of binary variables
+subset_binary<- clean_data %>% 
   select(hereditary_history,marital_status,pregnency_experience,age_FirstGivingBirth,
          abortion,taking_heartMedicine,taking_blood_pressure_medicine,
          taking_gallbladder_disease_medicine,smoking,alcohol,breast_pain,
          radiation_history,Birth_control,Benign_malignant_cancer) %>% 
   mutate(across(.cols = everything(), as.numeric))
-  
-corr_numeric <- heatmap_subset_numeric %>% 
+
+# Correlation Matrix ---------------------------------------------------------------
+
+corr_numeric <- subset_numeric %>% 
   select(where(is.numeric)) %>%
   cor(x=.,use="pairwise.complete.obs",method= "spearman") %>% 
-  round(digits = 2) %>% 
-  as_tibble(rownames = "Var1")
-
-corr_binary <- heatmap_subset_binary %>% 
-  select(where(is.numeric)) %>%
-  cor(x=.,use="pairwise.complete.obs") %>% 
   round(digits = 2) %>% 
   as_tibble(rownames = "Var1")
 
 corr_numeric_longer <- corr_numeric %>% 
   pivot_longer(cols = -Var1,names_to = "Var2", values_to = "corr")
 
+corr_binary <- subset_binary %>% 
+  select(where(is.numeric)) %>%
+  cor(x=.,use="pairwise.complete.obs",method= "spearman") %>% 
+  round(digits = 2) %>% 
+  as_tibble(rownames = "Var1")
+
 corr_binary_longer <- corr_binary %>% 
   pivot_longer(cols = -Var1,names_to = "Var2", values_to = "corr")
+
+# Heatmap of correlation matrix ---------------------------------------------------------------
 
 corr_numeric_heatmap <- corr_numeric_longer %>% 
   ggplot(aes(x=Var1, y=Var2, fill=corr)) + 
   geom_tile()+
-  ggtitle("Heatmap - Correlation of numeric variables") + 
+  ggtitle("Correlation of numeric and ordinal variables") + 
   labs(y="",x="")+
   theme(axis.text.x = element_text(angle = 45, 
                                    size=6, 
@@ -61,17 +66,17 @@ corr_numeric_heatmap <- corr_numeric_longer %>%
                                   hjust = 0.5),
         legend.title=element_blank(),
         legend.text=element_text(size=6)) +
-  scale_fill_gradient2(low = "darkorange3",
+  scale_fill_gradient2(low = "#00BFC4",
                        mid = "azure2",
-                       high = "darkseagreen4",
+                       high = "#F8766D",
                        midpoint = 0)
 
 corr_binary_heatmap <- corr_binary_longer %>% 
   ggplot(aes(x=Var1, y=Var2, fill=corr)) + 
   geom_tile()+
-  ggtitle("Heatmap - Correlation of numeric variables") + 
+  ggtitle("Correlation of binary variables") + 
   labs(y="",x="")+
-  theme(axis.text.x = element_text(angle = 45, 
+  theme(axis.text.x = element_text(angle = 50, 
                                    size=6, 
                                    hjust=1, 
                                    vjust = 1), 
@@ -82,12 +87,12 @@ corr_binary_heatmap <- corr_binary_longer %>%
                                   hjust = 0.5),
         legend.title=element_blank(),
         legend.text=element_text(size=6)) +
-  scale_fill_gradient2(low = "darkorange3",
+  scale_fill_gradient2(low = "#00BFC4",
                        mid = "azure2",
-                       high = "darkseagreen4",
+                       high = "#F8766D",
                        midpoint = 0)
 
-# Write data --------------------------------------------------------------
+# Save plots --------------------------------------------------------------
 ggsave(
   "05_heatmap_numeric.png",
   plot = corr_numeric_heatmap,
