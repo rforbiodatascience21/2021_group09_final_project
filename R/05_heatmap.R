@@ -1,8 +1,7 @@
-# Heatmap to show how are the variables corelated 
+# Heatmap to show how the variables correlated 
 
 # Clear workspace ---------------------------------------------------------
 rm(list = ls())
-
 
 # Load libraries ----------------------------------------------------------
 library(tidyverse)
@@ -55,6 +54,7 @@ corr_numeric_heatmap <- corr_numeric_longer %>%
   geom_tile()+
   ggtitle("Correlation of numeric and ordinal variables") + 
   labs(y="",x="")+
+  theme_minimal(base_family = "Avenir") +
   theme(axis.text.x = element_text(angle = 45, 
                                    size=6, 
                                    hjust=1, 
@@ -76,17 +76,18 @@ corr_binary_heatmap <- corr_binary_longer %>%
   geom_tile()+
   ggtitle("Correlation of binary variables") + 
   labs(y="",x="")+
-  theme(axis.text.x = element_text(angle = 50, 
-                                   size=6, 
+  theme_minimal(base_family = "Avenir")+
+  theme(axis.text.x = element_text(angle = 60, 
+                                   size=5, 
                                    hjust=1, 
                                    vjust = 1), 
-        axis.text.y= element_text(size=6, 
+        axis.text.y= element_text(size=5, 
                                   hjust=1, 
                                   vjust = 1),
-        plot.title = element_text(size=9, 
+        plot.title = element_text(size=8, 
                                   hjust = 0.5),
         legend.title=element_blank(),
-        legend.text=element_text(size=6)) +
+        legend.text=element_text(size=4)) +
   scale_fill_gradient2(low = "#00BFC4",
                        mid = "azure2",
                        high = "#F8766D",
@@ -111,7 +112,7 @@ ggsave(
   path = "results/",
   device = "png",
   scale = 1,
-  width = 10,
+  width = 11,
   height = 8,
   units = "cm",
   dpi = 500
