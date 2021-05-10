@@ -13,10 +13,6 @@ clean_data <- read_csv(file = "data/02_clean_combined_cases.csv")
 
 # Wrangle data ---------------------------------------------------------------
 
-clean_data %>%
-  select(treatment_data)
-
-
 aug_data <- clean_data %>%
   # Add names to the 'wierd' categories 
   mutate("education" = case_when(education == 0 ~ "Illiterate",
@@ -56,7 +52,11 @@ aug_data <- clean_data %>%
 
   # Add new columns
   mutate(
-    treatment_age = treatment_data-as.numeric(birth_date)) %>%
+    treatment_age = treatment_data-as.numeric(birth_date),
+    norm_age = age / max(age),
+    norm_weight = weight / max(weight),
+    norm_thickness_tumor = thickness_tumor / max(thickness_tumor),
+    ) %>%
   
   # Change to categories
   mutate(across(

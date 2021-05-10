@@ -21,9 +21,9 @@ data_clean_aug <- readRDS(file = "data/03_clean_augmented_combined_breastcancer_
 col_of_interest = c(
   "patient_id",  
   "education",
-  "age",
-  "weight",
-  "thickness_tumor",
+  "norm_age",
+  "norm_weight",
+  "norm_thickness_tumor",
   #"Benign_malignant_cancer",
   "hereditary_history",
   "blood",

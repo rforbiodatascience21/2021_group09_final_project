@@ -19,15 +19,6 @@ heatmap_subset <- clean_data %>%
   select(treatment_age, education,birth_date,age,weight, thickness_tumor,giving_birth,menstrual_age,menopausal_age) %>% 
   mutate(across(.cols = everything(), as.numeric))
   
-  
- # mutate(education = as.numeric(education),
-  #       marital_length = as.numeric(marital_length),
-   #      giving_birth = as.numeric(giving_birth),
-    #     age_FirstGivingBirth = as.numeric(age_FirstGivingBirth),
-     #    menstrual_age = as.numeric(menstrual_age),
-    #     menopausal_age = as.numeric(menopausal_age),
-     #    birth_date = as.numeric(birth_date)
-      #   )
 
 corr <- heatmap_subset %>% 
   select(where(is.numeric)) %>%
@@ -54,9 +45,9 @@ corr_heatmap <- corr_longer %>%
                                   hjust = 0.5),
         legend.title=element_blank(),
         legend.text=element_text(size=6)) +
-  scale_fill_gradient2(low = "darkorange3",
+  scale_fill_gradient2(low = "#00BFC4",
                        mid = "azure2",
-                       high = "darkseagreen4",
+                       high = "#F8766D",
                        midpoint = 0)
 
 # Write data --------------------------------------------------------------
