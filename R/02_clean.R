@@ -33,7 +33,7 @@ comb_data <- dead_cases %>%
 
 comb_clean_data <- comb_data %>%
   # Cleanup of column names
-  rename_with(.cols = everything, 
+  rename_with(.cols = everything(), 
               ~str_remove(string = .x, pattern = "[\r]?\n")) %>%
   rename(Birth_control = "Birth_control(Contraception)") %>%
   # Cleanup of binary variables
@@ -60,8 +60,7 @@ comb_clean_data <- comb_data %>%
   filter(age >= 20, weight >= 35) %>%
   # not got period yet, but gave birth (= does not make sense) (1 person)
   filter(!(menstrual_age == "not yet" & pregnency_experience == 0))%>%
-  
-  
+
   # Filter out men
   filter(gender == 0) 
 
