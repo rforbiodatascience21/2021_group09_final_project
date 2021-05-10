@@ -115,4 +115,5 @@ p = MCA_aug_df %>%
       title = "MCA Rotation matrix superimposed on MCA1 v. MCA2",
       subtitle = "Categories and factors with euclidian norm above the median included."
     ) 
-ggsave(p,filename = "results/06_MCA_supImp_rotation.png")
+ggsave(p, filename = "results/06_MCA_supImp_rotation.png")
+
