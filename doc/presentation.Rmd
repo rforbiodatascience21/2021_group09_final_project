@@ -170,7 +170,7 @@ knitr::include_graphics("../results/04_analysis_densitograms_on_condition.png",
 
 <!-- ############### SLIDE ############### -->
 
-## MCA Condition {#slide}
+## MCA {#slide}
 ```{r out.width = "100%", fig.show = 'hold', fig.align = 'center'}
 
 knitr::include_graphics("../results/06_MCA_contour_conditions.png", 
@@ -179,7 +179,7 @@ knitr::include_graphics("../results/06_MCA_contour_conditions.png",
 
 <!-- ############### SLIDE ############### -->
 
-## MCA Rotation {#slide}
+## MCA rotation{#slide}
 
 ```{r out.width = "90%", fig.align = 'center'}
 
@@ -295,7 +295,7 @@ knitr::include_graphics("app_screenshot.png",
 
 <!-- ############### SLIDE ############### -->
 
-## MCA Tumortype {#slide}
+## MCA  {#slide}
 ```{r out.width = "100%", fig.show = 'hold', fig.align = 'center'}
 
 knitr::include_graphics("../results/06_MCA_contour_tumorType.png", 
