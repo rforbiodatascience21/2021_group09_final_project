@@ -83,13 +83,33 @@ hist_plot <- function(data, col_name, x_label_str, stratify_col, legend_str) {
 
 
 # MCA analysis function -----------------------------------------------
-comb_countour_plot <- function(df, x, y, grouping){
+comb_countour_plot <- function(df, x, y, grouping, legend_str){
   
-  p_main <-  ggplot(df, aes_string(x = x, y = y, col = grouping )) +
-    geom_point(alpha = 0.5)+
-    geom_density_2d()+
-    theme_minimal()+
-    theme(legend.position = "bottom")
+  p_main <-  ggplot(df, 
+                    aes_string(x = x, 
+                               y = y, 
+                               col = grouping )) +
+    geom_point(alpha = 0.5) +
+    geom_density_2d() +
+    labs(x = "MCA 1",
+         y = "MCA 2",
+         col = legend_str) +
+    theme_minimal() +
+    theme(legend.position = "bottom", 
+          axis.text.x= element_text(size = 9, 
+                                    hjust = 1, 
+                                    vjust = 1), 
+          axis.text.y= element_text(size = 9, 
+                                    hjust = 1, 
+                                    vjust = 1),
+          legend.text = element_text(size = 9.5), 
+          axis.title= element_text(size = 11, 
+                                   hjust = 0.5, 
+                                   vjust = 1), 
+          plot.title = element_text(size = 13, 
+                                    hjust = 0.5),
+          plot.subtitle = element_text(size = 11, 
+                                       hjust = 0.5))
   
   p_den1 <- ggplot(df, aes_string(x = x, fill = grouping ))+
     geom_density(alpha = 0.5)+
@@ -103,11 +123,11 @@ comb_countour_plot <- function(df, x, y, grouping){
     coord_flip()
   
   p_den1 + plot_spacer() + p_main + p_den2 + 
-    plot_layout(ncol = 2, nrow = 2, widths = c(4, 1), heights = c(1, 4))
-  
-  
+    plot_layout(ncol = 2, 
+                nrow = 2, 
+                widths = c(4, 1), 
+                heights = c(1, 4))
 }
-
 
 
 

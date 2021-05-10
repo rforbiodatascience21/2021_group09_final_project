@@ -42,9 +42,6 @@ all_cases<- death_cases %>%
 
 ## Introduction: Breast cancer
 
-<div class="up_bar" style="width: 20px"></div><div class="arrow-right" style="margin-left: 20px"></div><br>
-
-
 [EU Science Hub](https://ec.europa.eu/jrc/en/news/2020-cancer-incidence-and-mortality-eu-27-countries)
 
 - 13.3% of all cancer diagnoses.
@@ -52,7 +49,7 @@ all_cases<- death_cases %>%
 
 [WHO Guide to cancer early diagnosis](https://www.who.int/cancer/publications/cancer_early_diagnosis/en/)
 
-- Early diagnosis and prognosis.
+- Early diagnosis and prognosis may aid treatment and focus resources where needed.
 
 <!-- ############### SLIDE ############### -->
 
@@ -60,16 +57,12 @@ all_cases<- death_cases %>%
 
 ## Materials {.smaller}
 
-<div class="total_bar">
-<div class="up_bar" style="width: 40px"></div><div class="arrow-right" style="margin-left: 40px"></div>
-</div><br>
-
 [Kaggle breast cancer data](https://www.kaggle.com/homayoonkhadivi/breast-cancer-datasets)
 
 26 explanatory variables.
 
 - Condition
-- Tumor type
+- tumor type
 
 ```{r dataset}
 all_cases %>%
@@ -83,10 +76,6 @@ all_cases %>%
 
 ## Process
 
-<div class="total_bar">
-<div class="up_bar" style="width: 60px"></div><div class="arrow-right" style="margin-left: 60px"></div>
-</div><br>
-
 ```{r out.width = '65%', fig.align = 'center'}
 knitr::include_graphics("flow_chart.png", error = FALSE)
 ```
@@ -95,10 +84,6 @@ knitr::include_graphics("flow_chart.png", error = FALSE)
 <!-- ############### SLIDE ############### -->
 
 ## Cleaning the data {.smaller}
-
-<div class="total_bar">
-<div class="up_bar" style="width: 80px"></div><div class="arrow-right" style="margin-left: 80px"></div>
-</div><br>
 
 Unrealistic age and weight proportions.
 
@@ -115,27 +100,24 @@ all_cases %>%
 
 ## Cleaning the data 
 
-<div class="total_bar">
-<div class="up_bar" style="width: 100px"></div><div class="arrow-right" style="margin-left: 100px"></div>
-</div><br>
-
-
 ```{r}
-y <- data.frame(changes = c(
+y <- data.frame(Changes = c(
   "Removed special characters from variable names" , 
-  "Greedy cleanup of binary variables",
+  "Greedy cleanup of binary variables: None binary values set to 1",
   "Blood type had non-conforming entries which were set to NA", 
   "Birth dates of other than 4 numbers were set to NA",  
-  "Only include women > 20 years, as they are the primary risk group",  
-  "Remove abnormal attribute combinations", 
+  "Only include women as they are the risk group of breast cancer (few men are hit)", 
+  "Only include women > 20 years, as they are the primary risk group", #as we wish to mainly focus on the risk group (age = risk) (0 cases in UK for women < 20 over 3 years)", 
+  "Remove samples with abnormal weight age proportions", 
+  "Filter out a single woman who is set to not yet have her period, but have experience in pregnancy", 
   "Remove singular columns (with only one value for all samples)"))
 
-x <- knitr::kable(y, "html", col.names = NULL) %>%
+x <- knitr::kable(y, "html") %>%
   kable_styling(font_size = 23) %>%
   pack_rows("Column names",1,1) %>%
   pack_rows("Variable values",2,4) %>%
-  pack_rows("Filter out samples",5,6) %>%
-  pack_rows("Removing columns", 7,7)
+  pack_rows("Filter out samples",5,8) %>%
+  pack_rows("Removing columns", 9,9)
 
 x
 ```
@@ -144,22 +126,16 @@ x
 
 ## Augmenting the data
 
-<div class="total_bar">
-<div class="up_bar" style="width: 120px"></div><div class="arrow-right" style="margin-left: 120px"></div>
-</div><br>
-
-
 ```{r}
-y <- data.frame(changes = c(
-  "Categorical variables as factor",
-  "Explicit values for categorical variables",
+y <- data.frame(Changes = c(
+  "Categorical variables encoded with label as factor", 
   "Age at treatment",
   "Normalised numerical variables"))
 
-x <- knitr::kable(y, "html", col.names = NULL) %>%
+x <- knitr::kable(y, "html") %>%
   kable_styling(font_size = 23) %>%
-  pack_rows("Values changed",1,2) %>%
-  pack_rows("Adding columns",3,4) 
+  pack_rows("Values changed",1,1) %>%
+  pack_rows("Adding columns",2,3) 
 
 x
 ```
@@ -170,22 +146,22 @@ x
 
 <!-- ############### SLIDE ############### -->
 
-## Distributions {#slide}
+## Distributions
 ```{r, out.width='75%', fig.align='center'}
 knitr::include_graphics("../results/04_analysis_barchart_categorical_education_to_heartmedicine.png", error = F)
 ```
 
 <!-- ############### SLIDE ############### -->
 
-## Distributions {#slide}
+## Distributions
 ```{r out.width="75%", fig.align='center'}
 knitr::include_graphics("../results/04_analysis_barchart_categorical_gallmedicine_to_condition.png", error = F)
 ```
 
 <!-- ############### SLIDE ############### -->
 
-## Distributions {#slide}
-```{r out.width = "85%", fig.show = 'hold', fig.align = 'center'}
+## Distributions
+```{r out.width = "90%", fig.show = 'hold', fig.align = 'center'}
 
 knitr::include_graphics("../results/04_analysis_densitograms_on_condition.png", 
   error = F)
@@ -193,8 +169,8 @@ knitr::include_graphics("../results/04_analysis_densitograms_on_condition.png",
 
 <!-- ############### SLIDE ############### -->
 
-## Distributions {#slide}
-```{r out.width = "85%", fig.show = 'hold', fig.align = 'center'}
+## Distributions
+```{r out.width = "90%", fig.show = 'hold', fig.align = 'center'}
 
 knitr::include_graphics("../results/04_analysis_densitograms_on_tumor.png", 
   error = F)
@@ -202,7 +178,7 @@ knitr::include_graphics("../results/04_analysis_densitograms_on_tumor.png",
 
 <!-- ############### SLIDE ############### -->
 
-## MCA Tumortype {#slide}
+## MCA Tumortype
 ```{r out.width = "60%", fig.show = 'hold', fig.align = 'center'}
 
 knitr::include_graphics("../results/06_MCA_contour_tumorType.png", 
@@ -211,7 +187,7 @@ knitr::include_graphics("../results/06_MCA_contour_tumorType.png",
 
 <!-- ############### SLIDE ############### -->
 
-## MCA Condition {#slide}
+## MCA Condition
 ```{r out.width = "60%", fig.show = 'hold', fig.align = 'center'}
 
 knitr::include_graphics("../results/06_MCA_contour_conditions.png", 
@@ -220,21 +196,28 @@ knitr::include_graphics("../results/06_MCA_contour_conditions.png",
 
 <!-- ############### SLIDE ############### -->
 
-## MCA Rotation {#slide}
+## MCA Rotation 
+<div style="float: left; width: 50%;">
+```{r out.width = "100%", fig.show = 'hold', fig.align = 'center'}
 
+knitr::include_graphics("../results/06_MCA_contour_conditions.png", 
+  error = F)
+```
+</div>
 
-```{r out.width = "60%", fig.align = 'center'}
+<div style="float: left; width: 50%;">
+```{r out.width = "100%", fig.show = 'hold', fig.align = 'center'}
 
 knitr::include_graphics("../results/06_MCA_supImp_rotation.png", 
   error = F)
 ```
-
+</div>
 
 <!-- ############### SLIDE ############### -->
 
-## 
+## Binary correlation
 
-```{r out.width = "90%", fig.align = 'center'}
+```{r out.width = "100%", fig.align = 'center'}
 
 knitr::include_graphics("../results/05_heatmap_binary.png", 
   error = F)
@@ -243,9 +226,9 @@ knitr::include_graphics("../results/05_heatmap_binary.png",
 
 <!-- ############### SLIDE ############### -->
 
-## 
+## Numeric correlations
 
-```{r out.width = "80%", fig.align = 'center'}
+```{r out.width = "100%", fig.align = 'center'}
 
 knitr::include_graphics("../results/05_heatmap_numeric.png", 
   error = F)
@@ -257,10 +240,7 @@ knitr::include_graphics("../results/05_heatmap_numeric.png",
 
 # Model
 
-
-
 <!-- ############### SLIDE ############### -->
-<!-- Tumortype model removed
 
 ## Predicting tumortype
 
@@ -298,15 +278,10 @@ redMod_tumor %>%
 
 ```
 </div>
--->
 
 <!-- ############### SLIDE ############### -->
 
 ## Predicting Condition
-
-<div class="total_bar">
-<div class="up_bar" style="width: 320px"></div><div class="arrow-right" style="margin-left: 320px"></div>
-</div><br>
 
 <div style="float: left; width: 40%;">
 **Reduced Model**
@@ -315,7 +290,6 @@ redMod_tumor %>%
 - Gallbladder medicine
 - Menopausal age
 - Abortion
-
 
 </div>
 
@@ -327,7 +301,6 @@ redMod_tumor %>%
   pivot_wider(names_from = "term", values_from = "estimate") %>%
   select(-class) %>%
   mutate(across(-model, function(x) str_c(round(x*100),"%"))) %>%
-  rename_with(.fn = function(x) str_replace(x, "_", " ") %>% str_to_sentence()) %>%
   kbl("html") %>%
   kable_minimal() %>%
   kable_styling(font_size = 20) %>%
@@ -336,6 +309,42 @@ redMod_tumor %>%
 
 ```
 </div>
+
+<!-- ############### SLIDE ############### -->
+
+# Discussion & Conclusion
+
+<!-- ############### SLIDE ############### -->
+
+## Discussion 
+
+- Greedy cleaning approach
+- Disagreement between MCA and reduced model 
+- A general set of rules for valid entries
+
+<!-- ############### SLIDE ############### -->
+
+## Conclusion
+
+- Possible to predict both tumor type and outcome.
+- The prediction accuracy.
+- Shiny app
+
+
+<!-- ############### SLIDE ############### -->
+
+## Bibliography {.smaller}
+
+- 2020 Cancer incidence and mortality in EU-27 countries [EU Science Hub](https://ec.europa.eu/jrc/en/news/2020-cancer-incidence-and-mortality-eu-27-countries)
+- WHO Guide to cancer early diagnosis [World Health Organization. Cancer](https://www.who.int/cancer/publications/cancer_early_diagnosis/en/)
+- Breast Cancer Dataset [Kaggle](https://www.kaggle.com/homayoonkhadivi/breast-cancer-datasets)
+- Breast cancer incidence (invasive) statistics (10 March 2020). [Cancer Research UK](www.cancerresearchuk.org/health-professional/cancer-statistics/statistics-by-cancer-type/breast-cancer/incidence-invasive)
+- Height Percentile Calculator for Men and Women in the United States [DQYDJ](https://dqydj.com/height-percentile-calculator-for-men-and-women)
+- Weight Gain After Breast Cancer Diagnosis May Be a Bigger Issue Than Thought in Australia (13 March 2020) [Breastcancer.org](https://www.breastcancer.org/research-news/gaining-weight-after-dx-big-problem-in-australia#:~:text=The%20survey%20found%20that%20nearly,diagnosed%20was%20about%20157%20pounds)
+- Github Repository [Group 9 Final Project](https://github.com/rforbiodatascience21/2021_group09_final_project)
+
+
+
 
 <!-- ############### SLIDE ############### -->
 
@@ -349,55 +358,6 @@ redMod_tumor %>%
 knitr::include_graphics("app_screenshot.png", 
   error = F)
 ```
-
-<!-- ############### SLIDE ############### -->
-
-# Discussion & Conclusion
-
-<!-- ############### SLIDE ############### -->
-
-## Discussion 
-
-<div class="total_bar">
-<div class="up_bar" style="width: 340px"></div><div class="arrow-right" style="margin-left: 340px"></div>
-</div><br>
-
-- Greedy cleaning approach
-- Disagreement between MCA and reduced model 
-- A general set of rules for valid entries
-
-<!-- ############### SLIDE ############### -->
-
-## Conclusion
-
-<div class="total_bar">
-<div class="up_bar" style="width: 360px"></div><div class="arrow-right" style="margin-left: 360px"></div>
-</div><br>
-
-- Possible to predict both tumor type and outcome.
-- The prediction accuracy.
-- Shiny app
-
-
-<!-- ############### SLIDE ############### -->
-
-## Bibliography {.smaller}
-
-<div class="total_bar">
-<div class="up_bar" style="width: 380px"></div><div class="arrow-right" style="margin-left: 380px"></div>
-</div><br>
-
-- 2020 Cancer incidence and mortality in EU-27 countries [EU Science Hub](https://ec.europa.eu/jrc/en/news/2020-cancer-incidence-and-mortality-eu-27-countries)
-- WHO Guide to cancer early diagnosis [World Health Organization. Cancer](https://www.who.int/cancer/publications/cancer_early_diagnosis/en/)
-- Breast Cancer Dataset [Kaggle](https://www.kaggle.com/homayoonkhadivi/breast-cancer-datasets)
-- Breast cancer incidence (invasive) statistics (10 March 2020). [Cancer Research UK](www.cancerresearchuk.org/health-professional/cancer-statistics/statistics-by-cancer-type/breast-cancer/incidence-invasive)
-- Height Percentile Calculator for Men and Women in the United States [DQYDJ](https://dqydj.com/height-percentile-calculator-for-men-and-women)
-- Weight Gain After Breast Cancer Diagnosis May Be a Bigger Issue Than Thought in Australia (13 March 2020) [Breastcancer.org](https://www.breastcancer.org/research-news/gaining-weight-after-dx-big-problem-in-australia#:~:text=The%20survey%20found%20that%20nearly,diagnosed%20was%20about%20157%20pounds)
-- Github Repository [Group 9 Final Project](https://github.com/rforbiodatascience21/2021_group09_final_project)
-
-
-
-
 
 
 <!--
