@@ -30,8 +30,8 @@ data_condition_dead_recovered <- my_data_clean_aug %>%
   filter(condition != "under treatment")
 
 
-# Visualise data ----------------------------------------------------------
-## Overall distribution plots
+# Visualise data -------------------------------------------------------------
+## Overall distribution plots ------------------------------------------------
 # Common boxplot of numerical variables 
 numeric_boxplot <- my_data_clean_aug %>%
   select(-patient_id) %>%
@@ -62,7 +62,7 @@ numeric_hist_15_bins <- my_data_clean_aug %>%
                                   hjust = 0.5))
 
 
-# Common barchart of categorical variables 
+# Common barchart of categorical variables ---------------------------------
 # Half the variables
 categorical_bar_part1 <- my_data_clean_aug %>%
   select_if(is.factor) %>%
@@ -111,7 +111,7 @@ categorical_bar_part2 <- my_data_clean_aug %>%
   ) 
 
 
-## Single plots with stratification (uses plot functions)
+## Single plots with stratification ----------------------------------------
 box_age_condition <- box_plot(data_condition_dead_recovered, 
                               age, 
                               "Age", 
@@ -180,7 +180,7 @@ count_brestpain_condition <- count_plot(data_condition_dead_recovered,
                                         "Condition")
 
 
-## Densitogram on condition
+## Densitogram on condition -----------------------------------------------
 p_treatment_age_con <- densitogram_plot(data_condition_dead_recovered,
                                         treatment_age,
                                         "Age at Treatment",
@@ -223,7 +223,7 @@ densitogram_condition <- (p_treatment_age_con) / (p_weight_con | p_thickness_tum
   )
 
 
-## Densitogram on tumor type 
+## Densitogram on tumor type -----------------------------------------------
 p_treatment_age_tumor <- densitogram_plot(data_condition_dead_recovered,
                                           treatment_age, 
                                           "Age at Treatment",
@@ -267,7 +267,7 @@ densitogram_tumor <- (p_treatment_age_tumor) / (p_weight_tumor | p_thickness_tum
   )
 
 
-## Histogram tumor thicknesses stratified on medicines 
+## Histogram tumor thicknesses stratified on medicines ----------------------
 heart_tumor <- hist_plot(my_data_clean_aug, 
                          thickness_tumor, 
                          "Tumor thickness", 
@@ -507,7 +507,7 @@ ggsave(
   dpi = 500)
 
 
-## medicine histograms
+## Medicine histograms
 ggsave(
   "04_analysis_histogram_medicine_tumor.png",
   plot = medicine_hist,
