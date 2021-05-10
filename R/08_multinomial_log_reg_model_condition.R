@@ -50,14 +50,17 @@ analysis_df <- data_clean_aug %>%
 train <- sample_frac(analysis_df, 0.7)
 
 test <- analysis_df %>%
-  anti_join(train, b = "patient_id")
+  anti_join(train, 
+            b = "patient_id")
 
 # Fit models to train set Maximum and Reduced model --------------------------------------
 
-multinom.fit <- multinom(condition ~ . -patient_id -1, data = train) #All variables except patient ID and bias
+multinom.fit <- multinom(condition ~ . -patient_id -1, 
+                         data = train) #All variables except patient ID and bias
 
 multinom.fit.reduced <- multinom.fit
-multinom.fit.reduced <- step(multinom.fit.reduced, trace = FALSE)
+multinom.fit.reduced <- step(multinom.fit.reduced, 
+                             trace = FALSE)
 
 summary(multinom.fit)
 summary(multinom.fit.reduced)
@@ -67,9 +70,12 @@ summary(multinom.fit.reduced)
 # Prediction
 test <- test %>%
   mutate(
-    "Max_pred" = predict(multinom.fit, newdata = ., "class"),
-    "Red_pred" = predict(multinom.fit.reduced, newdata = ., "class"),
-    "baseline" = DescTools::Mode(pluck(test, "condition"))
+    "Max_pred" = predict(multinom.fit, 
+                         newdata = ., "class"),
+    "Red_pred" = predict(multinom.fit.reduced, 
+                         newdata = ., "class"),
+    "baseline" = DescTools::Mode(pluck(test, 
+                                       "condition"))
   ) %>%
   drop_na()
 
@@ -80,17 +86,28 @@ suma <- test %>%
     "Red_pred" = tidy(caret::confusionMatrix(Red_pred, condition)),
     "baseline" = tidy(caret::confusionMatrix(baseline, condition))
   ) %>%
-  pivot_longer(c(Max_pred, Red_pred, baseline), names_to = "model", values_to = "terms") %>%
-  bind_cols(pluck(., "terms")) %>%   # couldn't be done with unnest() since "terms" had dim= [,6] [28,6]?
+  pivot_longer(c(Max_pred, Red_pred, baseline), 
+               names_to = "model", 
+               values_to = "terms") %>%
+  bind_cols(pluck(., 
+                  "terms")) %>%   # couldn't be done with unnest() since "terms" had dim= [,6] [28,6]?
   select(-terms) %>%
-  select(model, term, class, estimate) %>%
-  filter(term %in% c("balanced_accuracy", "sensitivity", "specificity"))
+  select(model, 
+         term, 
+         class, 
+         estimate) %>%
+  filter(term %in% c("balanced_accuracy", 
+                     "sensitivity", 
+                     "specificity"))
 
 
 
 # Writing performance and model -------------------------------------------
 
-write.csv(suma, "results/08_Model_performance_condition.csv", row.names = FALSE)
-saveRDS(multinom.fit, "results/08_maxModel_condition.RDS")
-saveRDS(multinom.fit.reduced, "results/08_redModel_condition.RDS")
+write.csv(suma, "results/08_Model_performance_condition.csv", 
+          row.names = FALSE)
+saveRDS(multinom.fit, 
+        "results/08_maxModel_condition.RDS")
+saveRDS(multinom.fit.reduced, 
+        "results/08_redModel_condition.RDS")
 #saveRDS(multinom.fit.reduced, "app/08_redModel_condition.rds")
