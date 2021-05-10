@@ -112,10 +112,10 @@ y <- data.frame(changes = c(
 
 x <- knitr::kable(y, "html", col.names = NULL) %>%
   kable_styling(font_size = 23) %>%
-  pack_rows("Column names",1,1) %>%
-  pack_rows("Variable values",2,4) %>%
-  pack_rows("Filter out samples",5,6) %>%
-  pack_rows("Removing columns", 7,7)
+  pack_rows("Column names", 1, 1) %>%
+  pack_rows("Variable values", 2, 4) %>%
+  pack_rows("Filter out samples", 5, 6) %>%
+  pack_rows("Removing columns", 7, 7)
 
 x
 ```
@@ -133,8 +133,8 @@ y <- data.frame(changes = c(
 
 x <- knitr::kable(y, "html", col.names = NULL) %>%
   kable_styling(font_size = 23) %>%
-  pack_rows("Values changed",1,2) %>%
-  pack_rows("Adding columns",3,4) 
+  pack_rows("Values changed", 1, 2) %>%
+  pack_rows("Adding columns", 3, 4) 
 
 x
 ```
@@ -147,14 +147,16 @@ x
 
 ## Distributions {#slide}
 ```{r, out.width='75%', fig.align='center'}
-knitr::include_graphics("../results/04_analysis_barchart_categorical_education_to_heartmedicine.png", error = F)
+knitr::include_graphics("../results/04_analysis_barchart_categorical_education_to_heartmedicine.png", 
+                        error = F)
 ```
 
 <!-- ############### SLIDE ############### -->
 
 ## Distributions {#slide}
 ```{r out.width="75%", fig.align='center'}
-knitr::include_graphics("../results/04_analysis_barchart_categorical_gallmedicine_to_condition.png", error = F)
+knitr::include_graphics("../results/04_analysis_barchart_categorical_gallmedicine_to_condition.png", 
+                        error = F)
 ```
 
 <!-- ############### SLIDE ############### -->
@@ -162,36 +164,29 @@ knitr::include_graphics("../results/04_analysis_barchart_categorical_gallmedicin
 ## Distributions {#slide}
 ```{r out.width = "80%", fig.show = 'hold', fig.align = 'center'}
 
-knitr::include_graphics("../results/04_analysis_densitograms_on_condition.png", 
-  error = F)
+knitr::include_graphics("../results/04_analysis_densitograms_on_condition.png",
+                        error = F)
 ```
+
+
 
 <!-- ############### SLIDE ############### -->
 
-## Distributions {#slide}
-```{r out.width = "80%", fig.show = 'hold', fig.align = 'center'}
-
-knitr::include_graphics("../results/04_analysis_densitograms_on_tumor.png", 
-  error = F)
-```
-
-<!-- ############### SLIDE ############### -->
-
-## MCA Condition {#slide}
+## MCA {#slide}
 ```{r out.width = "100%", fig.show = 'hold', fig.align = 'center'}
 
 knitr::include_graphics("../results/06_MCA_contour_conditions.png", 
-  error = F)
+                        error = F)
 ```
 
 <!-- ############### SLIDE ############### -->
 
-## MCA Rotation {#slide}
+## MCA rotation{#slide}
 
 ```{r out.width = "90%", fig.align = 'center'}
 
 knitr::include_graphics("../results/06_MCA_supImp_rotation.png", 
-  error = F)
+                        error = F)
 ```
 
 
@@ -202,7 +197,7 @@ knitr::include_graphics("../results/06_MCA_supImp_rotation.png",
 ```{r out.width = "90%", fig.align = 'center'}
 
 knitr::include_graphics("../results/05_heatmap_binary.png", 
-  error = F)
+                        error = F)
 ```
 
 
@@ -213,7 +208,7 @@ knitr::include_graphics("../results/05_heatmap_binary.png",
 ```{r out.width = "80%", fig.align = 'center'}
 
 knitr::include_graphics("../results/05_heatmap_numeric.png", 
-  error = F)
+                        error = F)
 ```
 
 
@@ -229,10 +224,17 @@ knitr::include_graphics("../results/05_heatmap_numeric.png",
 <div style="float: left; width: 40%;">
 **Reduced Model**
 
-- Age
-- Gallbladder medicine
-- Menopausal age
+- Education
+- Age 
+- Weight 
+- Tumor type
+- Hereditary history
+- Giving birth
+- Age FirstGivingBirth
+- Radiation history
+- Menstrual age
 - Abortion
+- Breast pain
 
 </div>
 
@@ -241,10 +243,12 @@ knitr::include_graphics("../results/05_heatmap_numeric.png",
 redMod_tumor = read.csv("results/08_Model_performance_condition.csv")
 
 redMod_tumor %>%
-  pivot_wider(names_from = "term", values_from = "estimate") %>%
+  pivot_wider(
+    names_from = "term", 
+    values_from = "estimate") %>%
   select(-class) %>%
-  mutate(across(-model, function(x) str_c(round(x*100),"%"))) %>%
-  rename_with(.fn = function(x) str_replace(x, "_", " ") %>% str_to_sentence()) %>%
+  mutate(across(-model, function(x) str_c(round(x * 100), "%"))) %>%
+  rename_with(.fn = function(x) str_to_sentence(str_replace(x, "_", " ")) ) %>%
   kbl("html") %>%
   kable_minimal() %>%
   kable_styling(font_size = 20) %>%
@@ -264,7 +268,7 @@ redMod_tumor %>%
 
 ```{r out.width="90%"}
 knitr::include_graphics("app_screenshot.png", 
-  error = F)
+                        error = F)
 ```
 
 <!-- ############### SLIDE ############### -->
@@ -302,8 +306,7 @@ knitr::include_graphics("app_screenshot.png",
 
 <!-- ############### SLIDE ############### -->
 
-
-## MCA Tumortype {#slide}
+## MCA  {#slide}
 ```{r out.width = "100%", fig.show = 'hold', fig.align = 'center'}
 
 knitr::include_graphics("../results/06_MCA_contour_tumorType.png", 
@@ -333,13 +336,15 @@ knitr::include_graphics("../results/06_MCA_contour_tumorType.png",
 redMod_tumor = read.csv("results/07_Model_performance_tumor.csv")
 
 redMod_tumor %>%
-  pivot_wider(names_from = "term", values_from = "estimate") %>%
+  pivot_wider(
+    names_from = "term", 
+    values_from = "estimate") %>%
   select(-class) %>%
   mutate(across(-model, function(x) str_c(round(x*100),"%"))) %>%
   kbl("html") %>%
   kable_minimal() %>%
     kable_styling(font_size = 20) %>%
-  footnote(general= "Positive class = Malignant",
+  footnote(general = "Positive class = Malignant",
            fixed_small_size = TRUE)
 
 ```
