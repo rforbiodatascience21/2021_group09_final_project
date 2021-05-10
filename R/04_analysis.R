@@ -205,7 +205,7 @@ densitogram_condition <- (p_treatment_age_con) / (p_weight_con | p_thickness_tum
                   subtitle = "Densitograms stratified by Condition") + 
   plot_layout(guides = "collect") & # common legends
   ylab("") &
-  theme(legend.position = "bottom", 
+  theme(legend.position = "right", 
         axis.text.x= element_text(size = 9, 
                                   hjust = 1, 
                                   vjust = 1), 
@@ -249,7 +249,7 @@ densitogram_tumor <- (p_treatment_age_tumor) / (p_weight_tumor | p_thickness_tum
                   subtitle = "Densitograms stratified by Tumor Type") + 
   plot_layout(guides = "collect") & # common legends
   ylab("") &
-  theme(legend.position = "bottom", 
+  theme(legend.position = "right", 
         axis.text.x= element_text(size = 9, 
                                   hjust = 1, 
                                   vjust = 1), 

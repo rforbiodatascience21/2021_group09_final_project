@@ -1,7 +1,6 @@
 # Clear workspace ---------------------------------------------------------
 rm(list = ls())
 
-
 # Load libraries ----------------------------------------------------------
 library(tidyverse)
 library(patchwork)
@@ -9,14 +8,10 @@ library(broom)
 require(nnet)
 set.seed(777)
 
-
-
 # Load data ---------------------------------------------------------------
 data_clean_aug <- readRDS(file = "data/03_clean_augmented_combined_breastcancer_data.rds")
 
-
-
-# Split into training and test --------------------------------------------
+# Extract features of interest --------------------------------------------
 
 col_of_interest = c(
   "patient_id",  
@@ -27,6 +22,8 @@ col_of_interest = c(
   "Benign_malignant_cancer",
   "hereditary_history",
   "blood",
+  "giving_birth",
+  "age_FirstGivingBirth",
   "taking_heartMedicine",
   "taking_blood_pressure_medicine",
   "taking_gallbladder_disease_medicine",
@@ -48,40 +45,31 @@ analysis_df <- data_clean_aug %>%
   drop_na() %>%
   droplevels.data.frame()
 
-# COnsider doing a proper k-fold series to estimate generalisation error
-
-
-
-# Training Maximum and Reduced model --------------------------------------
-
+# Split data into test and train sets --------------------------------------
 
 train <- sample_frac(analysis_df, 0.7)
 
 test <- analysis_df %>%
   anti_join(train, b = "patient_id")
 
-baseline = DescTools::Mode(pluck(test, "condition"))
+# Fit models to train set Maximum and Reduced model --------------------------------------
 
 multinom.fit <- multinom(condition ~ . -patient_id -1, data = train) #All variables except patient ID and bias
 
 multinom.fit.reduced <- multinom.fit
 multinom.fit.reduced <- step(multinom.fit.reduced, trace = FALSE)
 
-
 summary(multinom.fit)
 summary(multinom.fit.reduced)
 
-
-
 # Testing models ----------------------------------------------------------
-
 
 # Prediction
 test <- test %>%
   mutate(
     "Max_pred" = predict(multinom.fit, newdata = ., "class"),
     "Red_pred" = predict(multinom.fit.reduced, newdata = ., "class"),
-    "baseline" = baseline
+    "baseline" = DescTools::Mode(pluck(test, "condition"))
   ) %>%
   drop_na()
 

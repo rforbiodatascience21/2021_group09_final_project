@@ -39,10 +39,11 @@ all_cases<- death_cases %>%
 
 <!-- ############### SLIDE ############### -->
 
-## Introduction
-<div class="total_bar">
-<div class="up_bar" style="width: 20px"></div><div class="arrow-right" style="margin-left: 20px"></div>
-</div><br>
+
+## Introduction: Breast cancer
+
+<div class="up_bar" style="width: 20px"></div><div class="arrow-right" style="margin-left: 20px"></div><br>
+
 
 [EU Science Hub](https://ec.europa.eu/jrc/en/news/2020-cancer-incidence-and-mortality-eu-27-countries)
 
@@ -123,7 +124,7 @@ all_cases %>%
 y <- data.frame(Changes = c(
   "Removed special characters from variable names" , 
   "Greedy cleanup of binary variables: None binary values set to 1",
-  "Blood type had one value of 44 (mistake) which was changed to NA", 
+  "Blood type had non-conforming entries which were set to NA", 
   "Birth dates of other than 4 numbers were set to NA",  
   "Only include women as they are the risk group of breast cancer (few men are hit)", 
   "Only include women > 20 years, as they are the primary risk group", #as we wish to mainly focus on the risk group (age = risk) (0 cases in UK for women < 20 over 3 years)", 
@@ -152,7 +153,7 @@ x
 
 ```{r}
 y <- data.frame(Changes = c(
-  "Categorical variables encoded with label and encoded as factor", 
+  "Categorical variables encoded with label as factor", 
   "Age at treatment",
   "Normalised numerical variables"))
 
@@ -236,6 +237,29 @@ knitr::include_graphics("../results/06_MCA_supImp_rotation.png",
   error = F)
 ```
 </div>
+
+<!-- ############### SLIDE ############### -->
+
+## Binary correlation
+
+```{r out.width = "100%", fig.align = 'center'}
+
+knitr::include_graphics("../results/05_heatmap_binary.png", 
+  error = F)
+```
+
+
+<!-- ############### SLIDE ############### -->
+
+## Numeric correlations
+
+```{r out.width = "100%", fig.align = 'center'}
+
+knitr::include_graphics("../results/05_heatmap_numeric.png", 
+  error = F)
+```
+
+
 
 <!-- ############### SLIDE ############### -->
 
@@ -342,7 +366,7 @@ redMod_tumor %>%
 
 - Possible to predict both tumor type and outcome.
 - The prediction accuracy.
-- Shinny app
+- Shiny app
 
 
 <!-- ############### SLIDE ############### -->
@@ -378,7 +402,7 @@ knitr::include_graphics("app_screenshot.png",
 ```
 
 
-
+<!--
 ---
 
 <div class="total_bar">
@@ -406,5 +430,6 @@ knitr::include_graphics("app_screenshot.png",
 
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
 
+-->
 
 
