@@ -8,10 +8,6 @@ library(patchwork)
 require(nnet)
 
 
-# Define functions --------------------------------------------------------
-
-
-
 
 # Load data ---------------------------------------------------------------
 data_clean_aug <- readRDS(file = "data/03_clean_augmented_combined_breastcancer_data.rds")
@@ -60,11 +56,11 @@ analysis_df <- data_clean_aug %>%
 train <- sample_frac(analysis_df, 0.7)
 
 test <- analysis_df %>%
-  anti_join(train, b="patient_id")
+  anti_join(train, b = "patient_id")
 
 baseline = DescTools::Mode(pluck(test, "Benign_malignant_cancer"))
 
-multinom.fit <- multinom(Benign_malignant_cancer ~ . -patient_id -1, data=train) #All variables except patient ID and bias
+multinom.fit <- multinom(Benign_malignant_cancer ~ . -patient_id -1, data = train) #All variables except patient ID and bias
 
 multinom.fit.reduced <- multinom.fit
 multinom.fit.reduced <- step(multinom.fit.reduced, trace=FALSE)
@@ -76,7 +72,6 @@ summary(multinom.fit.reduced)
 
 
 # Testing models ----------------------------------------------------------
-
 
 
 # Prediction
