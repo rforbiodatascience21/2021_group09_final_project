@@ -56,6 +56,12 @@
     left: 50%;
 }
 
+
+#slideID > p { 
+  margin-top: -50px; 
+} 
+
+
 #image{
   width: 60%;
   height: auto;

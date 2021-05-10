@@ -166,14 +166,7 @@ knitr::include_graphics("../results/04_analysis_densitograms_on_condition.png",
   error = F)
 ```
 
-<!-- ############### SLIDE ############### -->
 
-## Distributions {#slide}
-```{r out.width = "80%", fig.show = 'hold', fig.align = 'center'}
-
-knitr::include_graphics("../results/04_analysis_densitograms_on_tumor.png", 
-  error = F)
-```
 
 <!-- ############### SLIDE ############### -->
 
@@ -301,7 +294,6 @@ knitr::include_graphics("app_screenshot.png",
 - Github Repository [Group 9 Final Project](https://github.com/rforbiodatascience21/2021_group09_final_project)
 
 <!-- ############### SLIDE ############### -->
-
 
 ## MCA Tumortype {#slide}
 ```{r out.width = "100%", fig.show = 'hold', fig.align = 'center'}
