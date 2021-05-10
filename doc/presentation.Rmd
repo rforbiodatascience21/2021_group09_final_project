@@ -240,9 +240,9 @@ knitr::include_graphics("../results/06_MCA_supImp_rotation.png",
 
 <!-- ############### SLIDE ############### -->
 
-## Binary correlation
+## 
 
-```{r out.width = "100%", fig.align = 'center'}
+```{r out.width = "90%", fig.align = 'center'}
 
 knitr::include_graphics("../results/05_heatmap_binary.png", 
   error = F)
@@ -251,9 +251,9 @@ knitr::include_graphics("../results/05_heatmap_binary.png",
 
 <!-- ############### SLIDE ############### -->
 
-## Numeric correlations
+## 
 
-```{r out.width = "100%", fig.align = 'center'}
+```{r out.width = "80%", fig.align = 'center'}
 
 knitr::include_graphics("../results/05_heatmap_numeric.png", 
   error = F)
