@@ -110,7 +110,6 @@ categorical_bar_part2 <- my_data_clean_aug %>%
                                                           hjust = 0.5)
                           ) 
 
-
 ###### Single plots with stratification (uses plot functions) ########
 box_age_condition <- box_plot(data_condition_dead_recovered, 
                               age, 
