@@ -13,10 +13,6 @@ clean_data <- read_csv(file = "data/02_clean_combined_cases.csv")
 
 # Wrangle data ---------------------------------------------------------------
 
-clean_data %>%
-  select(treatment_data)
-
-
 aug_data <- clean_data %>%
   # Add names to the 'wierd' categories 
   mutate("education" = case_when(education == 0 ~ "Illiterate",
@@ -75,7 +71,7 @@ aug_data <- clean_data %>%
                thickness_tumor, 
                birth_date),
     as.factor)) %>%
-  
+  mutate(Benign_malignant_cancer = relevel(Benign_malignant_cancer, "Malignant")) %>%
   # Remove singular columns
   select_if(function(col) length(unique(col)) > 1) 
 

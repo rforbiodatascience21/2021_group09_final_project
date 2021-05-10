@@ -15,6 +15,7 @@ library("tidyverse")
 library("purrr")
 library("tidyr")
 library("ggplot2")
+library("patchwork")
 
 # Get functions --------------------------------------------------------
 source(file = "R/99_project_functions.R")

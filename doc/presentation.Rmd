@@ -160,7 +160,7 @@ knitr::include_graphics("../results/04_analysis_barchart_categorical_gallmedicin
 <!-- ############### SLIDE ############### -->
 
 ## Distributions {#slide}
-```{r out.width = "85%", fig.show = 'hold', fig.align = 'center'}
+```{r out.width = "80%", fig.show = 'hold', fig.align = 'center'}
 
 knitr::include_graphics("../results/04_analysis_densitograms_on_condition.png", 
   error = F)
@@ -169,7 +169,7 @@ knitr::include_graphics("../results/04_analysis_densitograms_on_condition.png",
 <!-- ############### SLIDE ############### -->
 
 ## Distributions {#slide}
-```{r out.width = "85%", fig.show = 'hold', fig.align = 'center'}
+```{r out.width = "80%", fig.show = 'hold', fig.align = 'center'}
 
 knitr::include_graphics("../results/04_analysis_densitograms_on_tumor.png", 
   error = F)
