@@ -58,14 +58,18 @@ analysis_df <- data_clean_aug %>%
 train <- sample_frac(analysis_df, 0.7)
 
 test <- analysis_df %>%
-  anti_join(train, b = "patient_id")
+  anti_join(train, 
+            b = "patient_id")
 
-baseline = DescTools::Mode(pluck(test, "Benign_malignant_cancer"))
+baseline = DescTools::Mode(pluck(test, 
+                                 "Benign_malignant_cancer"))
 
-multinom.fit <- multinom(Benign_malignant_cancer ~ . -patient_id -1, data = train) #All variables except patient ID and bias
+multinom.fit <- multinom(Benign_malignant_cancer ~ . -patient_id -1, 
+                         data = train) #All variables except patient ID and bias
 
 multinom.fit.reduced <- multinom.fit
-multinom.fit.reduced <- step(multinom.fit.reduced, trace=FALSE)
+multinom.fit.reduced <- step(multinom.fit.reduced, 
+                             trace=FALSE)
 
 
 summary(multinom.fit)
@@ -79,8 +83,10 @@ summary(multinom.fit.reduced)
 # Prediction
 test <- test %>%
   mutate(
-    "Max_pred" = predict(multinom.fit, newdata = ., "class"),
-    "Red_pred" = predict(multinom.fit.reduced, newdata = ., "class"),
+    "Max_pred" = predict(multinom.fit, 
+                         newdata = ., "class"),
+    "Red_pred" = predict(multinom.fit.reduced, 
+                         newdata = ., "class"),
     "baseline" = baseline
   ) %>%
   drop_na()
@@ -92,11 +98,19 @@ suma <- test %>%
     "Red_pred" = tidy(caret::confusionMatrix(Red_pred, Benign_malignant_cancer)),
     "baseline" = tidy(caret::confusionMatrix(baseline, Benign_malignant_cancer))
   ) %>%
-  pivot_longer(c(Max_pred, Red_pred, baseline), names_to = "model", values_to = "terms") %>%
-  bind_cols(pluck(., "terms")) %>%   # couldn't be done with unnest() since "terms" had dim= [,6] [28,6]?
+  pivot_longer(c(Max_pred, Red_pred, baseline), 
+               names_to = "model", 
+               values_to = "terms") %>%
+  bind_cols(pluck(., 
+                  "terms")) %>%   # couldn't be done with unnest() since "terms" had dim= [,6] [28,6]?
   select(-terms) %>%
-  select(model, term, class, estimate) %>%
-  filter(term %in% c("balanced_accuracy", "sensitivity", "specificity"))
+  select(model, 
+         term, 
+         class, 
+         estimate) %>%
+  filter(term %in% c("balanced_accuracy", 
+                     "sensitivity", 
+                     "specificity"))
 
 
 
@@ -104,7 +118,11 @@ suma <- test %>%
 
 
 
-write.csv(suma, "results/07_Model_performance_tumor.csv",row.names = FALSE)
-saveRDS(multinom.fit, "results/07_maxModel_tumor.RDS")
-saveRDS(multinom.fit.reduced, "results/07_redModel_tumor.RDS")
+write.csv(suma, 
+          "results/07_Model_performance_tumor.csv",
+          row.names = FALSE)
+saveRDS(multinom.fit, 
+        "results/07_maxModel_tumor.RDS")
+saveRDS(multinom.fit.reduced, 
+        "results/07_redModel_tumor.RDS")
 
