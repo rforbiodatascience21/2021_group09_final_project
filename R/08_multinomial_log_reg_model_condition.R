@@ -78,7 +78,8 @@ test <- test %>%
   ) %>%
   drop_na()
 
-# Evaluation of testing
+# Evaluation of models ----------------------------------------------------------
+
 suma <- test %>%
   summarize(
     "Max_pred" = tidy(caret::confusionMatrix(Max_pred, condition)),
@@ -103,7 +104,8 @@ suma <- test %>%
 
 # Writing performance and model -------------------------------------------
 
-write.csv(suma, "results/08_Model_performance_condition.csv", 
+write.csv(suma, 
+          "results/08_Model_performance_condition.csv", 
           row.names = FALSE)
 saveRDS(multinom.fit, 
         "results/08_maxModel_condition.RDS")
