@@ -40,8 +40,9 @@ all_cases<- death_cases %>%
 <!-- ############### SLIDE ############### -->
 
 ## Introduction
-
-<div class="up_bar" style="width: 20px"></div><div class="arrow-right" style="margin-left: 20px"></div><br>
+<div class="total_bar">
+<div class="up_bar" style="width: 20px"></div><div class="arrow-right" style="margin-left: 20px"></div>
+</div><br>
 
 [EU Science Hub](https://ec.europa.eu/jrc/en/news/2020-cancer-incidence-and-mortality-eu-27-countries)
 
@@ -58,7 +59,9 @@ all_cases<- death_cases %>%
 
 ## Materials {.smaller}
 
-<div class="up_bar" style="width: 40px"></div><div class="arrow-right" style="margin-left: 40px"></div><br>
+<div class="total_bar">
+<div class="up_bar" style="width: 40px"></div><div class="arrow-right" style="margin-left: 40px"></div>
+</div><br>
 
 [Kaggle breast cancer data](https://www.kaggle.com/homayoonkhadivi/breast-cancer-datasets)
 
@@ -79,7 +82,9 @@ all_cases %>%
 
 ## Process
 
-<div class="up_bar" style="width: 60px"></div><div class="arrow-right" style="margin-left: 60px"></div><br>
+<div class="total_bar">
+<div class="up_bar" style="width: 60px"></div><div class="arrow-right" style="margin-left: 60px"></div>
+</div><br>
 
 ```{r out.width = '65%', fig.align = 'center'}
 knitr::include_graphics("flow_chart.png", error = FALSE)
@@ -90,7 +95,9 @@ knitr::include_graphics("flow_chart.png", error = FALSE)
 
 ## Cleaning the data {.smaller}
 
-<div class="up_bar" style="width: 80px"></div><div class="arrow-right" style="margin-left: 80px"></div><br>
+<div class="total_bar">
+<div class="up_bar" style="width: 80px"></div><div class="arrow-right" style="margin-left: 80px"></div>
+</div><br>
 
 Unrealistic age and weight proportions.
 
@@ -107,7 +114,9 @@ all_cases %>%
 
 ## Cleaning the data 
 
-<div class="up_bar" style="width: 100px"></div><div class="arrow-right" style="margin-left: 100px"></div><br>
+<div class="total_bar">
+<div class="up_bar" style="width: 100px"></div><div class="arrow-right" style="margin-left: 100px"></div>
+</div><br>
 
 
 ```{r}
@@ -136,7 +145,9 @@ x
 
 ## Augmenting the data
 
-<div class="up_bar" style="width: 120px"></div><div class="arrow-right" style="margin-left: 120px"></div><br>
+<div class="total_bar">
+<div class="up_bar" style="width: 120px"></div><div class="arrow-right" style="margin-left: 120px"></div>
+</div><br>
 
 
 ```{r}
@@ -234,7 +245,10 @@ knitr::include_graphics("../results/06_MCA_supImp_rotation.png",
 
 ## Predicting tumortype
 
-<div class="up_bar" style="width: 300px"></div><div class="arrow-right" style="margin-left: 300px"></div><br>
+<div class="total_bar">
+<div class="up_bar" style="width: 300px"></div><div class="arrow-right" style="margin-left: 300px"></div>
+</div><br>
+
 <div style="float: left; width: 40%;">
 **Reduced Model**
 
@@ -270,7 +284,10 @@ redMod_tumor %>%
 
 ## Predicting Condition
 
-<div class="up_bar" style="width: 320px"></div><div class="arrow-right" style="margin-left: 320px"></div><br>
+<div class="total_bar">
+<div class="up_bar" style="width: 320px"></div><div class="arrow-right" style="margin-left: 320px"></div>
+</div><br>
+
 <div style="float: left; width: 40%;">
 **Reduced Model**
 
@@ -307,7 +324,9 @@ redMod_tumor %>%
 
 ## Discussion 
 
-<div class="up_bar" style="width:340px"></div><div class="arrow-right" style="margin-left: 340px"></div><br>
+<div class="total_bar">
+<div class="up_bar" style="width: 340px"></div><div class="arrow-right" style="margin-left: 340px"></div>
+</div><br>
 
 - Greedy cleaning approach
 - Disagreement between MCA and reduced model 
@@ -317,7 +336,9 @@ redMod_tumor %>%
 
 ## Conclusion
 
-<div class="up_bar" style="width:360px"></div><div class="arrow-right" style="margin-left: 360px"></div><br>
+<div class="total_bar">
+<div class="up_bar" style="width: 360px"></div><div class="arrow-right" style="margin-left: 360px"></div>
+</div><br>
 
 - Possible to predict both tumor type and outcome.
 - The prediction accuracy.
@@ -328,7 +349,9 @@ redMod_tumor %>%
 
 ## Bibliography {.smaller}
 
-<div class="up_bar" style="width: 380px"></div><div class="arrow-right" style="margin-left: 380px"></div><br>
+<div class="total_bar">
+<div class="up_bar" style="width: 380px"></div><div class="arrow-right" style="margin-left: 380px"></div>
+</div><br>
 
 - 2020 Cancer incidence and mortality in EU-27 countries [EU Science Hub](https://ec.europa.eu/jrc/en/news/2020-cancer-incidence-and-mortality-eu-27-countries)
 - WHO Guide to cancer early diagnosis [World Health Organization. Cancer](https://www.who.int/cancer/publications/cancer_early_diagnosis/en/)
@@ -358,7 +381,9 @@ knitr::include_graphics("app_screenshot.png",
 
 ---
 
-<div class="up_bar" style="width: 400px"></div><div class="arrow-right" style="margin-left: 400px"></div><br>
+<div class="total_bar">
+<div class="up_bar" style="width: 400px"></div><div class="arrow-right" style="margin-left: 400px"></div>
+</div><br>
 
 <div id="final_box">
 <div style="color: rgb(47, 142, 194); font-size: 3em; text-align:center">THANKS</div> 
@@ -367,7 +392,9 @@ knitr::include_graphics("app_screenshot.png",
 
 ## Learning objectives {.smaller}
 
-<div class="up_bar" style="width: 420px"></div><div class="arrow-right" style="margin-left: 420px"></div><br>
+<div class="total_bar">
+<div class="up_bar" style="width: 420px"></div><div class="arrow-right" style="margin-left: 420px"></div>
+</div><br>
 
 - Explain why reproducible data analysis is important, as well as identify relevant challenges and explain replicability versus reproducibility <i class="fas fa-check"></i>
 - Describe the components of a reproducible data analysis <i class="fas fa-check"></i>
