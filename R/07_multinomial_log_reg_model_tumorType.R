@@ -5,13 +5,7 @@ rm(list = ls())
 # Load libraries ----------------------------------------------------------
 library(tidyverse)
 library(patchwork)
-library(broom)
 require(nnet)
-set.seed(777)
-
-
-# Define functions --------------------------------------------------------
-
 
 
 
@@ -25,9 +19,9 @@ set.seed(777)
 col_of_interest = c(
   "patient_id",  
   "education",
-  "norm_age",
-  "norm_weight",
-  "norm_thickness_tumor",
+  "age",
+  "weight",
+  "thickness_tumor",
   "Benign_malignant_cancer",
   "hereditary_history",
   "blood",
@@ -36,7 +30,7 @@ col_of_interest = c(
   "taking_gallbladder_disease_medicine",
   "smoking",
   "alcohol",
-  "radiation_history",
+  #"radiation_history",
   "Birth_control",
   "menstrual_age",
   "menopausal_age",
@@ -62,11 +56,11 @@ analysis_df <- data_clean_aug %>%
 train <- sample_frac(analysis_df, 0.7)
 
 test <- analysis_df %>%
-  anti_join(train, b="patient_id")
+  anti_join(train, b = "patient_id")
 
 baseline = DescTools::Mode(pluck(test, "Benign_malignant_cancer"))
 
-multinom.fit <- multinom(Benign_malignant_cancer ~ . -patient_id -1, data=train) #All variables except patient ID and bias
+multinom.fit <- multinom(Benign_malignant_cancer ~ . -patient_id -1, data = train) #All variables except patient ID and bias
 
 multinom.fit.reduced <- multinom.fit
 multinom.fit.reduced <- step(multinom.fit.reduced, trace=FALSE)
@@ -78,6 +72,7 @@ summary(multinom.fit.reduced)
 
 
 # Testing models ----------------------------------------------------------
+
 
 # Prediction
 test <- test %>%

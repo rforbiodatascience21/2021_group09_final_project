@@ -9,9 +9,6 @@ library(broom)
 require(nnet)
 set.seed(777)
 
-# Define functions --------------------------------------------------------
-
-
 
 
 # Load data ---------------------------------------------------------------
@@ -24,9 +21,9 @@ data_clean_aug <- readRDS(file = "data/03_clean_augmented_combined_breastcancer_
 col_of_interest = c(
   "patient_id",  
   "education",
-  "norm_age",
-  "norm_weight",
-  "norm_thickness_tumor",
+  "age",
+  "weight",
+  "thickness_tumor",
   #"Benign_malignant_cancer",
   "hereditary_history",
   "blood",
@@ -61,14 +58,14 @@ analysis_df <- data_clean_aug %>%
 train <- sample_frac(analysis_df, 0.7)
 
 test <- analysis_df %>%
-  anti_join(train, b="patient_id")
+  anti_join(train, b = "patient_id")
 
 baseline = DescTools::Mode(pluck(test, "condition"))
 
-multinom.fit <- multinom(condition ~ . -patient_id -1, data=train) #All variables except patient ID and bias
+multinom.fit <- multinom(condition ~ . -patient_id -1, data = train) #All variables except patient ID and bias
 
 multinom.fit.reduced <- multinom.fit
-multinom.fit.reduced <- step(multinom.fit.reduced, trace=FALSE)
+multinom.fit.reduced <- step(multinom.fit.reduced, trace = FALSE)
 
 
 summary(multinom.fit)
