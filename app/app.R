@@ -32,7 +32,7 @@ ui <- fluidPage(
                            h5("To calculate your chance, insert your personal information in the fields in the side panel ‘User Input’ (RT). For more directions look in the tab “Field Information”."),
                            h3("Survival Rate (%):"),
                            verbatimTextOutput("model_prediction"),
-                           h6("Disclaimer: Interpret the predictions with a pinch of salt. The model has an accuracy of 0.626.")
+                           h6("Disclaimer: Interpret the predictions with a pinch of salt. The model has an accuracy of 0.69.")
                  )), # mainPanel, tabPanel(calculator)
         
         tabPanel("Field information",
