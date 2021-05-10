@@ -32,7 +32,7 @@ subset_binary<- clean_data %>%
 corr_numeric <- subset_numeric %>% 
   select(where(is.numeric)) %>%
   cor(x=.,use="pairwise.complete.obs",method= "spearman") %>% 
-  round(digits = 2) %>% 
+  round(digits = 5) %>% 
   as_tibble(rownames = "Var1")
 
 corr_numeric_longer <- corr_numeric %>% 
@@ -41,7 +41,7 @@ corr_numeric_longer <- corr_numeric %>%
 corr_binary <- subset_binary %>% 
   select(where(is.numeric)) %>%
   cor(x=.,use="pairwise.complete.obs",method= "spearman") %>% 
-  round(digits = 2) %>% 
+  round(digits = 5) %>% 
   as_tibble(rownames = "Var1")
 
 corr_binary_longer <- corr_binary %>% 
