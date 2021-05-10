@@ -82,11 +82,16 @@ test <- test %>%
 
 suma <- test %>%
   summarize(
-    "Max_pred" = tidy(caret::confusionMatrix(Max_pred, condition)),
-    "Red_pred" = tidy(caret::confusionMatrix(Red_pred, condition)),
-    "baseline" = tidy(caret::confusionMatrix(baseline, condition))
+    "Max_pred" = tidy(caret::confusionMatrix(Max_pred, 
+                                             condition)),
+    "Red_pred" = tidy(caret::confusionMatrix(Red_pred, 
+                                             condition)),
+    "baseline" = tidy(caret::confusionMatrix(baseline, 
+                                             condition))
   ) %>%
-  pivot_longer(c(Max_pred, Red_pred, baseline), 
+  pivot_longer(c(Max_pred, 
+                 Red_pred, 
+                 baseline), 
                names_to = "model", 
                values_to = "terms") %>%
   bind_cols(pluck(., 

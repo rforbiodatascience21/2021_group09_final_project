@@ -70,7 +70,8 @@ aug_data <- clean_data %>%
                thickness_tumor, 
                birth_date),
     as.factor)) %>%
-  mutate(Benign_malignant_cancer = relevel(Benign_malignant_cancer, "Malignant")) %>%
+  mutate(Benign_malignant_cancer = relevel(Benign_malignant_cancer, 
+                                           "Malignant")) %>%
   # Remove singular columns
   select_if(function(col) length(unique(col)) > 1) 
 
