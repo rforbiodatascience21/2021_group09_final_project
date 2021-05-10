@@ -294,7 +294,7 @@ radiation_tumor <- hist_plot(my_data_clean_aug,
                              radiation_history, 
                              "Radiation history")
 
-
+###Combine plost######
 medicine_hist <- heart_tumor + blood_tumor + gallbladdar_tumor + radiation_tumor +
   plot_annotation(title = 'Distribution of tumor thickness stratified on:')
 
@@ -516,7 +516,7 @@ ggsave(
   dpi = 500)
 
 
-# medicine histograms
+# medicine histograms stratified###3
 ggsave(
   "04_analysis_histogram_medicine_tumor.png",
   plot = medicine_hist,

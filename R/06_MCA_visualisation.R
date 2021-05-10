@@ -102,6 +102,7 @@ arrow_style <- arrow(
   angle = 20, ends = "first", type = "closed", length = grid::unit(6, "pt")
 )
   
+# Creating the plot and saving it
 p = MCA_aug_df %>%
   filter(condition != "under treatment") %>%
   ggplot(aes(x = MCA_1, y = MCA_2, col=condition)) +
