@@ -7,7 +7,8 @@ count_plot <- function(data, col_name, x_label_str, stratify_col, legend_str) {
     ggplot(mapping = aes(x = {{col_name}},
                          y = (..count..)/sum(..count..)*100,
                          fill = {{stratify_col}})) +
-    geom_bar(alpha=0.5, position = position_dodge(width = 0.95)) +
+    geom_bar(alpha=0.5, 
+             position = position_dodge(width = 0.95)) +
     labs(x = x_label_str,
          y = "Percentage",
          fill = legend_str) +
@@ -45,9 +46,15 @@ violin_plot <- function(data, col_name, y_label_str, stratify_col, stratify_str)
     ggtitle(title_string) +
     theme_minimal(base_family = "Avenir") +
     theme(legend.position = "none",
-          axis.text.y = element_text(size = 13, hjust = 1, vjust = 1),
-          axis.title = element_text(size = 13, hjust = 0.5, vjust = 1),
-          axis.text.x = element_text(size = 12, hjust = 1, vjust = 1))
+          axis.text.y = element_text(size = 13, 
+                                     hjust = 1, 
+                                     vjust = 1),
+          axis.title = element_text(size = 13, 
+                                    hjust = 0.5, 
+                                    vjust = 1),
+          axis.text.x = element_text(size = 12, 
+                                     hjust = 1, 
+                                     vjust = 1))
   
   return(plot)
 }
@@ -75,7 +82,9 @@ hist_plot <- function(data, col_name, x_label_str, stratify_col, legend_str) {
     geom_histogram(binwidth = 0.1, alpha = 0.5) +
     ggtitle(title_string) +
     theme_minimal(base_family = "Avenir") +
-    theme(legend.title = element_text(size = 7), legend.position = "bottom", legend.box = "horizontal") +
+    theme(legend.title = element_text(size = 7), 
+          legend.position = "bottom", 
+          legend.box = "horizontal") +
     labs(fill=legend_str)
   
   return(plot)
@@ -128,7 +137,5 @@ comb_countour_plot <- function(df, x, y, grouping, legend_str){
                 widths = c(4, 1), 
                 heights = c(1, 4))
 }
-
-
 
 
