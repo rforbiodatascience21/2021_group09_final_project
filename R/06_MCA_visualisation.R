@@ -116,7 +116,7 @@ p = MCA_aug_df %>%
                   aes(label = rowname, 
                       color = NULL)) +
   theme_minimal()+
-  theme(legend.position = "bottom") +
+  theme(legend.position="bottom")+
   labs(title = "MCA Rotation matrix superimposed on MCA1 v. MCA2",
        subtitle = "Categories and factors with euclidian norm above the median included."
   ) 

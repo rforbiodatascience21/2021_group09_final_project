@@ -205,7 +205,7 @@ densitogram_condition <- (p_treatment_age_con) / (p_weight_con | p_thickness_tum
                   subtitle = "Densitograms stratified by Condition") + 
   plot_layout(guides = "collect") & # common legends
   ylab("") &
-  theme(legend.position = "bottom", 
+  theme(legend.position = "right", 
         axis.text.x= element_text(size = 9, 
                                   hjust = 1, 
                                   vjust = 1), 
@@ -249,7 +249,7 @@ densitogram_tumor <- (p_treatment_age_tumor) / (p_weight_tumor | p_thickness_tum
                   subtitle = "Densitograms stratified by Tumor Type") + 
   plot_layout(guides = "collect") & # common legends
   ylab("") &
-  theme(legend.position = "bottom", 
+  theme(legend.position = "right", 
         axis.text.x= element_text(size = 9, 
                                   hjust = 1, 
                                   vjust = 1), 
@@ -274,19 +274,19 @@ heart_tumor <- hist_plot(my_data_clean_aug,
                          taking_heartMedicine, "
                          Taking heart medicine")
 
-blood_tumor <- count_plot(my_data_clean_aug, 
+blood_tumor <- hist_plot(my_data_clean_aug, 
                           thickness_tumor, 
                           "Tumor thickness", 
                           taking_blood_pressure_medicine, 
                           "Taking blood pressure medicine")
 
-gallbladdar_tumor <- count_plot(my_data_clean_aug, 
+gallbladdar_tumor <- hist_plot(my_data_clean_aug, 
                                 thickness_tumor, 
                                 "Tumor thickness", 
                                 taking_gallbladder_disease_medicine, 
                                 "Taking gallbladder medicine")
 
-radiation_tumor <- count_plot(my_data_clean_aug, 
+radiation_tumor <- hist_plot(my_data_clean_aug, 
                               thickness_tumor, 
                               "Tumor thickness", 
                               radiation_history, 
