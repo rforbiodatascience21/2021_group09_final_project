@@ -50,19 +50,6 @@ all_cases<- death_cases %>%
 - Early diagnosis and prognosis may aid treatment and focus resources where needed.
 
 
-## Process
-
-Investigate and establish a prognosis for potential breast cancer patients. 
-
-We have follow these steps:
-
-- Cleaning and data validation
-- Augmenting data
-- Visualizing data
-- Create the prediction tool
-- Host prediction tool
-
-
 # Materials and methods
 
 ## Materials {.smaller}
@@ -75,12 +62,16 @@ We have follow these steps:
 - tumor type
 
 ```{r dataset}
-#<div class="up_bar" style="width: 40px"></div><div class="arrow-right" style="margin-left: 40px"></div><br>
 all_cases %>%
-  head(10) %>%
+  head(8) %>%
   kbl("html") %>%
   kable_paper() %>%
   scroll_box(width = "1000px")
+```
+
+## Process
+```{r out.width = '75%', fig.align = 'center'}
+knitr::include_graphics("flow_chart.png", error = FALSE)
 ```
 
 
@@ -90,10 +81,10 @@ all_cases %>%
 
 Unrealistic age and weight proportions.
 
-```{r}
+```{r out.width = '75%', fig.align = 'center'}
 all_cases %>%
-  mutate(included = ifelse((age >= 20 & weight >= 35), yes="yes", no="no")) %>%
-  ggplot(aes(x = age, y = weight, col=included)) +
+  mutate(Included = ifelse((age >= 20 & weight >= 35), yes="yes", no="no")) %>%
+  ggplot(aes(x = age, y = weight, col=Included)) +
   geom_point() +
   theme_minimal()
 ```
@@ -175,14 +166,14 @@ knitr::include_graphics("../results/04_analysis_densitograms_on_tumor.png",
 ```
 
 ## MCA Tumortype
-```{r out.width = "60%", fig.show = 'hold', fig.align = 'center'}
+```{r out.width = "90%", fig.show = 'hold', fig.align = 'center'}
 
 knitr::include_graphics("../results/06_MCA_contour_tumorType.png", 
   error = F)
 ```
 
 ## MCA Condition
-```{r out.width = "60%", fig.show = 'hold', fig.align = 'center'}
+```{r out.width = "90%", fig.show = 'hold', fig.align = 'center'}
 
 knitr::include_graphics("../results/06_MCA_contour_conditions.png", 
   error = F)
@@ -247,7 +238,7 @@ redMod_tumor %>%
 
 - Age
 - Gallbladder medicine
-- Menupausal age
+- Menopausal age
 - Abortion
 
 
@@ -264,7 +255,7 @@ redMod_tumor %>%
   kbl("html") %>%
   kable_minimal() %>%
   kable_styling(font_size = 20) %>%
-  footnote(general= "Positive class = Death",
+  footnote(general = "Positive class = Death",
            fixed_small_size = TRUE)
 
 ```
@@ -274,18 +265,21 @@ redMod_tumor %>%
 
 
 
-# Discussion {#statistics}
-## Discussion {.smaller}
+# Discussion & Conclusion
+## Discussion 
 
-<div class="up_bar" style="width: 360px"></div><div class="arrow-right" style="margin-left: 360px"></div><br>
+- Greedy cleaning approach
+- Disagreement between MCA and reduced model 
+- A general set of rules for valid entries
 
-# Conclusion
 
-## Conclusion {.smaller}
 
-<div class="up_bar" style="width: 400px"></div><div class="arrow-right" style="margin-left: 400px"></div><br>
+## Conclusion
 
-We have reached the following conclusions
+- Possible to predict both tumor type and outcome.
+- 
+
+
 
 # Bibliography
 
