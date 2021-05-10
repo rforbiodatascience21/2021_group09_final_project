@@ -6,7 +6,9 @@ library(tidyverse)
 
 # Run Model script
 setwd("/cloud/project")
-source(file = "R/11_multinomial_log_reg_model_condition.R")
+source(file = "../R/11_multinomial_log_reg_model_condition.R")
+
+my_data_clean_aug <- readRDS(file = "data/03_clean_augmented_combined_breastcancer_data.rds")
 
 
 # Define UI for application that draws a histogram
