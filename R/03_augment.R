@@ -10,7 +10,6 @@ library("tidyverse")
 clean_data <- read_csv(file = "data/02_clean_combined_cases.csv")
 
 
-
 # Wrangle data ---------------------------------------------------------------
 
 aug_data <- clean_data %>%
