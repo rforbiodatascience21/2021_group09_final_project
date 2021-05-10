@@ -5,7 +5,7 @@
 #### Boxplots of 1 variable, stratified on another
 #### Countplots of 1 variable, stratified on another
 #### Densitograms stratified on condition
-#### Histograms of tumorthickness stratified on medcinies
+#### Histograms of tumor thickness stratified on medicines
 
 # Clear workspace ---------------------------------------------------------
 rm(list = ls())
@@ -42,7 +42,7 @@ numeric_boxplot <- my_data_clean_aug %>%
                     coord_flip() +
                     geom_boxplot() + 
                     ggtitle("Boxplots of numerical values") + 
-                    theme(plot.title = element_text(size=15, 
+                    theme(plot.title = element_text(size = 15, 
                                                     hjust = 0.5))
 
 
@@ -56,7 +56,7 @@ numeric_hist_15_bins <- my_data_clean_aug %>%
                                    scales = "free") +
                         geom_histogram(bins = 15) +
                         ggtitle("Distribution of numerical values - 15 bins") + 
-                        theme(plot.title = element_text(size=15, 
+                        theme(plot.title = element_text(size = 15, 
                                                         hjust = 0.5))
   
 
@@ -73,13 +73,13 @@ categorical_bar_part1 <- my_data_clean_aug %>%
                           geom_bar() + 
                           ggtitle("Distribution of categorical values (part 1)") + 
                           theme(axis.text.x = element_text(angle = 45, 
-                                                           size=9, 
-                                                           hjust=1, 
+                                                           size = 9, 
+                                                           hjust = 1, 
                                                            vjust = 1), 
-                                axis.text.y= element_text(size=8, 
-                                                          hjust=1, 
+                                axis.text.y= element_text(size = 8, 
+                                                          hjust = 1, 
                                                           vjust = 1),
-                                plot.title = element_text(size=15, 
+                                plot.title = element_text(size = 15, 
                                                           hjust = 0.5)
                           ) 
 
@@ -95,13 +95,13 @@ categorical_bar_part2 <- my_data_clean_aug %>%
                           geom_bar() + 
                           ggtitle("Distribution of categorical values (part 2)") + 
                           theme(axis.text.x = element_text(angle = 45, 
-                                                           size=9, 
-                                                           hjust=1, 
+                                                           size = 9, 
+                                                           hjust = 1, 
                                                            vjust = 1), 
-                                axis.text.y= element_text(size=8, 
-                                                          hjust=1, 
+                                axis.text.y= element_text(size = 8, 
+                                                          hjust = 1, 
                                                           vjust = 1),
-                                plot.title = element_text(size=15, 
+                                plot.title = element_text(size = 15, 
                                                           hjust = 0.5)
                           ) 
 
@@ -169,10 +169,10 @@ count_blood_condition <- count_plot(data_condition_dead_recovered,
                                     "Condition")
 
 count_brestpain_condition <- count_plot(data_condition_dead_recovered, 
-                                  breast_pain, 
-                                  "Breast Pain",
-                                  condition, 
-                                  "Condition")
+                                        breast_pain, 
+                                        "Breast Pain",
+                                        condition, 
+                                        "Condition")
 
 
 ### Densitogram on condition ###
@@ -201,19 +201,19 @@ densitogram_condition <- (p_treatment_age_con) / (p_weight_con | p_thickness_tum
   plot_layout(guides = "collect") & # common legends
   ylab("") &
   theme(legend.position = "bottom", 
-        axis.text.x= element_text(size=9, 
-                                  hjust=1, 
+        axis.text.x= element_text(size = 9, 
+                                  hjust = 1, 
                                   vjust = 1), 
-        axis.text.y= element_text(size=9, 
-                                  hjust=1, 
+        axis.text.y= element_text(size = 9, 
+                                  hjust = 1, 
                                   vjust = 1),
-        legend.text = element_text(size=9.5), 
-        axis.title= element_text(size=11, 
-                                 hjust=0.5, 
+        legend.text = element_text(size = 9.5), 
+        axis.title= element_text(size = 11, 
+                                 hjust = 0.5, 
                                  vjust = 1), 
-        plot.title = element_text(size=13, 
+        plot.title = element_text(size = 13, 
                                   hjust = 0.5),
-        plot.subtitle = element_text(size=11, 
+        plot.subtitle = element_text(size = 11, 
                                      hjust = 0.5)
   )
 
@@ -245,19 +245,19 @@ densitogram_tumor <- (p_treatment_age_tumor) / (p_weight_tumor | p_thickness_tum
   plot_layout(guides = "collect") & # common legends
   ylab("") &
   theme(legend.position = "bottom", 
-        axis.text.x= element_text(size=9, 
-                                  hjust=1, 
+        axis.text.x= element_text(size = 9, 
+                                  hjust = 1, 
                                   vjust = 1), 
-        axis.text.y= element_text(size=9, 
-                                  hjust=1, 
+        axis.text.y= element_text(size = 9, 
+                                  hjust = 1, 
                                   vjust = 1),
-        legend.text = element_text(size=9.5), 
-        axis.title= element_text(size=11, 
-                                 hjust=0.5, 
+        legend.text = element_text(size = 9.5), 
+        axis.title= element_text(size = 11, 
+                                 hjust = 0.5, 
                                  vjust = 1), 
-        plot.title = element_text(size=13, 
+        plot.title = element_text(size = 13, 
                                   hjust = 0.5),
-        plot.subtitle = element_text(size=11, 
+        plot.subtitle = element_text(size = 11, 
                                      hjust = 0.5)
   )
 
@@ -267,16 +267,16 @@ densitogram_tumor <- (p_treatment_age_tumor) / (p_weight_tumor | p_thickness_tum
 ### Histogram tumor thicknesses stratified on medicines ###
 
 heart_tumor <- hist_plot(my_data_clean_aug, 
-                   thickness_tumor, 
-                   "Tumor thickness", 
-                   taking_heartMedicine, "
-                   Taking heart medicine")
+                         thickness_tumor, 
+                         "Tumor thickness", 
+                         taking_heartMedicine, "
+                         Taking heart medicine")
 
 blood_tumor <- count_plot(my_data_clean_aug, 
-                   thickness_tumor, 
-                   "Tumor thickness", 
-                   taking_blood_pressure_medicine, 
-                   "Taking blood pressure medicine")
+                          thickness_tumor, 
+                          "Tumor thickness", 
+                           taking_blood_pressure_medicine, 
+                           "Taking blood pressure medicine")
 
 gallbladdar_tumor <- count_plot(my_data_clean_aug, 
                                thickness_tumor, 

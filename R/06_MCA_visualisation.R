@@ -26,19 +26,19 @@ library(ggrepel)
 # Define functions --------------------------------------------------------
 comb_countour_plot <- function(df, x, y, grouping){
   
-  p_main <-  ggplot(df, aes_string(x = x, y = y, col=grouping )) +
-    geom_point(alpha=0.4)+
+  p_main <-  ggplot(df, aes_string(x = x, y = y, col = grouping )) +
+    geom_point(alpha = 0.5)+
     geom_density_2d()+
     theme_minimal()+
     theme(legend.position = "bottom")
   
   p_den1 <- ggplot(df, aes_string(x = x, fill = grouping ))+
-    geom_density(alpha=0.4)+
+    geom_density(alpha = 0.5)+
     theme_void() +
     theme(legend.position = "none")
   
   p_den2 <- ggplot(df, aes_string(x = y, fill = grouping ))+
-    geom_density(alpha=0.4)+
+    geom_density(alpha = 0.5)+
     theme_void() +
     theme(legend.position = "none")+
     coord_flip()
@@ -97,13 +97,13 @@ MCA_aug_df <- my_data_clean_aug %>%
 
 
 MCA_aug_df %>%
-  comb_countour_plot(x="MCA_1", y="MCA_2", grouping="Benign_malignant_cancer") %>%
+  comb_countour_plot(x = "MCA_1", y = "MCA_2", grouping = "Benign_malignant_cancer") %>%
   ggsave(filename = "results/06_MCA_contour_tumorType.png")
 
 
 MCA_aug_df %>%
   filter(condition != "under treatment") %>%
-  comb_countour_plot(x="MCA_1", y="MCA_2", grouping="condition") %>%
+  comb_countour_plot(x = "MCA_1", y = "MCA_2", grouping = "condition") %>%
   ggsave(filename = "results/06_MCA_contour_conditions.png")
 
 
@@ -117,11 +117,11 @@ mca_rot <- mca_ana %>%
   as_tibble(rownames = NA) %>%
   rownames_to_column() %>%
   rename(
-    MCA_1=`1`, 
-    MCA_2=`2`
+    MCA_1 = `1`, 
+    MCA_2 = `2`
          )%>%
   filter(
-    sqrt(MCA_1**2+MCA_1**2)> median(sqrt(MCA_1**2+MCA_2**2))
+    sqrt(MCA_1**2 + MCA_1**2)> median(sqrt(MCA_1**2 + MCA_2**2))
   )
 
 arrow_style <- arrow(
@@ -130,14 +130,14 @@ arrow_style <- arrow(
   
 p = MCA_aug_df %>%
   filter(condition != "under treatment") %>%
-  ggplot(aes(x = MCA_1, y = MCA_2, col=condition)) +
-    geom_point(alpha=0.4)+
-    geom_segment(xend=0, yend=0, data=mca_rot, aes(color=NULL), arrow=arrow_style)+
-    geom_text_repel(data=mca_rot, aes(label=rowname, color=NULL))+
+  ggplot(aes(x = MCA_1, y = MCA_2, col = condition)) +
+    geom_point(alpha = 0.4)+
+    geom_segment(xend = 0, yend = 0, data = mca_rot, aes(color = NULL), arrow = arrow_style)+
+    geom_text_repel(data = mca_rot, aes(label = rowname, color = NULL))+
     theme_minimal()+
     theme(legend.position = "bottom") +
     labs(
-      title="MCA Rotation matrix superimposed on MCA1 v. MCA2",
+      title = "MCA Rotation matrix superimposed on MCA1 v. MCA2",
       subtitle = "Categories and factors with euclidian norm above the median included."
     ) 
 ggsave(p,filename = "results/06_MCA_supImp_rotation.png")
