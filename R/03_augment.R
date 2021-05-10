@@ -63,6 +63,9 @@ aug_data <- clean_data %>%
     .cols = -c(age, treatment_age, weight, thickness_tumor, birth_date),
     as.factor)) %>%
   
+  #Change order of education
+  mutate(education = fct_relevel(education, "Illiterate", "Elementary", "Middle School", "High School", "Diploma", "Associate", "Bachelor", "Master")) %>%
+  
   # Remove singular columns
   select_if(function(col) length(unique(col)) > 1) 
 

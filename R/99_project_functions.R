@@ -80,6 +80,9 @@ hist_plot <- function(data, col_name, x_label_str, stratify_col, legend_str) {
   return(plot)
 }
 
+# Saving function
+save_plot <- function()
+
 # MCA analysis function -----------------------------------------------
 comb_countour_plot <- function(df, x, y, grouping){
   
