@@ -42,6 +42,7 @@ numeric_boxplot <- my_data_clean_aug %>%
                     coord_flip() +
                     geom_boxplot() + 
                     ggtitle("Boxplots of numerical values") + 
+                    theme_minimal(base_family = "Avenir")+
                     theme(plot.title = element_text(size=15, 
                                                     hjust = 0.5))
 
