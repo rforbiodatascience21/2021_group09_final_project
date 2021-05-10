@@ -61,6 +61,9 @@ aug_data <- clean_data %>%
     as.factor)
     ) %>%
   
+  #Change order of education
+  mutate(education = fct_relevel(education, "Illiterate", "Elementary", "Middle School", "High School", "Diploma", "Associate", "Bachelor", "Master")) %>%
+  
   # Set order of levels:
   mutate(
     Benign_malignant_cancer = relevel(Benign_malignant_cancer, "Malignant")
