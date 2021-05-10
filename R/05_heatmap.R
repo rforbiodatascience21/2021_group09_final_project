@@ -5,9 +5,6 @@ rm(list = ls())
 
 # Load libraries ----------------------------------------------------------
 library("tidyverse")
-library("purrr")
-library("tidyr")
-library("ggplot2")
 
 # Load data ---------------------------------------------------------------
 clean_data <- read_csv(file = "data/02_clean_combined_cases.csv")
