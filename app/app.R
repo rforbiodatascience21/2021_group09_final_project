@@ -32,10 +32,18 @@ ui <- fluidPage(
                      radioButtons("hereditary", "Hereditary History:", 
                                   c("No"=0,"Yes"=1),
                                   inline=TRUE),
-                     radioButtons("alcohol", "Alcohol:", c("No"=0,"Yes"=1),inline=TRUE),
-                     radioButtons("radiation", "Radiation:", c("No"=0,"Yes"=1),inline=TRUE),
-                     radioButtons("abortion", "Abortion Experience:", c("No"=0,"Yes"=1),inline=TRUE),
-                     radioButtons("breast_pain", "Breast Pain:", c("No"=0,"Yes"=1),inline=TRUE)
+                     radioButtons("alcohol", "Alcohol:", 
+                                  c("No"=0,"Yes"=1),
+                                  inline=TRUE),
+                     radioButtons("radiation", "Radiation:", 
+                                  c("No"=0,"Yes"=1),
+                                  inline=TRUE),
+                     radioButtons("abortion", "Abortion Experience:", 
+                                  c("No"=0,"Yes"=1),
+                                  inline=TRUE),
+                     radioButtons("breast_pain", "Breast Pain:", 
+                                  c("No"=0,"Yes"=1),
+                                  inline=TRUE)
                  ), # sidebarPanel
                  
                  mainPanel(h3("Description"),
@@ -68,20 +76,31 @@ server <- function(input, output) {
                         "giving_birth"=input$given_birth,
                         "abortion"=input$abortion,
                         "breast_pain"=input$breast_pain)
-    output$model_prediction<- renderText(round(predict(multinom.fit.reduced, newdata = unknown_input, type="probs"),4)*100)
+    output$model_prediction<- renderText(predict(multinom.fit.reduced, 
+                                                 newdata = unknown_input, 
+                                                 type="probs")%>% round(4)*100)
         })
     field_tibble <- tibble(
         "Field Name" = c("Age", "Weight", "Menstrual Age","Given Birth","Education","Tumor Type","Hereditary History", "Alcohol",
                          "Radiation", "Abortion Experience", "Breast Pain"), 
-        "Description" = c("The age of the patient in years.","The weight of the patient in kilograms.","At which age group did the patient start a natural menstrual cycle.",
-                          "Number of times the patient has given birth","The education level of the patient.","If the tumor is benign (noncancerous) or malignant (cancerous)",
-                          "History of breast cancer in the family", "Alchol Habits","Radiation therapy in the breast area",
-                          "Abortion history","Any kind of pain in the breast tissue."),
-        "Range/Values" = c("Range: 20 - 45","Range: 35 - 150", str_c("Categorical:","- Not Yet (cycle not started)", "- Under 12", "- Above 12",sep="<br>"),
-                           "Range: 0-7"," Illiterate=0, Elementary= 1, Middle School =2 , High School =3 , Diploma = 4, Associate =5 , Bachelor =6 , Master = 7",str_c("Categorical:","- Bening", "- Malignant",sep="<br>"),
-                           str_c("Categorical:","- Yes (Breast cancer in the family)", "- No (No Family History )",sep="<br>"),str_c("Categorical:","- Yes", "- No",sep="<br>"),
+        "Description" = c("The age of the patient in years.",
+                          "The weight of the patient in kilograms.",
+                          "At which age group did the patient start a natural menstrual cycle.",
+                          "Number of times the patient has given birth","The education level of the patient.",
+                          "If the tumor is benign (noncancerous) or malignant (cancerous)",
+                          "History of breast cancer in the family", 
+                          "Alchol Habits","Radiation therapy in the breast area",
+                          "Abortion history", "Any kind of pain in the breast tissue."),
+        "Range/Values" = c("Range: 20 - 45",
+                           "Range: 35 - 150", 
+                           str_c("Categorical:","- Not Yet (cycle not started)", "- Under 12", "- Above 12",sep="<br>"),
+                           "Range: 0-7"," Illiterate=0, Elementary= 1, Middle School =2 , High School =3 , Diploma = 4, Associate =5 , Bachelor =6 , Master = 7",
+                           str_c("Categorical:","- Bening", "- Malignant",sep="<br>"),
+                           str_c("Categorical:","- Yes (Breast cancer in the family)", "- No (No Family History )",sep="<br>"),
+                           str_c("Categorical:","- Yes", "- No",sep="<br>"),
                            str_c("Categorical:","- Yes (Therapy)", "- No (No Therapy)",sep="<br>"),
-                           str_c("Categorical:","- Yes (1 or more abortions)", "- No (No abortions)",sep="<br>"),str_c("Categorical:","- Yes (Breast pain of some sort)", "- No (No breast pain)",sep="<br>")))
+                           str_c("Categorical:","- Yes (1 or more abortions)", "- No (No abortions)",sep="<br>"),
+                           str_c("Categorical:","- Yes (Breast pain of some sort)", "- No (No breast pain)",sep="<br>")))
     
     #output$model_prediction <- renderText("HEJ")
     output$field_tbl <- renderTable({field_tibble},  
