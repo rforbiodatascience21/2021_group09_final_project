@@ -10,11 +10,9 @@ multinom.fit.reduced <- readRDS(file = "../results/08_redModel_condition.RDS")
 # Define UI
 ui <- fluidPage(
     theme = shinytheme("flatly"),
-    navbarPage(
-        "Breast Cancer Survival Rate",
+    navbarPage( "Breast Cancer Survival Rate",
         tabPanel("Calculator",
-                 sidebarPanel(
-                     tags$h3("User Input:"),
+                 sidebarPanel(tags$h3("User Input:"),
                      textInput("age", "Age:", "36"),
                      textInput("weight", "Weight (kg):", "60"),
                      selectInput("menstrual", "Menstrual Age:", c("under 12","above 12","not yet")),
@@ -24,27 +22,27 @@ ui <- fluidPage(
                      radioButtons("pregnency", "Pregnancy Experience:", c("No"=0,"Yes"=1),inline=TRUE),
                      radioButtons("abortion", "Abortion Experience:", c("No"=0,"Yes"=1),inline=TRUE),
                      radioButtons("breast_pain", "Breast Pain:", c("No"=0,"Yes"=1),inline=TRUE)
-                    
                  ), # sidebarPanel
-                 mainPanel(HTML(paste(h1("Description"),
-                           ("This function calculates an individual’s chance of surviving breast cancer. The predictions are based on a machine learning algorithm, that is fitted to a dataset consisting of 1134 previous breast cancer patients and 30 different personal factors."),'<br/>',
-                           ("To calculate your chance, insert your personal information in the fields in the side panel ‘User Input’ (RT). For more directions look in the tab “Field Information”."),
-                     h4("Survival Rate (%): "))),
-                     verbatimTextOutput("model_prediction"),
-                     h6("Disclaimer: Interpret the predictions with a pinch of salt. The model has an accuracy of 0.626."
-                 ))),
+                 
+                 mainPanel(h3("Description"),
+                           h5("This function calculates an individual’s chance of surviving breast cancer. The predictions are based on a machine learning algorithm, that is fitted to a dataset consisting of 1134 previous breast cancer patients and 30 different personal factors."),
+                           h5("To calculate your chance, insert your personal information in the fields in the side panel ‘User Input’ (RT). For more directions look in the tab “Field Information”."),
+                           h3("Survival Rate (%):"),
+                           verbatimTextOutput("model_prediction"),
+                           h6("Disclaimer: Interpret the predictions with a pinch of salt. The model has an accuracy of 0.626.")
+                 )), # mainPanel, tabPanel(calculator)
+        
         tabPanel("Field information",
                  h3("Desription"),
-                 "Descriptions of each of the personal factors (fields for the calculator) are listed in the table below.",
+                 h5("Descriptions of each of the personal factors (fields for the calculator) are listed in the table below."),
                  tableOutput('field_tbl'),
                  h6("* For the fields 'Age' and 'weight' suggestive ranges are listed. These ranges match with the analysis conducted. Value outside of these ranges yields inaccurate predictions.")
-                 )
-    ) # navbarPage end
-)
+                 ) # tabPanel (Field Information)
+    )) # navbarPage end, UI end  
 
-# Define server logic required to draw a histogram
+# Define server logic
 server <- function(input, output) {
-    observe({unknown_input <- tibble_row("patient_id"="111035903832",  
+    observe({unknown_input <- tibble_row(
                         "age"=as.numeric(input$age),
                         "weight"=as.numeric(input$weight),
                         "hereditary_history"=input$hereditary,
@@ -62,10 +60,10 @@ server <- function(input, output) {
         "Description" = c("The age of the patient in years.","The weight of the patient in kilograms.","At which age group did the patient start a natural menstrual cycle.",
                           "History of breast cancer in the family", "Current smoking status","Radiation therapy in the breast area",
                           "Preganancy history","Abortion history","Any kind of pain in the breast tissue."),
-        "Range/Values" = c("Range: 20 - 45","Range: 35 - 150", paste("Categorical:","- Not Yet (cycle not started)", "- Under 12", "- Above 12",sep="<br>"),
-                           paste("Categorical:","- Yes (Breast cancer in the family)", "- No (No Family History )",sep="<br>"),paste("Categorical:","- Yes (Smoker)", "- No (Non-smoker)",sep="<br>"),
-                           paste("Categorical:","- Yes (Therapy)", "- No (No Therapy)",sep="<br>"),paste("Categorical:","- Yes (1 or more pregnancies)", "- No (No pregnancies)",sep="<br>"),
-                           paste("Categorical:","- Yes (1 or more abortions)", "- No (No abortions)",sep="<br>"),paste("Categorical:","- Yes (Breast pain of some sort)", "- No (No breast pain)",sep="<br>")))
+        "Range/Values" = c("Range: 20 - 45","Range: 35 - 150", str_c("Categorical:","- Not Yet (cycle not started)", "- Under 12", "- Above 12",sep="<br>"),
+                           str_c("Categorical:","- Yes (Breast cancer in the family)", "- No (No Family History )",sep="<br>"),str_c("Categorical:","- Yes (Smoker)", "- No (Non-smoker)",sep="<br>"),
+                           str_c("Categorical:","- Yes (Therapy)", "- No (No Therapy)",sep="<br>"),str_c("Categorical:","- Yes (1 or more pregnancies)", "- No (No pregnancies)",sep="<br>"),
+                           str_c("Categorical:","- Yes (1 or more abortions)", "- No (No abortions)",sep="<br>"),str_c("Categorical:","- Yes (Breast pain of some sort)", "- No (No breast pain)",sep="<br>")))
     
     #output$model_prediction <- renderText("HEJ")
     output$field_tbl <- renderTable({field_tibble},  
