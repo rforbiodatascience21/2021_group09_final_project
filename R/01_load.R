@@ -34,8 +34,8 @@ unlink(temp_dir, recursive = TRUE)
 
 # Write data --------------------------------------------------------------
 
-file_names = str_c("01_", data_names, "_cases", ".csv", sep="")
-file_paths = str_c("data", file_names, sep="/")
+file_names = str_c("01_", data_names, "_cases", ".csv", sep = "")
+file_paths = str_c("data", file_names, sep = "/")
 
 map2(data_dfs, file_paths, ~write_csv(x = .x, file = .y))
 
