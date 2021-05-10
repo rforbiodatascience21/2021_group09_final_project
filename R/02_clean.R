@@ -50,8 +50,8 @@ comb_clean_data <- comb_data %>%
               marital_length,
               pregnency_experience, 
               age_FirstGivingBirth, 
-              abortion, t
-              aking_heartMedicine,
+              abortion, 
+              taking_heartMedicine,
               taking_blood_pressure_medicine, 
               taking_gallbladder_disease_medicine, 
               smoking,
