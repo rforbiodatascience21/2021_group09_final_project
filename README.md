@@ -12,7 +12,7 @@ Breast cancer dataset files, R files for loading, cleaning and augmenting the da
 Presentation explaining the process and results
 
 ## app folder
-Shinyapp for predicting the risk of having breast cancer data according to different variables
+Shinyapp for predicting the risk of dying from breast cancer based on different clinical attributes
 
 ## data folder
 Original files and tables created
