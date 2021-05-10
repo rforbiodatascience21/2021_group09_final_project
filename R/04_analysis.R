@@ -12,9 +12,6 @@ rm(list = ls())
 
 # Load libraries ----------------------------------------------------------
 library("tidyverse")
-library("purrr")
-library("tidyr")
-library("ggplot2")
 library("patchwork")
 
 # Get functions --------------------------------------------------------
@@ -63,7 +60,7 @@ numeric_hist_15_bins <- my_data_clean_aug %>%
                                   hjust = 0.5))
 
 
-# Common barchart of categorical variables ---------------------------------
+# Common barchart of categorical variables
 # Half the variables
 categorical_bar_part1 <- my_data_clean_aug %>%
   select_if(is.factor) %>%
@@ -520,3 +517,4 @@ ggsave(
   units = "cm",
   dpi = 500
 )
+
