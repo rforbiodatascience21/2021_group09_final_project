@@ -171,6 +171,14 @@ knitr::include_graphics("../results/04_analysis_densitograms_on_condition.png",
                         error = F)
 ```
 
+<!-- ############### SLIDE ############### -->
+
+## Distributions {#slide}
+```{r out.width = "80%", fig.show = 'hold', fig.align = 'center'}
+
+knitr::include_graphics("../results/04_analysis_violin_tumor_on_condition.png",
+                        error = F)
+```
 
 
 <!-- ############### SLIDE ############### -->
