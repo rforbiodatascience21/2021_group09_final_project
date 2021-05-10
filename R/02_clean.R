@@ -8,8 +8,8 @@ library("tidyverse")
 
 # Load data ---------------------------------------------------------------
 dead_cases <- read_csv("data/01_death_cases.csv", na = "-")
-recovered_cases <- read_csv("data/01_recovered_cases.csv",na = "-")
-under_treatment_cases <- read_csv("data/01_under_treatment_cases.csv",na = "-")
+recovered_cases <- read_csv("data/01_recovered_cases.csv", na = "-")
+under_treatment_cases <- read_csv("data/01_under_treatment_cases.csv", na = "-")
 
 
 # Wrangle data ------------------------------------------------------------
@@ -33,12 +33,12 @@ comb_data <- dead_cases %>%
 
 comb_clean_data <- comb_data %>%
   # Cleanup of column names
-  rename_with(.cols=everything(), 
-              ~str_remove(string=.x, pattern = "[\r]?\n")) %>%
-  rename(Birth_control = 'Birth_control(Contraception)') %>%
+  rename_with(.cols = everything, 
+              ~str_remove(string = .x, pattern = "[\r]?\n")) %>%
+  rename(Birth_control = "Birth_control(Contraception)") %>%
   # Cleanup of binary variables
   mutate(across(
-    .cols = c(hereditary_history,marital_status, marital_length,
+    .cols = c(hereditary_history, marital_status, marital_length,
               pregnency_experience, age_FirstGivingBirth, abortion, taking_heartMedicine,
               taking_blood_pressure_medicine, taking_gallbladder_disease_medicine, smoking,
               alcohol, breast_pain, radiation_history, Birth_control, Benign_malignant_cancer),
@@ -51,8 +51,8 @@ comb_clean_data <- comb_data %>%
   # Cleanup of individual columns
     mutate(
       blood = ifelse(blood %in% seq(0,7), 
-                     yes=blood, no=NA_real_),
-      birth_date = ifelse(nchar(birth_date)==4,
+                     yes = blood, no = NA_real_),
+      birth_date = ifelse(nchar(birth_date) == 4,
                           yes = birth_date, no = NA_real_)
     ) %>%
 
