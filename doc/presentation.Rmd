@@ -265,7 +265,10 @@ knitr::include_graphics("../results/05_heatmap_numeric.png",
 
 # Model
 
+
+
 <!-- ############### SLIDE ############### -->
+<!-- Tumortype model removed
 
 ## Predicting tumortype
 
@@ -303,6 +306,7 @@ redMod_tumor %>%
 
 ```
 </div>
+-->
 
 <!-- ############### SLIDE ############### -->
 
@@ -331,6 +335,7 @@ redMod_tumor %>%
   pivot_wider(names_from = "term", values_from = "estimate") %>%
   select(-class) %>%
   mutate(across(-model, function(x) str_c(round(x*100),"%"))) %>%
+  rename_with(.fn = function(x) str_replace(x, "_", " ") %>% str_to_sentence()) %>%
   kbl("html") %>%
   kable_minimal() %>%
   kable_styling(font_size = 20) %>%
