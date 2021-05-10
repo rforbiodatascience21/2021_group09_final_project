@@ -274,19 +274,19 @@ heart_tumor <- hist_plot(my_data_clean_aug,
                          taking_heartMedicine, "
                          Taking heart medicine")
 
-blood_tumor <- count_plot(my_data_clean_aug, 
+blood_tumor <- hist_plot(my_data_clean_aug, 
                           thickness_tumor, 
                           "Tumor thickness", 
                           taking_blood_pressure_medicine, 
                           "Taking blood pressure medicine")
 
-gallbladdar_tumor <- count_plot(my_data_clean_aug, 
+gallbladdar_tumor <- hist_plot(my_data_clean_aug, 
                                 thickness_tumor, 
                                 "Tumor thickness", 
                                 taking_gallbladder_disease_medicine, 
                                 "Taking gallbladder medicine")
 
-radiation_tumor <- count_plot(my_data_clean_aug, 
+radiation_tumor <- hist_plot(my_data_clean_aug, 
                               thickness_tumor, 
                               "Tumor thickness", 
                               radiation_history, 
