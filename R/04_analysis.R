@@ -42,6 +42,7 @@ numeric_boxplot <- my_data_clean_aug %>%
                     coord_flip() +
                     geom_boxplot() + 
                     ggtitle("Boxplots of numerical values") + 
+                    theme_minimal(base_family = "Avenir") +
                     theme(plot.title = element_text(size = 15, 
                                                     hjust = 0.5))
 
@@ -56,6 +57,7 @@ numeric_hist_15_bins <- my_data_clean_aug %>%
                                    scales = "free") +
                         geom_histogram(bins = 15) +
                         ggtitle("Distribution of numerical values - 15 bins") + 
+                        theme_minimal(base_family = "Avenir") +
                         theme(plot.title = element_text(size = 15, 
                                                         hjust = 0.5))
   
@@ -65,13 +67,15 @@ numeric_hist_15_bins <- my_data_clean_aug %>%
 categorical_bar_part1 <- my_data_clean_aug %>%
                           select_if(is.factor) %>%
                           select(education:taking_heartMedicine, 
-                                 -id_healthcenter, -blood) %>%
+                                 -id_healthcenter, 
+                                 -blood) %>%
                           pivot_longer(cols = everything()) %>%
                           ggplot(aes(value)) +
                           facet_wrap(~ name, 
                                      scales = "free") +
                           geom_bar() + 
                           ggtitle("Distribution of categorical values (part 1)") + 
+                          theme_minimal(base_family = "Avenir") +
                           theme(axis.text.x = element_text(angle = 45, 
                                                            size = 9, 
                                                            hjust = 1, 
@@ -94,6 +98,7 @@ categorical_bar_part2 <- my_data_clean_aug %>%
                                      scales = "free") +
                           geom_bar() + 
                           ggtitle("Distribution of categorical values (part 2)") + 
+                          theme_minimal(base_family = "Avenir") +
                           theme(axis.text.x = element_text(angle = 45, 
                                                            size = 9, 
                                                            hjust = 1, 
