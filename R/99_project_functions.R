@@ -2,12 +2,17 @@
 
 # Basic count plot of 1 variable, stratified on another, eg condition or tumor
 count_plot <- function(data, col_name, x_label_str, stratify_col, legend_str) {
-  title_string <- str_c("Distribution of", x_label_str, "stratified on", legend_str , sep = " ")
+  title_string <- str_c("Distribution of", 
+                        x_label_str, 
+                        "stratified on", 
+                        legend_str, 
+                        sep = " ")
   plot <- data %>%
     ggplot(mapping = aes(x = {{col_name}},
                          y = (..count..)/sum(..count..)*100,
                          fill = {{stratify_col}})) +
-    geom_bar(alpha=0.5, position = position_dodge(width = 0.95)) +
+    geom_bar(alpha=0.5, 
+             position = position_dodge(width = 0.95)) +
     labs(x = x_label_str,
          y = "Percentage",
          fill = legend_str) +
@@ -19,7 +24,11 @@ count_plot <- function(data, col_name, x_label_str, stratify_col, legend_str) {
 
 # Basic box plot of 1 variable, stratified on another, eg condition or tumor
 box_plot <- function(data, col_name, x_label_str, stratify_col, legend_str) {
-  title_string <- str_c("Boxplot of", x_label_str, "stratified on", legend_str , sep = " ")
+  title_string <- str_c("Boxplot of", 
+                        x_label_str, 
+                        "stratified on", 
+                        legend_str, 
+                        sep = " ")
   plot <- data %>%
     ggplot(mapping = aes(x = {{col_name}}, 
                          fill = {{stratify_col}})) +
@@ -34,7 +43,11 @@ box_plot <- function(data, col_name, x_label_str, stratify_col, legend_str) {
 
 # Basic violin plot of 1 variable, stratified on another, eg condition or tumor
 violin_plot <- function(data, col_name, y_label_str, stratify_col, stratify_str) {
-  title_string <- str_c("Violinplot of", y_label_str, "stratified on", stratify_str , sep = " ")
+  title_string <- str_c("Violinplot of", 
+                        y_label_str, 
+                        "stratified on", 
+                        stratify_str, 
+                        sep = " ")
   plot <- data %>%
     ggplot(mapping = aes(x = {{stratify_col}},
                          y = {{col_name}},
@@ -45,9 +58,15 @@ violin_plot <- function(data, col_name, y_label_str, stratify_col, stratify_str)
     ggtitle(title_string) +
     theme_minimal(base_family = "Avenir") +
     theme(legend.position = "none",
-          axis.text.y = element_text(size = 13, hjust = 1, vjust = 1),
-          axis.title = element_text(size = 13, hjust = 0.5, vjust = 1),
-          axis.text.x = element_text(size = 12, hjust = 1, vjust = 1))
+          axis.text.y = element_text(size = 13, 
+                                     hjust = 1, 
+                                     vjust = 1),
+          axis.title = element_text(size = 13, 
+                                    hjust = 0.5, 
+                                    vjust = 1),
+          axis.text.x = element_text(size = 12, 
+                                     hjust = 1, 
+                                     vjust = 1))
   
   return(plot)
 }
@@ -72,10 +91,13 @@ hist_plot <- function(data, col_name, x_label_str, stratify_col, legend_str) {
   plot <- data %>%
     ggplot(mapping = aes(x = {{col_name}}, 
                          fill = {{stratify_col}})) +
-    geom_histogram(binwidth = 0.1, alpha = 0.5) +
+    geom_histogram(binwidth = 0.1, 
+                   alpha = 0.5) +
     ggtitle(title_string) +
     theme_minimal(base_family = "Avenir") +
-    theme(legend.title = element_text(size = 7), legend.position = "bottom", legend.box = "horizontal") +
+    theme(legend.title = element_text(size = 7), 
+          legend.position = "bottom", 
+          legend.box = "horizontal") +
     labs(fill=legend_str)
   
   return(plot)
@@ -116,7 +138,9 @@ comb_countour_plot <- function(df, x, y, grouping, legend_str){
     theme_void() +
     theme(legend.position = "none")
   
-  p_den2 <- ggplot(df, aes_string(x = y, fill = grouping ))+
+  p_den2 <- ggplot(df, 
+                   aes_string(x = y, 
+                                  fill = grouping ))+
     geom_density(alpha = 0.5)+
     theme_void() +
     theme(legend.position = "none")+
