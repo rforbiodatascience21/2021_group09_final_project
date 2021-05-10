@@ -61,15 +61,16 @@ aug_data <- clean_data %>%
   # Change to categories
   mutate(across(
     .cols = -c(age, treatment_age, weight, thickness_tumor, birth_date),
-    as.factor))%>%
+    as.factor)
+    ) %>%
+  
+  # Set order of levels:
+  mutate(
+    Benign_malignant_cancer = relevel(Benign_malignant_cancer, "Malignant")
+    ) %>%
   
   # Remove singular columns
   select_if(function(col) length(unique(col)) > 1) 
-
-
-
-
-
 
 
 
