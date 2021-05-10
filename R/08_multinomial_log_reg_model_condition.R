@@ -23,7 +23,6 @@ col_of_interest = c(
   "hereditary_history",
   "blood",
   "giving_birth",
-  "age_FirstGivingBirth",
   "taking_heartMedicine",
   "taking_blood_pressure_medicine",
   "taking_gallbladder_disease_medicine",
@@ -110,4 +109,5 @@ saveRDS(multinom.fit,
         "results/08_maxModel_condition.RDS")
 saveRDS(multinom.fit.reduced, 
         "results/08_redModel_condition.RDS")
-#saveRDS(multinom.fit.reduced, "app/08_redModel_condition.rds")
+saveRDS(multinom.fit.reduced, 
+        "app/08_redModel_condition.rds")
