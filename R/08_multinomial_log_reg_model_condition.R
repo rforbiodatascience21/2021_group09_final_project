@@ -2,10 +2,9 @@
 rm(list = ls())
 
 # Load libraries ----------------------------------------------------------
-library(tidyverse)
-library(patchwork)
-library(broom)
-require(nnet)
+library("tidyverse")
+library("broom")
+require("nnet")
 set.seed(777)
 
 # Load data ---------------------------------------------------------------
@@ -118,3 +117,4 @@ saveRDS(multinom.fit.reduced,
         "results/08_redModel_condition.RDS")
 saveRDS(multinom.fit.reduced, 
         "app/08_redModel_condition.rds")
+

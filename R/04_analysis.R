@@ -12,9 +12,6 @@ rm(list = ls())
 
 # Load libraries ----------------------------------------------------------
 library("tidyverse")
-library("purrr")
-library("tidyr")
-library("ggplot2")
 library("patchwork")
 
 # Get functions --------------------------------------------------------
@@ -520,3 +517,4 @@ ggsave(
   units = "cm",
   dpi = 500
 )
+
