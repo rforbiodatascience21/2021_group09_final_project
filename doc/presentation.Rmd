@@ -36,6 +36,8 @@ all_cases<- death_cases %>%
 ```
 
 
+<!-- ############### SLIDE ############### -->
+
 ## Introduction
 
 <div class="up_bar" style="width: 20px"></div><div class="arrow-right" style="margin-left: 20px"></div><br>
@@ -49,6 +51,7 @@ all_cases<- death_cases %>%
 
 - Early diagnosis and prognosis may aid treatment and focus resources where needed.
 
+<!-- ############### SLIDE ############### -->
 
 # Materials and methods
 
@@ -69,11 +72,15 @@ all_cases %>%
   scroll_box(width = "1000px")
 ```
 
+<!-- ############### SLIDE ############### -->
+
 ## Process
 ```{r out.width = '75%', fig.align = 'center'}
 knitr::include_graphics("flow_chart.png", error = FALSE)
 ```
 
+
+<!-- ############### SLIDE ############### -->
 
 ## Cleaning the data {.smaller}
 
@@ -89,6 +96,8 @@ all_cases %>%
   theme_minimal()
 ```
 
+
+<!-- ############### SLIDE ############### -->
 
 ## Cleaning the data 
 
@@ -117,6 +126,7 @@ x <- knitr::kable(y, "html") %>%
 x
 ```
 
+<!-- ############### SLIDE ############### -->
 
 ## Augmenting the data
 
@@ -137,19 +147,25 @@ x <- knitr::kable(y, "html") %>%
 x
 ```
 
+<!-- ############### SLIDE ############### -->
 
 # Exploratory Analysis
+
+<!-- ############### SLIDE ############### -->
 
 ## Distributions
 ```{r, out.width='80%', fig.align='center'}
 knitr::include_graphics("../results/04_analysis_barchart_categorical_education_to_heartmedicine.png", error = F)
 ```
 
+<!-- ############### SLIDE ############### -->
 
 ## Distributions
 ```{r out.width="80%", fig.align='center'}
 knitr::include_graphics("../results/04_analysis_barchart_categorical_gallmedicine_to_condition.png", error = F)
 ```
+
+<!-- ############### SLIDE ############### -->
 
 ## Distributions
 ```{r out.width = "90%", fig.show = 'hold', fig.align = 'center'}
@@ -158,12 +174,16 @@ knitr::include_graphics("../results/04_analysis_densitograms_on_condition.png",
   error = F)
 ```
 
+<!-- ############### SLIDE ############### -->
+
 ## Distributions
 ```{r out.width = "90%", fig.show = 'hold', fig.align = 'center'}
 
 knitr::include_graphics("../results/04_analysis_densitograms_on_tumor.png", 
   error = F)
 ```
+
+<!-- ############### SLIDE ############### -->
 
 ## MCA Tumortype
 ```{r out.width = "90%", fig.show = 'hold', fig.align = 'center'}
@@ -172,12 +192,16 @@ knitr::include_graphics("../results/06_MCA_contour_tumorType.png",
   error = F)
 ```
 
+<!-- ############### SLIDE ############### -->
+
 ## MCA Condition
 ```{r out.width = "90%", fig.show = 'hold', fig.align = 'center'}
 
 knitr::include_graphics("../results/06_MCA_contour_conditions.png", 
   error = F)
 ```
+
+<!-- ############### SLIDE ############### -->
 
 ## MCA Rotation 
 <div style="float: left; width: 50%;">
@@ -195,8 +219,12 @@ knitr::include_graphics("../results/06_MCA_supImp_rotation.png",
   error = F)
 ```
 </div>
+
+<!-- ############### SLIDE ############### -->
+
 # Model
 
+<!-- ############### SLIDE ############### -->
 
 ## Predicting tumortype
 <div style="float: left; width: 40%;">
@@ -230,7 +258,7 @@ redMod_tumor %>%
 ```
 </div>
 
-
+<!-- ############### SLIDE ############### -->
 
 ## Predicting Condition
 <div style="float: left; width: 40%;">
@@ -261,27 +289,26 @@ redMod_tumor %>%
 ```
 </div>
 
-
-
-
+<!-- ############### SLIDE ############### -->
 
 # Discussion & Conclusion
+
+<!-- ############### SLIDE ############### -->
+
 ## Discussion 
 
 - Greedy cleaning approach
 - Disagreement between MCA and reduced model 
 - A general set of rules for valid entries
 
-
+<!-- ############### SLIDE ############### -->
 
 ## Conclusion
 
 - Possible to predict both tumor type and outcome.
-- 
+- The prediction accuracy.
 
-
-
-# Bibliography
+<!-- ############### SLIDE ############### -->
 
 ## Bibliography {.smaller}
 
@@ -292,7 +319,25 @@ redMod_tumor %>%
 - Weight Gain After Breast Cancer Diagnosis May Be a Bigger Issue Than Thought in Australia (13 March 2020) [BreastCancer.org](https://www.breastcancer.org/research-news/gaining-weight-after-dx-big-problem-in-australia#:~:text=The%20survey%20found%20that%20nearly,diagnosed%20was%20about%20157%20pounds).
 
 
+<!-- ############### SLIDE ############### -->
 
+# Shiny app
+
+<!-- ############### SLIDE ############### -->
+
+## [Shiny App](https://bernadettekc.shinyapps.io/breast_cancer_survivalcalculator)
+
+```{r out.width="90%"}
+knitr::include_graphics("app_screenshot.png", 
+  error = F)
+```
+
+
+
+
+
+
+<!-- ############### SLIDE ############### -->
 
 ---
 
