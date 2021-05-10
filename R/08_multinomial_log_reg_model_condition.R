@@ -24,7 +24,7 @@ col_of_interest = c(
   "age",
   "weight",
   "thickness_tumor",
-  #"Benign_malignant_cancer",
+  "Benign_malignant_cancer",
   "hereditary_history",
   "blood",
   "taking_heartMedicine",
