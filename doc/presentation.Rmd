@@ -171,21 +171,21 @@ x
 
 <!-- ############### SLIDE ############### -->
 
-## Distributions
+## Distributions {#slide}
 ```{r, out.width='75%', fig.align='center'}
 knitr::include_graphics("../results/04_analysis_barchart_categorical_education_to_heartmedicine.png", error = F)
 ```
 
 <!-- ############### SLIDE ############### -->
 
-## Distributions
+## Distributions {#slide}
 ```{r out.width="75%", fig.align='center'}
 knitr::include_graphics("../results/04_analysis_barchart_categorical_gallmedicine_to_condition.png", error = F)
 ```
 
 <!-- ############### SLIDE ############### -->
 
-## Distributions
+## Distributions {#slide}
 ```{r out.width = "90%", fig.show = 'hold', fig.align = 'center'}
 
 knitr::include_graphics("../results/04_analysis_densitograms_on_condition.png", 
@@ -194,7 +194,7 @@ knitr::include_graphics("../results/04_analysis_densitograms_on_condition.png",
 
 <!-- ############### SLIDE ############### -->
 
-## Distributions
+## Distributions {#slide}
 ```{r out.width = "90%", fig.show = 'hold', fig.align = 'center'}
 
 knitr::include_graphics("../results/04_analysis_densitograms_on_tumor.png", 
@@ -203,7 +203,7 @@ knitr::include_graphics("../results/04_analysis_densitograms_on_tumor.png",
 
 <!-- ############### SLIDE ############### -->
 
-## MCA Tumortype
+## MCA Tumortype {#slide}
 ```{r out.width = "60%", fig.show = 'hold', fig.align = 'center'}
 
 knitr::include_graphics("../results/06_MCA_contour_tumorType.png", 
@@ -212,7 +212,7 @@ knitr::include_graphics("../results/06_MCA_contour_tumorType.png",
 
 <!-- ############### SLIDE ############### -->
 
-## MCA Condition
+## MCA Condition {#slide}
 ```{r out.width = "60%", fig.show = 'hold', fig.align = 'center'}
 
 knitr::include_graphics("../results/06_MCA_contour_conditions.png", 
@@ -221,7 +221,7 @@ knitr::include_graphics("../results/06_MCA_contour_conditions.png",
 
 <!-- ############### SLIDE ############### -->
 
-## MCA Rotation 
+## MCA Rotation {#slide}
 <div style="float: left; width: 50%;">
 ```{r out.width = "100%", fig.show = 'hold', fig.align = 'center'}
 
