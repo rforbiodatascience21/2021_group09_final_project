@@ -1,22 +1,17 @@
 # Clear workspace ---------------------------------------------------------
 rm(list = ls())
 
-
 # Load libraries ----------------------------------------------------------
 library(tidyverse)
 library(patchwork)
 library(broom)
 require(nnet)
-
-
-
+set.seed(777)
 
 # Load data ---------------------------------------------------------------
 data_clean_aug <- readRDS(file = "data/03_clean_augmented_combined_breastcancer_data.rds")
 
-set.seed(777)
-
-# Split into training and test --------------------------------------------
+# Extract features of interest --------------------------------------------
 
 col_of_interest = c(
   "patient_id",  
@@ -49,11 +44,7 @@ analysis_df <- data_clean_aug %>%
     Benign_malignant_cancer = relevel(Benign_malignant_cancer, "Malignant")
   )
 
-
-
-
-# Training Maximum and Reduced model --------------------------------------
-
+# Split data into test and train sets --------------------------------------
 
 train <- sample_frac(analysis_df, 0.7)
 
@@ -61,8 +52,7 @@ test <- analysis_df %>%
   anti_join(train, 
             b = "patient_id")
 
-baseline = DescTools::Mode(pluck(test, 
-                                 "Benign_malignant_cancer"))
+# Fit models to train set Maximum and Reduced model --------------------------------------
 
 multinom.fit <- multinom(Benign_malignant_cancer ~ . -patient_id -1, 
                          data = train) #All variables except patient ID and bias
@@ -75,10 +65,7 @@ multinom.fit.reduced <- step(multinom.fit.reduced,
 summary(multinom.fit)
 summary(multinom.fit.reduced)
 
-
-
 # Testing models ----------------------------------------------------------
-
 
 # Prediction
 test <- test %>%
@@ -87,11 +74,13 @@ test <- test %>%
                          newdata = ., "class"),
     "Red_pred" = predict(multinom.fit.reduced, 
                          newdata = ., "class"),
-    "baseline" = baseline
+    "baseline" = DescTools::Mode(pluck(test, 
+                                       "Benign_malignant_cancer"))
   ) %>%
   drop_na()
 
-# Evaluation
+# Evaluation of models ----------------------------------------------------------
+
 suma <- test %>%
   summarize(
     "Max_pred" = tidy(caret::confusionMatrix(Max_pred, Benign_malignant_cancer)),
@@ -112,11 +101,7 @@ suma <- test %>%
                      "sensitivity", 
                      "specificity"))
 
-
-
 # Writing performance and  model ------------------------------------------
-
-
 
 write.csv(suma, 
           "results/07_Model_performance_tumor.csv",
