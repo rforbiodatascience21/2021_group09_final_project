@@ -41,7 +41,8 @@ analysis_df <- data_clean_aug %>%
   droplevels.data.frame() %>%
   select(all_of(col_of_interest)) %>%
   mutate(
-    Benign_malignant_cancer = relevel(Benign_malignant_cancer, "Malignant")
+    Benign_malignant_cancer = relevel(Benign_malignant_cancer, 
+                                      "Malignant")
   )
 
 # Split data into test and train sets --------------------------------------
@@ -83,11 +84,16 @@ test <- test %>%
 
 suma <- test %>%
   summarize(
-    "Max_pred" = tidy(caret::confusionMatrix(Max_pred, Benign_malignant_cancer)),
-    "Red_pred" = tidy(caret::confusionMatrix(Red_pred, Benign_malignant_cancer)),
-    "baseline" = tidy(caret::confusionMatrix(baseline, Benign_malignant_cancer))
+    "Max_pred" = tidy(caret::confusionMatrix(Max_pred, 
+                                             Benign_malignant_cancer)),
+    "Red_pred" = tidy(caret::confusionMatrix(Red_pred, 
+                                             Benign_malignant_cancer)),
+    "baseline" = tidy(caret::confusionMatrix(baseline, 
+                                             Benign_malignant_cancer))
   ) %>%
-  pivot_longer(c(Max_pred, Red_pred, baseline), 
+  pivot_longer(c(Max_pred, 
+                 Red_pred, 
+                 baseline), 
                names_to = "model", 
                values_to = "terms") %>%
   bind_cols(pluck(., 
