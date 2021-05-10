@@ -63,7 +63,10 @@ comb_clean_data <- comb_data %>%
   
   
   # Filter out men
-  filter(gender == 0) 
+  filter(gender == 0) %>%
+  
+  # Remove singular columns
+  select_if(function(col) length(unique(col)) > 1) 
 
 # Remove inconsistencies in the data
 # Based on UK statistics, only look at women above 20 years old
