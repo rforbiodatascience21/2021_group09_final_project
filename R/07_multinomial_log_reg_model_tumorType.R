@@ -8,10 +8,6 @@ library(patchwork)
 require(nnet)
 
 
-# Define functions --------------------------------------------------------
-
-
-
 
 # Load data ---------------------------------------------------------------
 data_clean_aug <- readRDS(file = "data/03_clean_augmented_combined_breastcancer_data.rds")
