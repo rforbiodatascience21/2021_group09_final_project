@@ -5,32 +5,27 @@ rm(list = ls())
 # Load libraries ----------------------------------------------------------
 library(tidyverse)
 library(patchwork)
-library(broom)
 require(nnet)
-set.seed(777)
+
+
+# Define functions --------------------------------------------------------
+
 
 
 
 # Load data ---------------------------------------------------------------
 data_clean_aug <- readRDS(file = "data/03_clean_augmented_combined_breastcancer_data.rds")
 
-# Wrangle data ---------------------------------------------------------------
-data_clean_aug <- data_clean_aug %>%
-  # Add new columns; scaled down
-  mutate(
-    norm_age = age / max(age),
-    norm_weight = weight / max(weight),
-    norm_thickness_tumor = thickness_tumor / max(thickness_tumor)
-  ) 
+set.seed(777)
 
 # Split into training and test --------------------------------------------
 
 col_of_interest = c(
   "patient_id",  
   "education",
-  "norm_age",
-  "norm_weight",
-  "norm_thickness_tumor",
+  "age",
+  "weight",
+  "thickness_tumor",
   "Benign_malignant_cancer",
   "hereditary_history",
   "blood",
@@ -39,7 +34,7 @@ col_of_interest = c(
   "taking_gallbladder_disease_medicine",
   "smoking",
   "alcohol",
-  "radiation_history",
+  #"radiation_history",
   "Birth_control",
   "menstrual_age",
   "menopausal_age",
@@ -81,6 +76,8 @@ summary(multinom.fit.reduced)
 
 
 # Testing models ----------------------------------------------------------
+
+
 
 # Prediction
 test <- test %>%

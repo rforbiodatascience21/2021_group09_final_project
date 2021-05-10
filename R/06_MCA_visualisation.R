@@ -22,8 +22,32 @@ library(cowplot)
 library(ggrepel)
 
 
-# Get functions --------------------------------------------------------
-source(file = "R/99_project_functions.R")
+
+# Define functions --------------------------------------------------------
+comb_countour_plot <- function(df, x, y, grouping){
+  
+  p_main <-  ggplot(df, aes_string(x = x, y = y, col=grouping )) +
+    geom_point(alpha=0.4)+
+    geom_density_2d()+
+    theme_minimal()+
+    theme(legend.position = "bottom")
+  
+  p_den1 <- ggplot(df, aes_string(x = x, fill = grouping ))+
+    geom_density(alpha=0.4)+
+    theme_void() +
+    theme(legend.position = "none")
+  
+  p_den2 <- ggplot(df, aes_string(x = y, fill = grouping ))+
+    geom_density(alpha=0.4)+
+    theme_void() +
+    theme(legend.position = "none")+
+    coord_flip()
+  
+  p_den1 + plot_spacer() + p_main + p_den2 + 
+    plot_layout(ncol = 2, nrow = 2, widths = c(4, 1), heights = c(1, 4))
+  
+  
+}
 
 
 
@@ -83,6 +107,8 @@ MCA_aug_df %>%
   ggsave(filename = "results/06_MCA_contour_conditions.png")
 
 
+# NOTE one could consider plotting the column values for the MCA variables.
+# This would show which categories tend to group.
 
 # Include arrows describing the rotation matrix.
 
@@ -102,7 +128,6 @@ arrow_style <- arrow(
   angle = 20, ends = "first", type = "closed", length = grid::unit(6, "pt")
 )
   
-# Creating the plot and saving it
 p = MCA_aug_df %>%
   filter(condition != "under treatment") %>%
   ggplot(aes(x = MCA_1, y = MCA_2, col=condition)) +

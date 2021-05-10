@@ -13,6 +13,10 @@ clean_data <- read_csv(file = "data/02_clean_combined_cases.csv")
 
 # Wrangle data ---------------------------------------------------------------
 
+clean_data %>%
+  select(treatment_data)
+
+
 aug_data <- clean_data %>%
   # Add names to the 'wierd' categories 
   mutate("education" = case_when(education == 0 ~ "Illiterate",
@@ -52,25 +56,20 @@ aug_data <- clean_data %>%
 
   # Add new columns
   mutate(
-    treatment_age = treatment_data-as.numeric(birth_date)
-    ) %>%
+    treatment_age = treatment_data-as.numeric(birth_date)) %>%
   
   # Change to categories
   mutate(across(
     .cols = -c(age, treatment_age, weight, thickness_tumor, birth_date),
-    as.factor)
-    ) %>%
-  
-  #Change order of education
-  mutate(education = fct_relevel(education, "Illiterate", "Elementary", "Middle School", "High School", "Diploma", "Associate", "Bachelor", "Master")) %>%
-  
-  # Set order of levels:
-  mutate(
-    Benign_malignant_cancer = relevel(Benign_malignant_cancer, "Malignant")
-    ) %>%
+    as.factor))%>%
   
   # Remove singular columns
   select_if(function(col) length(unique(col)) > 1) 
+
+
+
+
+
 
 
 
