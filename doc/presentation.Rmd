@@ -50,12 +50,6 @@ all_cases<- death_cases %>%
 - Early diagnosis and prognosis may aid treatment and focus resources where needed.
 
 
-## Process
-```{r out.width = '75%', fig.align = 'center'}
-knitr::include_graphics("flow_chart.png", error = FALSE)
-```
-
-
 # Materials and methods
 
 ## Materials {.smaller}
@@ -69,10 +63,15 @@ knitr::include_graphics("flow_chart.png", error = FALSE)
 
 ```{r dataset}
 all_cases %>%
-  head(10) %>%
+  head(8) %>%
   kbl("html") %>%
   kable_paper() %>%
   scroll_box(width = "1000px")
+```
+
+## Process
+```{r out.width = '75%', fig.align = 'center'}
+knitr::include_graphics("flow_chart.png", error = FALSE)
 ```
 
 
@@ -82,10 +81,10 @@ all_cases %>%
 
 Unrealistic age and weight proportions.
 
-```{r}
+```{r out.width = '75%', fig.align = 'center'}
 all_cases %>%
-  mutate(included = ifelse((age >= 20 & weight >= 35), yes="yes", no="no")) %>%
-  ggplot(aes(x = age, y = weight, col=included)) +
+  mutate(Included = ifelse((age >= 20 & weight >= 35), yes="yes", no="no")) %>%
+  ggplot(aes(x = age, y = weight, col=Included)) +
   geom_point() +
   theme_minimal()
 ```
@@ -167,14 +166,14 @@ knitr::include_graphics("../results/04_analysis_densitograms_on_tumor.png",
 ```
 
 ## MCA Tumortype
-```{r out.width = "60%", fig.show = 'hold', fig.align = 'center'}
+```{r out.width = "90%", fig.show = 'hold', fig.align = 'center'}
 
 knitr::include_graphics("../results/06_MCA_contour_tumorType.png", 
   error = F)
 ```
 
 ## MCA Condition
-```{r out.width = "60%", fig.show = 'hold', fig.align = 'center'}
+```{r out.width = "90%", fig.show = 'hold', fig.align = 'center'}
 
 knitr::include_graphics("../results/06_MCA_contour_conditions.png", 
   error = F)
