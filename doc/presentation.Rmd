@@ -44,12 +44,13 @@ all_cases<- death_cases %>%
 
 [EU Science Hub](https://ec.europa.eu/jrc/en/news/2020-cancer-incidence-and-mortality-eu-27-countries)
 
-- 13.3% of all cancer diagnoses.
-- 7.1% of all cancer related deaths.
+```{r out.width="90%", fig.align = 'center' }
+knitr::include_graphics("incidence_2020.png",
+                        error = FALSE)
+```
 
-[WHO Guide to cancer early diagnosis](https://www.who.int/cancer/publications/cancer_early_diagnosis/en/)
 
-- Early diagnosis and prognosis.
+
 
 <!-- ############### SLIDE ############### -->
 
