@@ -3,7 +3,6 @@ rm(list = ls())
 
 # Load libraries ----------------------------------------------------------
 library(tidyverse)
-library(patchwork)
 library(broom)
 require(nnet)
 set.seed(777)
